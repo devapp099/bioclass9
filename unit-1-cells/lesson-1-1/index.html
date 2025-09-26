@@ -509,13 +509,9 @@
         );
         
         // رسائل تشجيع ذكية حسب الأداء
-        if (consecutiveCorrect >= 5) {
+        if (consecutiveCorrect >= 3) {
           setTimeout(() => {
-            NotificationSystem.showSmart('encouragement', {
-              title: 'أداء استثنائي! 🔥',
-              icon: 'success',
-              timer: 2500
-            });
+            showEncouragementMessage('correct');
           }, 800);
           consecutiveCorrect = 0; // إعادة تعيين العداد
         }
@@ -529,13 +525,9 @@
         gsap.fromTo(choice, {x:0}, {x:-8, duration:.08, yoyo:true, repeat:6, ease: "power2.inOut"});
         
         // رسائل تحفيز ذكية
-        if (totalAnswered >= 3) {
+        if (totalAnswered >= 2) {
           setTimeout(() => {
-            NotificationSystem.showSmart('motivation', {
-              title: 'استمر في المحاولة! 💪',
-              icon: 'info',
-              timer: 2500
-            });
+            showEncouragementMessage('wrong');
           }, 1000);
         }
       }
@@ -561,14 +553,35 @@
       
       if (reached && questionCount === Math.ceil(totalQuestions * reached / 100)) {
         setTimeout(() => {
-          NotificationSystem.showSmart('milestone', {
-            title: reached === 100 ? '🏆 مكتمل!' : `🎯 ${reached}% مكتمل!`,
-            icon: 'success',
-            timer: 3000,
-            sound: reached === 100 ? 'complete' : 'milestone'
-          });
+          showMilestoneMessage(reached);
         }, 500);
       }
+    }
+    
+    // عرض رسائل المعالم
+    function showMilestoneMessage(milestone) {
+      const s = getStudent();
+      const name = s?.name || 'البطل/ة';
+      
+      const messages = {
+        25: `🎉 ممتاز ${name}! لقد أكملت 25% من الأسئلة!`,
+        50: `🚀 رائع ${name}! وصلت لمنتصف الطريق - 50%!`,
+        75: `⭐ مذهل ${name}! 75% مكتملة - أنت بطل/ة!`,
+        100: `🏆 تهانينا ${name}! أكملت جميع الأسئلة بنجاح!`
+      };
+      
+      Swal.fire({
+        title: milestone === 100 ? '🏆 مكتمل!' : `🎯 ${milestone}% مكتمل!`,
+        text: messages[milestone],
+        icon: 'success',
+        timer: 4000,
+        timerProgressBar: true,
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false
+      });
+      
+      SoundSystem.play(milestone === 100 ? 'complete' : 'milestone');
     }
 
     function computeScore(){
@@ -588,6 +601,77 @@
       SoundSystem.play('celebration');
     }
 
+    // دوال مساعدة للنتائج النهائية
+    function getPerformanceLevel(percentage) {
+      if (percentage >= 90) return 'excellent';
+      if (percentage >= 75) return 'good';
+      if (percentage >= 60) return 'average';
+      return 'needsWork';
+    }
+
+    function getFinalResultMessage(percentage, studentName) {
+      const name = studentName || 'البطل/ة';
+      const messages = {
+        excellent: [
+          `🏆 مبروك ${name}! أداء استثنائي - أنت عالم/ة حقيقي/ة!`,
+          `⭐ رائع جداً ${name}! إتقان كامل للموضوع - فخور بك!`,
+          `🌟 مذهل ${name}! نتيجة تستحق التقدير والاحترام!`
+        ],
+        good: [
+          `👏 أحسنت ${name}! أداء جيد جداً - على الطريق الصحيح!`,
+          `💪 عمل ممتاز ${name}! تحسن واضح وأداء مميز!`,
+          `🎯 رائع ${name}! يظهر فهماً جيداً للموضوع`
+        ],
+        average: [
+          `📚 أداء جيد ${name}! مراجعة بسيطة وستكون في القمة!`,
+          `🎯 استمر ${name}! بداية جيدة للإتقان`,
+          `💡 جيد ${name}! مع قليل من المراجعة ستصل للتميز`
+        ],
+        needsWork: [
+          `💚 لا بأس ${name}! بداية التعلم - لا تستسلم!`,
+          `🌱 استمر في المحاولة ${name}! كل عالم عظيم بدأ من هنا`,
+          `🤝 معاً سنصل للهدف ${name}! المثابرة هي سر النجاح`
+        ]
+      };
+      
+      const level = getPerformanceLevel(percentage);
+      const levelMessages = messages[level];
+      return levelMessages[Math.floor(Math.random() * levelMessages.length)];
+    }
+
+    // دالة عرض رسائل التشجيع
+    function showEncouragementMessage(type) {
+      const s = getStudent();
+      const name = s?.name || 'البطل/ة';
+      
+      const messages = {
+        correct: [
+          `ممتاز ${name}! إجابة صحيحة رائعة! 🌟`,
+          `أحسنت ${name}! أنت تتقدم بشكل ممتاز! 👏`,
+          `رائع ${name}! استمر على هذا الأداء المميز! 🚀`
+        ],
+        wrong: [
+          `لا بأس ${name}، المحاولة جزء من التعلم! 💪`,
+          `فكر مرة أخرى ${name}، أنت قريب من الإجابة الصحيحة! 🤔`,
+          `استمر في المحاولة ${name}، كل خطأ فرصة للتعلم! 🌱`
+        ]
+      };
+      
+      const messageList = messages[type] || messages['correct'];
+      const randomMessage = messageList[Math.floor(Math.random() * messageList.length)];
+      
+      Swal.fire({
+        title: type === 'correct' ? '🎉 أحسنت!' : '💪 استمر!',
+        text: randomMessage,
+        icon: type === 'correct' ? 'success' : 'info',
+        timer: 3000,
+        timerProgressBar: true,
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false
+      });
+    }
+
         // إضافة أصوات للأزرار وتأثيرات تفاعلية
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.choice').forEach(choice => {
@@ -605,8 +689,8 @@
       celebrate();
       
       // رسالة نتائج ذكية مخصصة
-      const performanceLevel = NotificationSystem.getPerformanceLevel(percent);
-      const smartMessage = NotificationSystem.getRandomMessage('finalResults', percent);
+      const performanceLevel = getPerformanceLevel(percent);
+      const smartMessage = getFinalResultMessage(percent, s?.name);
       let resultIcon = 'success';
       let resultColor = '#10b981';
       
