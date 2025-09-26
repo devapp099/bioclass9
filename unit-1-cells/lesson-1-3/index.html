@@ -14,7 +14,7 @@
   <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
 
   <script>
-    // 🔊 النظام الصوتي المحسّن المُصلح
+    
     const SoundSystem = {
       enabled: true,
       currentVolume: 0.7,
@@ -548,6 +548,9 @@
       if(formValues){
         setStudent(formValues);
         updateMeta();
+        EnhancedNotificationSystem.initForStudent(formValues);
+        
+        setTimeout(() => {
         el.quiz.style.display = "block";
         gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.5});
         // إعداد القيم الأولية
@@ -625,6 +628,38 @@
       let correct = 0;
       blocks.forEach(b=>{ const sel = b.querySelector('.choice.correct'); if(sel) correct++; });
       return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
+
+    
+    const EnhancedNotificationSystem = {
+      student: null,
+      
+      showWelcomeMessage() {
+        const welcomeMessages = [
+          "🎓 أهلاً وسهلاً {name}! مرحبًا بك في هذا الدرس المثير!",
+          "🌟 مرحبًا {name}! أنت على وشك تعلم شيء رائع!",
+          "✨ أهلاً {name}! دعنا نتعلم العلوم معًا!"
+        ];
+        
+        const randomWelcome = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+        const personalizedWelcome = randomWelcome.replace('{name}', this.student?.name || 'البطل/ة');
+        
+        Swal.fire({
+          title: '🎓 مرحباً بك!',
+          text: personalizedWelcome,
+          icon: 'success',
+          confirmButtonText: '🚀 لنبدأ!',
+          timer: 4000,
+          timerProgressBar: true
+        }).then(() => {
+          SoundSystem.play('start');
+        });
+      },
+      
+      initForStudent(studentData) {
+        this.student = studentData;
+        this.showWelcomeMessage();
+      }
+    };
     }
 
     function celebrate(){
