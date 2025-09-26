@@ -365,7 +365,8 @@
 
   <script>
     AOS.init({ duration: 700, once: true });
-    // 🎵 نظام صوتي ذكي متقدم
+
+    // 🎵 النظام الصوتي الذكي المتقدم
     const SoundSystem = {
       sounds: {
         // أصوات الإجابات
@@ -377,30 +378,39 @@
         select: new Howl({ src: ['../../assets/audio/select.mp3'], volume: 0.4 }),
         
         // أصوات التقدم والإنجاز
-        progress: new Howl({ src: ['../../assets/audio/Notification.mp3'], volume: 0.3 }),
-        milestone: new Howl({ src: ['../../assets/audio/long-beep.mp3'], volume: 0.4 }),
+        progress: new Howl({ src: ['../../assets/audio/notification.mp3'], volume: 0.5 }),
+        milestone: new Howl({ src: ['../../assets/audio/win.mp3'], volume: 0.6 }),
+        complete: new Howl({ src: ['../../assets/audio/win-Blockbusters.mp3'], volume: 0.7 }),
         
-        // أصوات الاحتفال
-        celebration: new Howl({ src: ['../../assets/audio/win.mp3'], volume: 0.7 }),
-        firework: new Howl({ src: ['../../assets/audio/win-Blockbusters.mp3'], volume: 0.5 }),
-        
-        // أصوات التطبيق
+        // أصوات خاصة
         start: new Howl({ src: ['../../assets/audio/startapp.mp3'], volume: 0.5 }),
-        reset: new Howl({ src: ['../../assets/audio/reveal.mp3'], volume: 0.4 })
+        welcome: new Howl({ src: ['../../assets/audio/name-start.mp3'], volume: 0.5 })
       },
       
-      // تشغيل صوت مع تأثيرات بصرية
-      play(soundName, visualEffect = null) {
-        if (this.sounds[soundName]) {
+      // حالة النظام
+      enabled: true,
+      
+      // تشغيل صوت معين
+      play(soundName) {
+        if (!this.enabled || !this.sounds[soundName]) return;
+        
+        try {
           this.sounds[soundName].play();
-          if (visualEffect) visualEffect();
+        } catch (error) {
+          console.log('تعذر تشغيل الصوت:', soundName);
         }
       },
       
-      // تشغيل سلسلة أصوات
-      playSequence(soundNames, delay = 300) {
-        soundNames.forEach((name, index) => {
-          setTimeout(() => this.play(name), index * delay);
+      // تفعيل/إلغاء تفعيل النظام
+      toggle() {
+        this.enabled = !this.enabled;
+        return this.enabled;
+      },
+      
+      // تشغيل أصوات متتابعة
+      sequence(sounds, delay = 500) {
+        sounds.forEach((sound, index) => {
+          setTimeout(() => this.play(sound), index * delay);
         });
       }
     };
@@ -412,48 +422,48 @@
       // رسائل متنوعة حسب الأداء
       messages: {
         welcome: [
-          "أهلاً وسهلاً {name}! مرحبًا بك في درس 1-2 — رسم الخلايا وحساب التكبير المثير! 🧬",
-          "مرحبًا {name}! أنت على وشك خوض مغامرة علمية رائعة! 🔬",
-          "أهلاً {name}! دعنا نكتشف أسرار العلوم معًا! ✨"
+          "أهلاً وسهلاً {name}! مرحبًا بك في درس رسم الخلايا وحساب التكبير! 🔬",
+          "مرحبًا {name}! أنت على وشك إتقان الرسم العلمي! ✏️",
+          "أهلاً {name}! دعنا نتعلم أسرار المجهر معًا! 🧪"
         ],
         
         encouragement: [
-          "ممتاز {name}! أنت تتقدم بشكل رائع! 🌟",
-          "أحسنت {name}! استمر على هذا الأداء المميز! 💪",
-          "رائع {name}! أنت تبهرني بذكائك! 🧠",
-          "عظيم {name}! كل إجابة تقربك من النجاح! 🎯"
+          "رائع {name}! أنت تتقن الرسم العلمي! 🎨",
+          "ممتاز {name}! حساباتك للتكبير دقيقة! 🔍",
+          "أحسنت {name}! أنت عالم/ة حقيقي/ة! 🧬",
+          "عظيم {name}! فهمك للمجهر ممتاز! 🔬"
         ],
         
         motivation: [
-          "لا تستسلم {name}! المحاولة جزء من التعلم! 💚",
-          "فكر مرة أخرى {name}، أنت أقرب للإجابة الصحيحة! 🤔",
-          "المحاولة الجيدة {name}! التعلم من الأخطاء يجعلنا أقوى! 💎",
-          "تركيزك يتحسن {name}! المحاولة القادمة ستكون أفضل! ⚡"
+          "لا تستسلم {name}! تذكر: التكبير = حجم الصورة ÷ الحجم الحقيقي! 📐",
+          "فكر مرة أخرى {name}! راجع وحدات القياس! 📏",
+          "تركز أكثر {name}! القواعد العلمية مهمة! 🎯",
+          "المحاولة الجيدة {name}! راجع أجزاء المجهر! 🔍"
         ],
         
         milestone: [
-          "🎉 ممتاز {name}! لقد أكملت 25% من الأسئلة!",
-          "🚀 رائع {name}! وصلت لمنتصف الطريق - 50%!",
-          "⭐ مذهل {name}! 75% مكتملة - أنت بطل/ة!",
-          "🏆 تهانينا {name}! أكملت جميع الأسئلة بنجاح!"
+          "🎉 رائع {name}! أكملت 25% من الأسئلة!",
+          "🚀 ممتاز {name}! وصلت لمنتصف الطريق - 50%!",
+          "⭐ مذهل {name}! 75% مكتملة - تقريباً هناك!",
+          "🏆 تهانينا {name}! أكملت جميع الأسئلة!"
         ],
         
         finalResults: {
           excellent: [
-            "🏆 مذهل {name}! أداء استثنائي - أنت عالم/ة حقيقي/ة!",
-            "⭐ رائع جداً {name}! إتقان كامل للموضوع!"
+            "🏆 مبهر {name}! أنت خبير/ة في الرسم العلمي والمجهر!",
+            "⭐ استثنائي {name}! إتقان كامل للمفاهيم!"
           ],
           good: [
-            "👏 أحسنت {name}! أداء جيد جداً - استمر في التفوق!",
-            "💪 عمل ممتاز {name}! أنت على الطريق الصحيح!"
+            "👏 ممتاز {name}! فهمك للتكبير والرسم جيد جداً!",
+            "💪 أحسنت {name}! أنت على الطريق الصحيح!"
           ],
           average: [
-            "📚 أداء جيد {name}! مراجعة بسيطة وستكون في القمة!",
-            "🎯 استمر {name}! أنت تتحسن مع كل محاولة!"
+            "📚 جيد {name}! مراجعة قواعد الرسم ستجعلك أفضل!",
+            "🎯 لا بأس {name}! تدرب أكثر على حساب التكبير!"
           ],
           needsWork: [
-            "💚 لا بأس {name}! التعلم رحلة - استمر في المحاولة!",
-            "🌱 كل خطأ فرصة للتعلم {name}! أنت في الطريق الصحيح!"
+            "💚 استمر {name}! المجهر والرسم يحتاجان ممارسة!",
+            "🌱 كل محاولة تعلمك شيء جديد {name}!"
           ]
         }
       },
@@ -502,32 +512,6 @@
       }
     };
 
-    const storageKey = "watyn_bio_student";
-    let consecutiveCorrect = 0; // متتبع الإجابات الصحيحة المتتالية
-    let totalAnswered = 0; // إجمالي الأسئلة المجابة
-
-    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
-    function setStudent(obj){ 
-      localStorage.setItem(storageKey, JSON.stringify(obj)); 
-      NotificationSystem.student = obj;
-    }
-
-
-    // 🎵 نظام صوتي ذكي متقدم
-    
-
-    // 🔔 نظام الإشعارات والرسائل التفاعلية الذكي
-    
-
-    // بنك الأسئلة المخصص للدرس
-    const bank = [
-      {q:"التكبير الكلي للمجهر يُحسب بـ:", c:["ضرب تكبير العدسة العينية × تكبير العدسة الشيئية", "جمع العدستين", "قسمة العينية على الشيئية", "طرح العدستين"], a:0},
-      {q:"عند رسم الخلية علمياً، يجب:", c:["استخدام الألوان فقط", "رسم خطوط واضحة بالقلم الرصاص مع تسميات", "رسم الظلال", "استخدام الحبر الملون"], a:1},
-      {q:"إذا كان تكبير العدسة العينية 10× والشيئية 40×، فالتكبير الكلي:", c:["50×", "400×", "30×", "4×"], a:1},
-      {q:"عند زيادة التكبير في المجهر:", c:["يزداد الضوء تلقائياً", "تقل كمية الضوء المطلوبة", "تزداد الحاجة لضوء أكثر", "لا يتغير شيء"], a:2},
-      {q:"أهم قاعدة عند رسم الخلايا:", c:["الرسم السريع", "النسب الصحيحة والتسميات الواضحة", "استخدام عدة ألوان", "الرسم بخط عريض"], a:1}
-    ];
-
     const el = {
       start: document.getElementById('btnStart'),
       quiz: document.getElementById('quiz'),
@@ -540,27 +524,26 @@
     };
 
     const storageKey = "watyn_bio_student";
-     // إجمالي الأسئلة المجابة
-
-    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
     
+    // متغيرات الأداء والتفاعل الذكي
+    let totalAnswered = 0;
+    let consecutiveCorrect = 0;
+    let startTime = Date.now();
+    
+    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
+    function setStudent(obj){ localStorage.setItem(storageKey, JSON.stringify(obj)); }
 
     async function askStudent(){
-      SoundSystem.play('start');
-      
       const { value: formValues } = await Swal.fire({
-        title: 'مرحبًا في عالم العلوم! 🧬',
+        title: 'مرحبًا 👋',
         html:
           `<div style="text-align:right">
-            <div style="margin-bottom:12px;font-weight:700;color:#d97706">أدخل بياناتك لتبدأ رحلتك العلمية:</div>
-            <input id="swal-name" class="swal2-input" placeholder="اسم الطالب/ـة" style="text-align:right">
-            <input id="swal-class" class="swal2-input" placeholder="الصف (مثال: التاسع/1)" style="text-align:right">
-            <div style="font-size:13px;color:#6b7280;margin-top:8px">
-              💡 سيتم استخدام اسمك لإرسال رسائل تشجيعية مخصصة!
-            </div>
+            <div style="margin-bottom:8px;font-weight:700">أدخل بياناتك لبدء النشاط:</div>
+            <input id="swal-name" class="swal2-input" placeholder="اسم الطالب/ـة">
+            <input id="swal-class" class="swal2-input" placeholder="الصف (مثال: التاسع/1)">
           </div>`,
         focusConfirm: false,
-        confirmButtonText: '🚀 ابدأ المغامرة',
+        confirmButtonText: 'ابدأ',
         confirmButtonColor: '#d97706',
         showCancelButton: true,
         cancelButtonText: 'إلغاء',
@@ -574,45 +557,30 @@
           return { name, klass };
         }
       });
-      
       if(formValues){
         setStudent(formValues);
+        NotificationSystem.student = formValues;
         updateMeta();
         
-        // رسالة ترحيب ذكية
+        // تشغيل صوت البداية والترحيب
+        SoundSystem.play('start');
+        
         setTimeout(() => {
           NotificationSystem.showSmart('welcome', {
-            title: 'أهلاً وسهلاً! 👋',
+            title: 'مرحباً بك! 👋',
             icon: 'success',
             timer: 4000,
-            sound: 'select'
+            sound: 'welcome'
           });
-        }, 500);
+        }, 1000);
         
         el.quiz.style.display = "block";
-        gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6});
-      }
-    }
-          return { name, klass };
-        }
-      });
-      
-      if(formValues){
-        setStudent(formValues);
-        updateMeta();
+        gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.5});
         
-        // رسالة ترحيب ذكية
-        setTimeout(() => {
-          NotificationSystem.showSmart('welcome', {
-            title: 'أهلاً وسهلاً! 👋',
-            icon: 'success',
-            timer: 4000,
-            sound: 'select'
-          });
-        }, 500);
-        
-        el.quiz.style.display = "block";
-        gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6});
+        // إعادة تعيين متغيرات الأداء
+        totalAnswered = 0;
+        consecutiveCorrect = 0;
+        startTime = Date.now();
       }
     }
 
@@ -621,94 +589,76 @@
       el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
     }
 
-    
-        }
-      });
-      
-      // إشعارات عند النقاط المهمة
-      if (answered > oldProgress) {
-        checkMilestones(pc, answered, total);
-      }
-    }
-    
-    // فحص النقاط المهمة في التقدم
-    );
-        
-        // تأثير بصري خاص للإنجازات
-        gsap.fromTo('.progress', 
-          { scale: 1 }, 
-          { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 }
-        );
-      }
-    }
-
-    // نظام الإجابة المحسن مع الذكاء الاصطناعي
+    // تحديث شريط التقدّم مع تتبع المعالم المهمة
     function updateProgress(){
       const total = document.querySelectorAll('.q[data-qid]').length;
       const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
         q.querySelector('.choice.correct, .choice.wrong')
       ).length;
+      
       const oldProgress = parseInt(el.done.textContent) || 0;
       
       el.total.textContent = total;
       el.done.textContent = answered;
-      const pc = Math.round((answered / total) * 100);
+      const percentage = Math.round((answered/total)*100);
+      el.bar.style.width = percentage + '%';
       
-      // تأثير بصري لشريط التقدم مع صوت
-      gsap.to(el.bar, {
-        width: pc + "%",
-        duration: 0.5,
-        ease: "power2.out",
-        onComplete: () => {
-          if (answered > oldProgress) {
-            SoundSystem.play('progress');
-          }
-        }
-      });
-      
-      // إشعارات عند النقاط المهمة
-      if (answered > oldProgress) {
-        checkMilestones(pc, answered, total);
-      }
-    }
-    
-    // فحص النقاط المهمة في التقدم
-    function checkMilestones(percentage, questionCount, totalQuestions) {
-      const milestones = [25, 50, 75, 100];
-      const reached = milestones.find(m => percentage >= m && (percentage - 5) < m);
-      
-      if (reached && questionCount === Math.ceil(totalQuestions * reached / 100)) {
-        SoundSystem.play('milestone');
-        NotificationSystem.showSmart('milestone', {
-          title: 'إنجاز رائع! 🎯',
-          icon: 'success',
-          timer: 4000,
-          percentage: reached,
-          sound: null
-        });
+      // تشغيل صوت التقدم عند الإجابة
+      if (answered > oldProgress && answered > 0) {
+        SoundSystem.play('progress');
         
-        // تأثير بصري خاص للإنجازات
-        gsap.fromTo('.progress', 
-          { scale: 1 }, 
-          { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 }
-        );
+        // فحص المعالم المهمة
+        checkMilestones(percentage, answered, total);
       }
     }
-    
+
+    // نظام الإجابة المحسن مع الذكاء الاصطناعي
+    document.addEventListener('click', (e)=>{
+      const choice = e.target.closest('.choice');
+      if(!choice) return;
+      
+      // تشغيل صوت النقر
+      SoundSystem.play('click');
+      
+      const container = choice.closest('.choices');
+      const wasAnswered = container.querySelector('.choice.correct, .choice.wrong');
+      
+      // منع إعادة الإجابة على نفس السؤال
+      if (wasAnswered) return;
+      
+      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      totalAnswered++;
+      
+      if(choice.dataset.correct === "true"){
+        choice.classList.add('correct');
+        consecutiveCorrect++;
+        SoundSystem.play('correct');
+        
+        // تأثير بصري للإجابة الصحيحة
+        gsap.fromTo(choice, 
+          {scale:1, backgroundColor: 'rgba(52,211,153,.10)'}, 
+          {scale:1.05, y:-4, duration:.3, yoyo:true, repeat:1, ease: "back.out(1.7)"}
+        );
+        
+        // رسائل تشجيع ذكية حسب الأداء
+        if (consecutiveCorrect >= 3) {
+          setTimeout(() => {
+            NotificationSystem.showSmart('encouragement', {
+              title: 'أداء رائع! 🔥',
+              icon: 'success',
+              timer: 2500
+            });
+          }, 800);
           consecutiveCorrect = 0; // إعادة تعيين العداد
         }
         
       } else {
         choice.classList.add('wrong');
-        consecutiveCorrect = 0; // إعادة تعيين العداد للإجابات الصحيحة
-        
+        consecutiveCorrect = 0;
         SoundSystem.play('wrong');
         
         // تأثير بصري للإجابة الخاطئة
-        gsap.fromTo(choice, 
-          {x:0}, 
-          {x:-8, duration:.08, yoyo:true, repeat:6, ease: "power2.inOut"}
-        );
+        gsap.fromTo(choice, {x:0}, {x:-8, duration:.08, yoyo:true, repeat:6, ease: "power2.inOut"});
         
         // رسائل تحفيز ذكية
         if (totalAnswered >= 3) {
@@ -724,6 +674,40 @@
       
       updateProgress();
     });
+    
+    // فحص النقاط المهمة في التقدم
+    function checkMilestones(percentage, questionCount, totalQuestions) {
+      const milestones = [25, 50, 75, 100];
+      const reached = milestones.find(m => percentage >= m && 
+        questionCount === Math.ceil(totalQuestions * m / 100));
+      
+      if (reached && questionCount === Math.ceil(totalQuestions * reached / 100)) {
+        setTimeout(() => {
+          NotificationSystem.showSmart('milestone', {
+            title: reached === 100 ? '🏆 مكتمل!' : `🎯 ${reached}% مكتمل!`,
+            icon: 'success',
+            timer: 3000,
+            sound: reached === 100 ? 'complete' : 'milestone'
+          });
+        }, 500);
+      }
+    }
+
+    function computeScore(){
+      const blocks = Array.from(document.querySelectorAll('.q[data-qid]'));
+      let correct = 0;
+      blocks.forEach(b=>{ const sel = b.querySelector('.choice.correct'); if(sel) correct++; });
+      return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
+    }
+
+    function celebrate(){
+      const duration = 1500; const end = Date.now() + duration;
+      (function frame(){
+        confetti({ particleCount: 3, angle: 60, spread: 70, origin: { x: 0 } });
+        confetti({ particleCount: 3, angle: 120, spread: 70, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
 
     // إضافة أصوات للأزرار وتأثيرات تفاعلية
     document.addEventListener('DOMContentLoaded', () => {
@@ -734,70 +718,11 @@
       });
     });
 
-    function computeScore(){
-      const blocks = Array.from(document.querySelectorAll('.q[data-qid]'));
-      let correct = 0;
-      blocks.forEach(b=>{ const sel = b.querySelector('.choice.correct'); if(sel) correct++; });
-      return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
-    }
-
-    function celebrate(){
-      // احتفال متقدم مع أصوات متعددة
-      SoundSystem.playSequence(['celebration', 'firework'], 500);
-      
-      const duration = 2500; 
-      const end = Date.now() + duration;
-      
-      // تأثيرات الكونفيتي المحسنة
-      (function frame(){
-        confetti({ 
-          particleCount: 5, 
-          angle: 60, 
-          spread: 80, 
-          origin: { x: 0 },
-          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
-        });
-        confetti({ 
-          particleCount: 5, 
-          angle: 120, 
-          spread: 80, 
-          origin: { x: 1 },
-          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
-        });
-        if (Date.now() < end) requestAnimationFrame(frame);
-      })();
-      
-      // تأثير بصري للشاشة كاملة
-      gsap.fromTo('body', 
-        {backgroundColor: 'transparent'}, 
-        {backgroundColor: 'rgba(245,158,11,0.1)', duration: 0.5, yoyo: true, repeat: 1}
-      );
-    },
-          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
-        });
-        confetti({ 
-          particleCount: 5, 
-          angle: 120, 
-          spread: 80, 
-          origin: { x: 1 },
-          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
-        });
-        if (Date.now() < end) requestAnimationFrame(frame);
-      })();
-      
-      // تأثير بصري للشاشة كاملة
-      gsap.fromTo('body', 
-        {backgroundColor: 'transparent'}, 
-        {backgroundColor: 'rgba(245,158,11,0.1)', duration: 0.5, yoyo: true, repeat: 1}
-      );
-    }
-
     el.start.addEventListener('click', askStudent);
 
     el.submit.addEventListener('click', ()=>{
       const s = getStudent();
       const { correct, total, percent } = computeScore();
-      
       celebrate();
       
       // رسالة نتائج ذكية مخصصة
@@ -815,15 +740,12 @@
       Swal.fire({
         title: `${performanceLevel === 'excellent' ? '🏆' : performanceLevel === 'good' ? '⭐' : performanceLevel === 'average' ? '👍' : '💪'} النتائج النهائية`,
         html: `
-          <div style="text-align:right;line-height:2.2;padding:10px">
-            <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);padding:15px;border-radius:12px;margin-bottom:15px">
-              <div><strong>👤 الاسم:</strong> ${s?.name || '-'}</div>
-              <div><strong>🏫 الصف:</strong> ${s?.klass || '-'}</div>
-            </div>
-            <div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);padding:15px;border-radius:12px;margin-bottom:15px">
-              <div><strong>📊 النتيجة:</strong> ${correct} من ${total} سؤال</div>
-              <div><strong>📈 النسبة المئوية:</strong> <span style="color:#059669;font-size:18px;font-weight:900">${percent}%</span></div>
-            </div>
+          <div style="text-align:right;line-height:1.9">
+            <div><strong>👤 الاسم:</strong> ${s?.name || '-'}</div>
+            <div><strong>🏫 الصف:</strong> ${s?.klass || '-'}</div>
+            <div><strong>📊 النتيجة:</strong> ${correct} من ${total} سؤال</div>
+            <div><strong>📈 النسبة المئوية:</strong> ${percent}%</div>
+            <hr style="margin: 15px 0;">
             <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);padding:15px;border-radius:12px;font-weight:600;color:#92400e">
               ${smartMessage}
             </div>
@@ -834,84 +756,40 @@
         showDenyButton: true,
         denyButtonText: '🏠 العودة للرئيسية',
         denyButtonColor: '#d97706'
-      }).then(res=>{ 
+      }).then(res=>{
         if(res.isConfirmed) {
-          resetQuiz(); 
+          resetQuiz();
         } else {
-          window.location.href='https://devapp099.github.io/watyn-bio-activities-/index.html'; 
+          window.location.href='../../index.html';
         }
       });
     });
 
     function resetQuiz(){
-      SoundSystem.play('reset');
-      
-      // إعادة تعيين المتغيرات
-      consecutiveCorrect = 0;
-      totalAnswered = 0;
-      
       document.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      
+      // إعادة تعيين متغيرات الأداء
+      totalAnswered = 0;
+      consecutiveCorrect = 0;
+      startTime = Date.now();
+      
+      gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.45});
+      window.scrollTo({ top:0, behavior:'smooth' });
       updateProgress();
       
-      gsap.from("#quiz .q", {opacity:0, y:15, stagger:.06, duration:.5});
-      window.scrollTo({ top:0, behavior:'smooth' });
-      
-      // رسالة تحفيز لإعادة المحاولة
+      // رسالة ترحيب للعودة
       setTimeout(() => {
-        NotificationSystem.showSmart('encouragement', {
-          title: 'بداية جديدة! 🌟',
-          icon: 'info',
-          timer: 2000
-        });
-      }, 1000);
-    });
-      window.scrollTo({ top:0, behavior:'smooth' });
-      
-      // رسالة تحفيز لإعادة المحاولة
-      setTimeout(() => {
-        NotificationSystem.showSmart('encouragement', {
-          title: 'بداية جديدة! 🌟',
-          icon: 'info',
-          timer: 2000
-        });
-      }, 1000);
-    }
-
-    el.reset.addEventListener('click', resetQuiz);
-
-    // إضافة أصوات للأزرار
-    [el.start, el.submit, el.reset].forEach(btn => {
-      if (btn) {
-        btn.addEventListener('mouseenter', () => SoundSystem.play('select'));
-        btn.addEventListener('click', () => SoundSystem.play('click'));
-      }
-    });
-
-    // بدء التطبيق
-    updateMeta();
-    updateProgress();
-    el.reset.addEventListener('click', resetQuiz);
-
-    // إضافة أصوات للأزرار
-    [el.start, el.submit, el.reset].forEach(btn => {
-      if (btn) {
-        btn.addEventListener('mouseenter', () => SoundSystem.play('select'));
-        btn.addEventListener('click', () => SoundSystem.play('click'));
-      }
-    });
-
-    // رسالة ترحيب عامة عند تحميل الصفحة
-    setTimeout(() => {
-      const student = getStudent();
-      if (student) {
-        NotificationSystem.student = student;
         NotificationSystem.showSmart('welcome', {
           title: 'مرحباً بعودتك! 👋',
           timer: 3000,
           sound: 'select'
         });
-      }
-    }, 1000);
+      }, 1000);
+    }
+
+    updateMeta();
+    // إعداد الأعداد في شريط التقدّم عند التحميل
+    document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
   </script>
 </body>
 </html>
