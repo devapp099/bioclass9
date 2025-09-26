@@ -472,19 +472,76 @@
       el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
     }
 
+    // نظام الإجابة المحسن مع الذكاء الاصطناعي
     document.addEventListener('click', (e)=>{
       const choice = e.target.closest('.choice');
       if(!choice) return;
+      
+      // تشغيل صوت النقر
+      SoundSystem.play('click');
+      
       const container = choice.closest('.choices');
+      const wasAnswered = container.querySelector('.choice.correct, .choice.wrong');
+      
+      // منع إعادة الإجابة على نفس السؤال
+      if (wasAnswered) return;
+      
       container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      totalAnswered++;
+      
       if(choice.dataset.correct === "true"){
-        choice.classList.add('correct'); sfx.correct.play();
-        gsap.fromTo(choice, {scale:1}, {scale:1.03, y:-2, duration:.2, yoyo:true, repeat:1});
-      }else{
-        choice.classList.add('wrong'); sfx.wrong.play();
-        gsap.fromTo(choice, {x:0}, {x:-6, duration:.06, yoyo:true, repeat:5});
+        choice.classList.add('correct');
+        consecutiveCorrect++;
+        SoundSystem.play('correct');
+        
+        // تأثير بصري للإجابة الصحيحة
+        gsap.fromTo(choice, 
+          {scale:1, backgroundColor: 'rgba(52,211,153,.10)'}, 
+          {scale:1.05, y:-4, duration:.3, yoyo:true, repeat:1, ease: "back.out(1.7)"}
+        );
+        
+        // رسائل تشجيع ذكية حسب الأداء
+        if (consecutiveCorrect >= 5) {
+          setTimeout(() => {
+            NotificationSystem.showSmart('encouragement', {
+              title: 'أداء استثنائي! 🔥',
+              icon: 'success',
+              timer: 2500
+            });
+          }, 800);
+          consecutiveCorrect = 0; // إعادة تعيين العداد
+        }
+        
+      } else {
+        choice.classList.add('wrong');
+        consecutiveCorrect = 0;
+        SoundSystem.play('wrong');
+        
+        // تأثير بصري للإجابة الخاطئة
+        gsap.fromTo(choice, {x:0}, {x:-8, duration:.08, yoyo:true, repeat:6, ease: "power2.inOut"});
+        
+        // رسائل تحفيز ذكية
+        if (totalAnswered >= 3) {
+          setTimeout(() => {
+            NotificationSystem.showSmart('motivation', {
+              title: 'استمر في المحاولة! 💪',
+              icon: 'info',
+              timer: 2500
+            });
+          }, 1000);
+        }
       }
+      
       updateProgress();
+    });
+
+    // إضافة أصوات للأزرار وتأثيرات تفاعلية
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.choice').forEach(choice => {
+        choice.addEventListener('mouseenter', () => {
+          SoundSystem.play('select');
+        });
+      });
     });
 
         
@@ -538,21 +595,44 @@
       const s = getStudent();
       const { correct, total, percent } = computeScore();
       celebrate();
+      
+      // رسالة نتائج ذكية مخصصة
+      const performanceLevel = NotificationSystem.getPerformanceLevel(percent);
+      const smartMessage = NotificationSystem.getRandomMessage('finalResults', percent);
+      let resultIcon = 'success';
+      let resultColor = '#10b981';
+      
+      if (percent < 60) {
+        resultIcon = 'info';
+        resultColor = '#3b82f6';
+      }
+      
       Swal.fire({
-        title: 'أحسنت يا بطل/ة! 🎉',
+        title: `${performanceLevel === 'excellent' ? '🏆' : performanceLevel === 'good' ? '⭐' : performanceLevel === 'average' ? '👍' : '💪'} النتائج النهائية`,
         html: `
           <div style="text-align:right;line-height:1.9">
-            <div><strong>الاسم:</strong> ${s?.name || '-'}</div>
-            <div><strong>الصف:</strong> ${s?.klass || '-'}</div>
-            <div><strong>درجتك:</strong> ${correct} / ${total} — <strong>${percent}%</strong></div>
+            <div><strong>👤 الاسم:</strong> ${s?.name || '-'}</div>
+            <div><strong>🏫 الصف:</strong> ${s?.klass || '-'}</div>
+            <div><strong>📊 النتيجة:</strong> ${correct} من ${total} سؤال</div>
+            <div><strong>📈 النسبة المئوية:</strong> ${percent}%</div>
+            <hr style="margin: 15px 0;">
+            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);padding:15px;border-radius:12px;font-weight:600;color:#92400e">
+              ${smartMessage}
+            </div>
           </div>`,
-        icon: 'success',
-        confirmButtonText: 'إعادة المحاولة',
-        confirmButtonColor: '#10b981',
+        icon: resultIcon,
+        confirmButtonText: '🔄 إعادة المحاولة',
+        confirmButtonColor: resultColor,
         showDenyButton: true,
-        denyButtonText: 'العودة للرئيسية',
+        denyButtonText: '🏠 العودة للرئيسية',
         denyButtonColor: '#d97706'
-      }).then(res=>{ if(res.isConfirmed) resetQuiz(); else window.location.href='../index.html'; });
+      }).then(res=>{
+        if(res.isConfirmed) {
+          resetQuiz();
+        } else {
+          window.location.href='../../index.html';
+        }
+      });
     });
 
     function resetQuiz(){
