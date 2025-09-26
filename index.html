@@ -1,0 +1,340 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>أنشطة تعليمية — الأحياء للصف التاسع</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+  
+  <style>
+    :root {
+      --bg: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      --card: #ffffff;
+      --muted: #6b7280;
+      --text: #1f2937;
+      --primary: #f59e0b;
+      --primary-2: #d97706;
+      --accent: #ef4444;
+      --success: #10b981;
+      --card-shadow: 0 20px 40px rgba(0,0,0,.1), 0 8px 16px rgba(0,0,0,.08);
+    }
+    
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    
+    body {
+      margin: 0;
+      background: var(--bg);
+      min-height: 100vh;
+      color: var(--text);
+      font-family: "Cairo", system-ui, sans-serif;
+      line-height: 1.7;
+      letter-spacing: .2px;
+      position: relative;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(255,165,0,.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,69,0,.12) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255,20,147,.1) 0%, transparent 50%);
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .wrap {
+      max-width: 1100px;
+      margin-inline: auto;
+      padding: 24px;
+    }
+    
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 22px;
+      border: 1px solid rgba(255,255,255,.3);
+      background: linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 16px;
+      z-index: 10;
+      box-shadow: var(--card-shadow);
+    }
+    
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .logo {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      background: conic-gradient(from 200deg, var(--primary), var(--accent), #10b981, #3b82f6);
+      box-shadow: 0 8px 24px rgba(245,158,11,.35);
+      animation: logoRotate 20s linear infinite;
+    }
+    
+    @keyframes logoRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .title {
+      font-weight: 900;
+      font-size: clamp(20px, 3vw, 28px);
+    }
+    
+    .subtitle {
+      font-weight: 700;
+      font-size: clamp(14px, 2vw, 16px);
+      color: var(--muted);
+    }
+    
+    .card {
+      background: linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);
+      border: 1px solid rgba(255,255,255,.4);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+      margin-top: 18px;
+      position: relative;
+    }
+    
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px rgba(0,0,0,.15), 0 12px 24px rgba(0,0,0,.1);
+    }
+    
+    h1 {
+      font-size: clamp(28px, 4vw, 40px);
+      margin: 0 0 6px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titleShine 3s ease-in-out infinite alternate;
+    }
+    
+    @keyframes titleShine {
+      0% { filter: hue-rotate(0deg) brightness(1); }
+      100% { filter: hue-rotate(20deg) brightness(1.2); }
+    }
+    
+    h2 {
+      font-size: clamp(18px, 3vw, 22px);
+      margin: 10px 0 14px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    
+    p.lead {
+      color: var(--muted);
+      font-size: clamp(15px, 2.4vw, 18px);
+      margin-top: 0;
+    }
+    
+    .grid { display: grid; gap: 16px; }
+    
+    @media (min-width: 840px) {
+      .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    }
+    
+    .btn {
+      all: unset;
+      cursor: pointer;
+      padding: 14px 18px;
+      border-radius: 16px;
+      font-weight: 800;
+      border: 1px solid rgba(245,158,11,.3);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+      color: white;
+      box-shadow: 0 8px 24px rgba(245,158,11,.25);
+      transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(245,158,11,.35);
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+    }
+    
+    footer {
+      margin-top: 34px;
+      padding: 18px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+      font-size: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+    }
+    
+    .credit {
+      color: var(--text);
+      font-weight: 800;
+    }
+    
+    a.card-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="card" data-aos="fade-down">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div class="title">🧬 أنشطة تعليمية — الأحياء (الصف التاسع) 🌟</div>
+          <div class="subtitle">اختر نشاط الدرس للبدء بالتعلّم التفاعلي الممتع ✨🎯</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="card" data-aos="zoom-in">
+      <h1>📘 الوحدة الأولى: الخلايا</h1>
+      <div class="grid grid-3">
+        <a class="card-link card" href="unit-1-cells/lesson-1-1/index.html">
+          <h2>🔬 درس 1-1 — الخلايا الحيوانية والنباتية</h2>
+          <p class="lead">تمييز المكوّنات والاختلافات.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+        <a class="card-link card" href="unit-1-cells/lesson-1-2/index.html">
+          <h2>🧫 درس 1-2 — رسم الخلايا وحساب التكبير</h2>
+          <p class="lead">قواعد الرسم والمجهر.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+        <a class="card-link card" href="unit-1-cells/lesson-1-3/index.html">
+          <h2>🧩 درس 1-3 — العُضيّات ووظائفها</h2>
+          <p class="lead">ربط التركيب بالوظيفة.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+      </div>
+    </section>
+
+    <section class="card" data-aos="zoom-in">
+      <h1>💧 الوحدة الثانية: انتقال المواد</h1>
+      <div class="grid grid-3">
+        <a class="card-link card" href="unit-2-transport/lesson-2-1/index.html">
+          <h2>💫 درس 2-1 — الانتشار</h2>
+          <p class="lead">من الأعلى إلى الأقل.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+        <a class="card-link card" href="unit-2-transport/lesson-2-2/index.html">
+          <h2>🌱 درس 2-2 — كيف تحصل النباتات على الماء؟</h2>
+          <p class="lead">شعيرات جذرية وخشب.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+        <a class="card-link card" href="unit-2-transport/lesson-2-3/index.html">
+          <h2>🥔 درس 2-3 — الأسموزية والبطاطس</h2>
+          <p class="lead">تغيّر الكتلة والتركّز.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+      </div>
+    </section>
+
+    <section class="card" data-aos="zoom-in">
+      <h1>🍞 الوحدة الثالثة: الجزيئات الحيوية</h1>
+      <div class="grid grid-3">
+        <a class="card-link card" href="unit-3-biomolecules/lesson-3-1/index.html">
+          <h2>🍚 درس 3-1 — الكربوهيدرات</h2>
+          <p class="lead">أنواع واختبارات.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+        <a class="card-link card" href="unit-3-biomolecules/lesson-3-2/index.html">
+          <h2>🧪 درس 3-2 — اختبار الفرضية (البروتين)</h2>
+          <p class="lead">البيوريت والمتغيرات.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+        <a class="card-link card" href="unit-3-biomolecules/lesson-3-3/index.html">
+          <h2>🧬 درس 3-3 — أسئلة حول الإنزيمات</h2>
+          <p class="lead">خصائص وعوامل.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+      </div>
+    </section>
+
+    <section class="card" data-aos="zoom-in">
+      <h1>🍎 الوحدة الرابعة: التغذية</h1>
+      <div class="grid grid-3">
+        <a class="card-link card" href="unit-4-nutrition/lesson-4-1/index.html">
+          <h2>🌿 درس 4-1 — البناء الضوئي</h2>
+          <p class="lead">العوامل والتفاعلات.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+        <a class="card-link card" href="unit-4-nutrition/lesson-4-2/index.html">
+          <h2>🔬 درس 4-2 — اختبار الورقة للنشا</h2>
+          <p class="lead">اليود والتلوين.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+      </div>
+    </section>
+
+    <section class="card" data-aos="zoom-in">
+      <h1>💨 الوحدة الخامسة: التنفس</h1>
+      <div class="grid grid-3">
+        <a class="card-link card" href="unit-5-respiration/lesson-5-1/index.html">
+          <h2>⚡ درس 5-1 — التنفس الهوائي واللاهوائي</h2>
+          <p class="lead">المقارنة والتطبيقات.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+      </div>
+    </section>
+
+    <section class="card" data-aos="zoom-in">
+      <h1>⚖️ الوحدة السادسة: التوازن</h1>
+      <div class="grid grid-3">
+        <a class="card-link card" href="unit-6-homeostasis/lesson-6-1/index.html">
+          <h2>🌡️ درس 6-1 — تنظيم درجة الحرارة</h2>
+          <p class="lead">آليات التحكم.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+        <a class="card-link card" href="unit-6-homeostasis/lesson-6-2/index.html">
+          <h2>💧 درس 6-2 — توازن الماء</h2>
+          <p class="lead">الكلى والهرمونات.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+        <a class="card-link card" href="unit-6-homeostasis/lesson-6-3/index.html">
+          <h2>🧠 درس 6-3 — الجهاز العصبي</h2>
+          <p class="lead">ردود الأفعال والتحكم.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+        <a class="card-link card" href="unit-6-homeostasis/lesson-6-4/index.html">
+          <h2>🔬 درس 6-4 — التجارب والملاحظات</h2>
+          <p class="lead">التطبيق العملي.</p>
+          <button class="btn">🚀 ابدأ</button>
+        </a>
+      </div>
+    </section>
+
+    <footer class="card">
+      <div><span class="credit">🎨 تصميم: الوتين الضامرية |لمار السيابية|مها المعمرية|مريم محمود البلوشية|مريم وائل البلوشية|</span> — 🏫 مدرسة عاتكة بنت زيد — تحت إشراف الأستاذة سامية👩‍🏫</div>
+    </footer>
+  </div>
+  
+  <script>
+    AOS.init({ duration: 700, once: true });
+  </script>
+</body>
+</html>
+
