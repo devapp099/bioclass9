@@ -1,0 +1,1352 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <title>🧪 درس 2-3 — الأسموزية والبطاطس</title>
+  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+  <style>
+    :root{
+      --bg:linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); --card:#ffffff; --muted:#6b7280; --text:#1f2937;
+      --primary:#f59e0b; --primary-2:#d97706; --accent:#ef4444;
+      --success:#10b981; --warn:#f59e0b; --danger:#ef4444; --ring:rgba(245,158,11,.4);
+      --card-shadow:0 20px 40px rgba(0,0,0,.1), 0 8px 16px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background: var(--bg);
+      min-height:100vh;
+      color:var(--text); font-family:"Cairo", system-ui, sans-serif; line-height:1.7; letter-spacing:.2px;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(255,165,0,.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,69,0,.12) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255,20,147,.1) 0%, transparent 50%);
+      z-index: -1; pointer-events: none;%, rgba(255,165,0,.15) 0%, transparent 50%),
+    }   radial-gradient(circle at 80% 20%, rgba(255,69,0,.12) 0%, transparent 50%),
+    .wrap{max-width:1100px; margin-inline:auto; padding:24px}) 0%, transparent 50%);
+    header{ex: -1;
+      display:flex; align-items:center; justify-content:space-between; gap:12px; padding:18px 22px;
+      border:1px solid rgba(255,255,255,.3);
+      background:linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);
+      border-radius:20px; backdrop-filter: blur(10px); position:sticky; top:16px; z-index:10;
+      box-shadow: var(--card-shadow);r; justify-content:space-between; gap:12px; padding:18px 22px;
+    } border:1px solid rgba(255,255,255,.3);
+    .brand{display:flex; align-items:center; gap:12px}255,.95) 0%, rgba(255,255,255,.85) 100%);
+    .logo{width:42px; height:42px; border-radius:12px; position:sticky; top:16px; z-index:10;
+      background: conic-gradient(from 200deg, var(--primary), var(--accent), #10b981, #3b82f6);
+      box-shadow: 0 8px 24px rgba(245,158,11,.35);
+      animation: logoRotate 20s linear infinite;:12px}
+    }logo{width:42px; height:42px; border-radius:12px;
+    @keyframes logoRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .title{font-weight:900; font-size:clamp(20px,3vw,28px)}
+    .subtitle{font-weight:700; font-size:clamp(14px,2vw,16px); color:var(--muted)}
+    .card{
+      background: linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);}
+      border:1px solid rgba(255,255,255,.4);20px,3vw,28px)}
+      border-radius:22px; padding:22px;e:clamp(14px,2vw,16px); color:var(--muted)}
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;t(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);
+    } border:1px solid rgba(255,255,255,.4);
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1); }
+    h1{font-size:clamp(28px,4vw,40px); margin:0 0 6px; font-weight:900;
+       background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
+       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;}
+    h2{font-size:clamp(18px,3vw,22px); margin:10px 0 14px; font-weight:800; color:var(--primary)}px rgba(0,0,0,.1) }
+    p.lead{color:var(--muted); font-size:clamp(15px,2.4vw,18px); margin-top:0}
+    .grid{display:grid; gap:16px}t(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
+    @media (min-width: 840px){ .grid-2{grid-template-columns:1fr 1fr} .grid-3{grid-template-columns:repeat(3,1fr)} }
+    .btn{nt-size:clamp(18px,3vw,22px); margin:10px 0 14px; font-weight:800; color:var(--primary)}
+      all:unset; cursor:pointer; padding:14px 18px; border-radius:16px; font-weight:800;
+      border:1px solid rgba(245,158,11,.3);
+      background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);template-columns:repeat(3,1fr)} }
+      color:white; box-shadow: 0 8px 24px rgba(245,158,11,.25);
+      transition: transform .12s ease, box-shadow .2s ease, background .2s ease;ght:800;
+    } border:1px solid rgba(245,158,11,.3);
+    .btn:hover{ transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 35px rgba(245,158,11,.35);
+      background:linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%); }
+    .btn-ghost{ all:unset; cursor:pointer; padding:12px 14px; border-radius:14px; font-weight:800; color:var(--muted);
+      border:1px dashed rgba(0,0,0,.2); }x-shadow .2s ease, background .2s ease;
+    .pulse{ position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+      background: radial-gradient(600px 200px at 70% 0%, rgba(245,158,11,.12), transparent 60%); filter: blur(10px); }
+    .q{ display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:16px; background:rgba(0,0,0,.03);
+      border:1px solid rgba(0,0,0,.06) }r; padding:12px 14px; border-radius:14px; font-weight:800; color:var(--muted);
+    .choices{display:grid; gap:10px}2); }
+    .choice{ display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid rgba(0,0,0,.08);
+      border-radius:14px; background:rgba(0,0,0,.04); cursor:pointer; user-select:none;ent 60%); filter: blur(10px); }
+      transition:transform .1s ease, background .2s ease, border .2s ease; }radius:16px; background:rgba(0,0,0,.03);
+    .choice:hover{ transform: translateX(-2px); background:rgba(0,0,0,.06) }
+    .choice.correct{ border-color: rgba(16,185,129,.55); background: rgba(16,185,129,.12) }
+    .choice.wrong{ border-color: rgba(239,68,68,.55); background: rgba(239,68,68,.12) }solid rgba(0,0,0,.08);
+    /* شريط التقدّم */px; background:rgba(0,0,0,.04); cursor:pointer; user-select:none;
+    .progress{display:flex; align-items:center; gap:8px; font-weight:800; color:#7c2d12; margin-top:6px}
+    .bar{flex:1; height:8px; background:rgba(0,0,0,.08); border-radius:999px; overflow:hidden}
+    .bar>span{display:block; height:100%; width:0%; background:linear-gradient(90deg,#f59e0b,#d97706); transition:width .25s ease}
+    footer{ margin-top:34px; padding:18px; border-top:1px solid rgba(0,0,0,.08);,.12) }
+      color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
+    .credit{color:var(--text); font-weight:800} gap:8px; font-weight:800; color:#7c2d12; margin-top:6px}
+    a.card-link{ display:block; text-decoration:none; color:inherit }s:999px; overflow:hidden}
+  </style>pan{display:block; height:100%; width:0%; background:linear-gradient(90deg,#f59e0b,#d97706); transition:width .25s ease}
+    footer{ margin-top:34px; padding:18px; border-top:1px solid rgba(0,0,0,.08);
+</head>olor:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
+<body>redit{color:var(--text); font-weight:800}
+  <div class="wrap">play:block; text-decoration:none; color:inherit }
+    <header class="card" data-aos="fade-down">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div class="title">🧪 درس 2-3 — الأسموزية والبطاطس</div>
+          <div class="subtitle" id="studentMeta">مرحبًا! لنبدأ…</div>
+          <!-- شريط التقدّم -->
+          <div class="progress">idden="true"></div>
+            <div>التقدّم:</div>
+            <div class="bar"><span id="barFill"></span></div>
+            <div><span id="countDone">0</span>/<span id="countTotal">0</span></div>
+          </div>ريط التقدّم -->
+        </div> class="progress">
+      </div><div>التقدّم:</div>
+    </header>div class="bar"><span id="barFill"></span></div>
+            <div><span id="countDone">0</span>/<span id="countTotal">0</span></div>
+    <section class="card" style="margin-top:18px; position:relative" data-aos="zoom-in">
+      <div class="pulse"></div>
+      <h1>🎯 أهداف الدرس</h1>
+      <p class="lead">استقصاء تأثير تركيز المحلول على كتلة شرائح البطاطس وتفسير النتائج.</p>
+      <ul>
+        <li>تعريف الأسموزية بدقة واتجاه حركة الماء عبر الغشاء شبه المنفذ.</li>"zoom-in">
+        <li>التمييز بين المحاليل مفرطة/مخففة/متعادلـة التوتر وتأثيرها على الخلايا النباتية.</li>
+        <li>استنتاج «نقطة التعادل الإسموزي» من بيانات التغير النسبي في الكتلة.</li>
+      </ul>ass="lead">فهم الانتشار كحركة صافية للجزيئات من تركيز أعلى إلى أقل والعوامل المؤثرة.</p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap">
+        <button id="btnStart" class="btn">ابدأ النشاط</button>
+        <a class="btn-ghost" href="../../index.html">← العودة</a>جزيء والسماكة واللزوجة.</li>
+      </div>تمييز الانتشار البسيط عن الميسّر وتفسير نتائج تجارب الهلام.</li>
+    </section>
+      <div style="display:flex; gap:10px; flex-wrap:wrap">
+    <section id="quiz" class="card" style="margin-top:16px; display:none" data-aos="fade-up">
+      <h2>الأسئلة التفاعلية</h2>f="../../index.html">← العودة</a>
+      </div>
+      <!-- 20 سؤالًا -->
+      <article class="q" data-qid="q1">
+        <div><strong>1) الأسموزية هي انتقال الماء عبر غشاء شبه منفذ من بيئة:</strong></div>">
+        <div class="choices">h2>
+          <div class="choice" data-correct="true">أقل تركيزًا للمذاب (أعلى ماء) إلى أعلى تركيز للمذاب</div>
+          <div class="choice" data-correct="false">أعلى تركيز مذاب إلى الأقل</div>
+          <div class="choice" data-correct="false">متساوية التركيز بلا حركة عشوائية</div>
+          <div class="choice" data-correct="false">لا علاقة لها بفرق التركيز</div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="false">انتقال الماء عبر غشاء شبه منفذ</div>
+          <div class="choice" data-correct="true">الحركة الصافية من تركيز أعلى إلى أقل</div>
+      <article class="q" data-qid="q2">ect="false">حركة الجزيئات عكس فرق التركيز</div>
+        <div><strong>2) انخفاض كتلة شريحة البطاطس بعد النقع يدل على أن المحلول كان:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">مفرط التوتر (Hypertonic)</div>
+          <div class="choice" data-correct="false">مخفّف التوتر (Hypotonic)</div>
+          <div class="choice" data-correct="false">متعادل التوتر</div>
+          <div class="choice" data-correct="false">ماءً نقيًا</div>v>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="false">خفض درجة الحرارة</div>
+          <div class="choice" data-correct="true">زيادة مساحة السطح</div>
+      <article class="q" data-qid="q3">ect="false">انعدام فرق التركيز</div>
+        <div><strong>3) في المحلول متعادل التوتر بالنسبة لخلايا البطاطس:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">لا يتغير الوزن تقريبًا (تغير ≈ 0%)</div>
+          <div class="choice" data-correct="false">يزداد الوزن كثيرًا</div>
+          <div class="choice" data-correct="false">ينخفض الوزن كثيرًا</div>
+          <div class="choice" data-correct="false">تحدث بلازموليز تام</div>°C؛ هذا يدل على أن:</strong></div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="false">الحرارة تُبطئ الانتشار</div>
+          <div class="choice" data-correct="false">لا أثر للحرارة</div>
+      <article class="q" data-qid="q4">ect="true">الحرارة تُسرّع الانتشار</div>
+        <div><strong>4) المتغير المستقل الشائع في تجربة البطاطس هو:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">تركيز محلول السكروز</div>
+          <div class="choice" data-correct="false">كتلة الشريحة النهائية</div>
+          <div class="choice" data-correct="false">نسبة التغير المئوي</div>
+          <div class="choice" data-correct="false">نوع الميزان</div>ng></div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="false">توقّف الحركة تمامًا</div>
+          <div class="choice" data-correct="true">حركة عشوائية مستمرة بلا صافي انتقال</div>
+      <article class="q" data-qid="q5">ect="false">انتقال من الأقل إلى الأعلى</div>
+        <div><strong>5) المتغير التابع المناسب قياسه هو:</strong></div> الأقل فقط</div>
+        <div class="choices">
+          <div class="choice" data-correct="true">% التغير في الكتلة</div>
+          <div class="choice" data-correct="false">حجم الكوب</div>
+          <div class="choice" data-correct="false">عدد الأكواب</div>
+          <div class="choice" data-correct="false">نوع المقص</div>دل الانتشار:</strong></div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">يزداد</div>
+          <div class="choice" data-correct="false">ينقص</div>
+      <article class="q" data-qid="q6">ect="false">لا يتغيّر</div>
+        <div><strong>6) لضمان «اختبار عادل» يجب ضبط جميع ما يلي عدا:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="false">زمن النقع</div>
+          <div class="choice" data-correct="false">حجم/سماكة الشرائح</div>
+          <div class="choice" data-correct="false">درجة الحرارة</div>
+          <div class="choice" data-correct="true">تركيز المحلول المستخدم</div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">تزداد سماكة/المسافة الواجب قطعها</div>
+          <div class="choice" data-correct="false">تزداد مساحة السطح</div>
+      <article class="q" data-qid="q7">ect="false">ترتفع الحرارة</div>
+        <div><strong>7) تجفيف الشرائح بلطف قبل الوزن النهائي مهم لأنه:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">يزيل الماء السطحي لتكون الكتلة ممثلة للمحتوى الداخلي</div>
+          <div class="choice" data-correct="false">يمنع حدوث الأسموزية</div>
+          <div class="choice" data-correct="false">يزيد الكتلة عمدًا</div>
+          <div class="choice" data-correct="false">يعقم الشرائح</div>strong></div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">الصغير غير المشحون</div>
+          <div class="choice" data-correct="false">الكبير غير المشحون</div>
+      <article class="q" data-qid="q8">ect="false">الصغير المشحون</div>
+        <div><strong>8) إذا وُضعت الشريحة في ماء نقي، فالمتوقع أن:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">تزداد الكتلة وتصبح الخلايا ممتلئة (Turgid)</div>
+          <div class="choice" data-correct="false">تنخفض الكتلة وتحدث بلازموليز</div>
+          <div class="choice" data-correct="false">لا يتغير شيء إطلاقًا</div>
+          <div class="choice" data-correct="false">تتحلل الأنسجة فورًا</div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">يزيد معدل الانتشار</div>
+          <div class="choice" data-correct="false">يُوقف الانتشار تمامًا</div>
+      <article class="q" data-qid="q9">ect="false">لا تأثير له إطلاقًا</div>
+        <div><strong>9) البلازموليز يحدث عندما تكون البيئة خارج الخلية:</strong></div>>
+        <div class="choices">
+          <div class="choice" data-correct="true">مفرطة التوتر فيخرج الماء وتنكمش الفجوة</div>
+          <div class="choice" data-correct="false">مخففة التوتر فيدخل الماء</div>
+          <div class="choice" data-correct="false">متعادلـة تمامًا</div>
+          <div class="choice" data-correct="false">خالية من المذاب والماء</div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">سلبية لا تحتاج ATP مباشرة</div>
+          <div class="choice" data-correct="false">نشطة تحتاج ATP دائمًا</div>
+      <article class="q" data-qid="q10">ct="false">تعتمد على مضخات الأيونات دومًا</div>
+        <div><strong>10) استخدام قاطع أسطواني موحّد (Cork borer) يساعد على:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">توحيد مساحة السطح/السمك لكل الشرائح</div>
+          <div class="choice" data-correct="false">زيادة اختلاف السمك</div>
+          <div class="choice" data-correct="false">تسريع التجفيف</div>
+          <div class="choice" data-correct="false">منع امتصاص الماء نهائيًا</div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">يحتاج بروتينات قنوات/حاملات عبر الغشاء</div>
+          <div class="choice" data-correct="false">يحتاج ATP</div>
+      <article class="q" data-qid="q11">ct="false">يتحرك عكس فرق التركيز</div>
+        <div><strong>11) ارتفاع درجة الحرارة أثناء النقع يؤدي عادةً إلى:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">تسريع وصول الاتزان الإسموزي (حركة جزيئات أسرع)</div>
+          <div class="choice" data-correct="false">إيقاف الأسموزية</div>
+          <div class="choice" data-correct="false">انخفاض الذوبانية دومًا للصفر</div>
+          <div class="choice" data-correct="false">تغيير نوع المذاب</div> أكبر؟</strong></div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">O₂ و CO₂ (صغيران غير قطبيين)</div>
+          <div class="choice" data-correct="false">Na⁺</div>
+      <article class="q" data-qid="q12">ct="false">Cl⁻</div>
+        <div><strong>12) تكرار القياسات (التكرارات) مفيد لأنه:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">يزيد الموثوقية ويسمح بحساب متوسط يقلل أثر القيم الشاذة</div>
+          <div class="choice" data-correct="false">يُغيّر اتجاه الأسموزية</div>
+          <div class="choice" data-correct="false">يقلل حجم العينة المقاسة</div>
+          <div class="choice" data-correct="false">يلغي الحاجة لضبط المتغيرات</div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">قنوات/ناقلات غشائية للمرور</div>
+          <div class="choice" data-correct="false">ATP دائمًا</div>
+      <article class="q" data-qid="q13">ct="false">تكسير الغشاء</div>
+        <div><strong>13) في مخطط (% التغير في الكتلة) مقابل تركيز السكروز، فإن تركيز التعادل الإسموزي يُستدل عليه عند:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">نقطة تقاطع المنحنى مع الصفر (لا تغيّر في الكتلة)</div>
+          <div class="choice" data-correct="false">أكبر قيمة موجبة</div>
+          <div class="choice" data-correct="false">أكبر قيمة سالبة</div>
+          <div class="choice" data-correct="false">أي نقطة على المنحنى</div></strong></div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">غشاء رقيق + مساحة سطح كبيرة + فرق تركيز</div>
+          <div class="choice" data-correct="false">غشاء سميك</div>
+      <article class="q" data-qid="q14">ct="false">انعدام فرق التركيز</div>
+        <div><strong>14) إذا كانت الكتلة الابتدائية 5.00جم والنهائية 5.60جم، فإن % التغير يساوي تقريبًا:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">+12%</div>
+          <div class="choice" data-correct="false">+6%</div>
+          <div class="choice" data-correct="false">-12%</div>
+          <div class="choice" data-correct="false">0%</div>صغر مقارنة بالأكبر:</strong></div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">بسرعة وأبعد</div>
+          <div class="choice" data-correct="false">ببطء وأقصر</div>
+      <article class="q" data-qid="q15">ct="false">بنفس السرعة</div>
+        <div><strong>15) إذا كانت الكتلة الابتدائية 5.00جم والنهائية 4.25جم، فإن % التغير يساوي تقريبًا:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">-15%</div>
+          <div class="choice" data-correct="false">-5%</div>
+          <div class="choice" data-correct="false">+15%</div>
+          <div class="choice" data-correct="false">0%</div>لكثيفة) يؤدي عادةً إلى:</strong></div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">انخفاض معدل الانتشار</div>
+          <div class="choice" data-correct="false">ارتفاع معدل الانتشار</div>
+      <article class="q" data-qid="q16">ct="false">عدم تغيّر المعدل</div>
+        <div><strong>16) عند النقطة التي تكون فيها مياه الخلية ومحاليل النقع متساوية الجهد المائي، فإن الخلايا تكون:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">بلا صافي دخول أو خروج للماء</div>
+          <div class="choice" data-correct="false">ممتلئة بشدة دائمًا</div>
+          <div class="choice" data-correct="false">منقبضة دائمًا</div>
+          <div class="choice" data-correct="false">خالية من الفجوة العصارية</div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">انتشار الماء عبر غشاء شبه منفذ من تركيز ماء أعلى إلى أقل</div>
+          <div class="choice" data-correct="false">انتشار الأيونات عبر القنوات</div>
+      <article class="q" data-qid="q17">ct="false">نقل نشط للماء</div>
+        <div><strong>17) أيٌّ مما يلي خطأ منهجي يزيد عدم الدقة في النتائج؟</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">عدم تجفيف الشرائح قبل الوزن النهائي</div>
+          <div class="choice" data-correct="false">استخدام ميزان مُعاير</div>
+          <div class="choice" data-correct="false">توحيد زمن النقع</div>
+          <div class="choice" data-correct="false">استخدام تركيزات معروفة</div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">ضغطه الجزئي أعلى في الحويصلات من الدم الوريدي</div>
+          <div class="choice" data-correct="false">الدم أكثر برودة دائمًا</div>
+      <article class="q" data-qid="q18">ct="false">الحويصلات تستهلك ATP لدفعه</div>
+        <div><strong>18) أي بيان صحيح حول اتجاه الماء في المحاليل المختلفة؟</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">Hypotonic: يدخل الماء إلى الخلية • Hypertonic: يخرج الماء</div>
+          <div class="choice" data-correct="false">Hypotonic: يخرج الماء • Hypertonic: يدخل الماء</div>
+          <div class="choice" data-correct="false">Isotonic: يدخل الماء صافيًا</div>
+          <div class="choice" data-correct="false">جميعها تُدخل الماء صافيًا</div>ًا:</strong></div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">تشبّعًا بسبب محدودية عدد الناقلات</div>
+          <div class="choice" data-correct="false">زيادة لا نهائية في المعدل</div>
+      <article class="q" data-qid="q19">ct="false">توقفًا فوريًا</div>
+        <div><strong>19) إذا كانت نقطة التعادل الإسموزي ≈ 0.30 مول/لتر سكروز، فالمحاليل الأقل من 0.30 م تكون غالبًا:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">مخففة التوتر بالنسبة للبطاطس (زيادة كتلة)</div>
+          <div class="choice" data-correct="false">مفرطة التوتر (نقص كتلة)</div>
+          <div class="choice" data-correct="false">متعادلـة التوتر دومًا</div>
+          <div class="choice" data-correct="false">غير مناسبة للأسموزية</div>div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">يزيد طاقة حركة الجزيئات (براونية)</div>
+          <div class="choice" data-correct="false">يقلّل حركة الجزيئات</div>
+      <article class="q" data-qid="q20">ct="false">يغيّر تركيب الغشاء دائمًا</div>
+        <div><strong>20) سبب شائع لقيمة شاذّة واحدة بين ثلاث قراءات هو:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">عدم توحيد طول/قطر الشريحة أو خطأ وزن منفرد</div>
+          <div class="choice" data-correct="false">قانون الأسموزية تغيّر مؤقتًا</div>
+          <div class="choice" data-correct="false">انعدام الذوبان فجأة</div>
+          <div class="choice" data-correct="false">توقف الحركة البراونية</div></div>
+        </div>lass="choices">
+      </article>lass="choice" data-correct="true">طرديًا مع مساحة السطح وفرق التركيز، وعكسيًا مع السماكة</div>
+          <div class="choice" data-correct="false">عكسيًا مع مساحة السطح وطرديًا مع السماكة</div>
+      <div style="display:flex; gap:10px; margin-top:8px">درجة الحرارة</div>
+        <button id="btnSubmit" class="btn">إنهاء النشاط</button>div>
+        <button id="btnReset" class="btn-ghost">إعادة تعيين</button>
+      </div>cle>
+    </section>
+      <div style="display:flex; gap:10px; margin-top:8px">
+    <footer class="card" data-aos="fade-up" data-aos-delay="50">
+      <div><span class="credit">🎨 تصميم: الوتين الضامرية |لمار السيابية|مها المعمرية|مريم محمود البلوشية|مريم وائل البلوشية| — 🏫 مدرسة عاتكة بنت زيد — تحت إشراف الأستاذة سامية 👩‍🏫</span></div>
+      <div>© انشطة تعليمية الوتين 🌟</div>
+    </footer>>
+  </div>
+    <footer class="card" data-aos="fade-up" data-aos-delay="50">
+  <script>><span class="credit">🎨 تصميم: الوتين الضامرية |لمار السيابية|مها المعمرية|مريم محمود البلوشية|مريم وائل البلوشية| — 🏫 مدرسة عاتكة بنت زيد — تحت إشراف الأستاذة سامية 👩‍🏫</span></div>
+    AOS.init({ duration: 700, once: true });
+    // 🎵 نظام صوتي ذكي متقدم
+    const SoundSystem = {
+      sounds: {
+        // أصوات الإجابات
+        correct: new Howl({ src: ['../../assets/audio/clap.mp3'], volume: 0.6 }),
+        wrong: new Howl({ src: ['../../assets/audio/wrong_answer.mp3'], volume: 0.5 }),
+        
+        // أصوات التفاعل
+        click: new Howl({ src: ['../../assets/audio/Click.mp3'], volume: 0.4 }),
+        select: new Howl({ src: ['../../assets/audio/select.mp3'], volume: 0.4 }),
+        
+        // أصوات التقدم والإنجاز
+        progress: new Howl({ src: ['../../assets/audio/Notification.mp3'], volume: 0.3 }),
+        milestone: new Howl({ src: ['../../assets/audio/long-beep.mp3'], volume: 0.4 }),
+        
+        // أصوات الاحتفال
+        celebration: new Howl({ src: ['../../assets/audio/win.mp3'], volume: 0.7 }),
+        firework: new Howl({ src: ['../../assets/audio/win-Blockbusters.mp3'], volume: 0.5 }),
+        
+        // أصوات التطبيق
+        start: new Howl({ src: ['../../assets/audio/startapp.mp3'], volume: 0.5 }),
+        reset: new Howl({ src: ['../../assets/audio/reveal.mp3'], volume: 0.4 })
+      },
+      
+      // تشغيل صوت مع تأثيرات بصرية
+      play(soundName, visualEffect = null) {
+        if (this.sounds[soundName]) {
+          this.sounds[soundName].play();
+          if (visualEffect) visualEffect();
+        }
+      },
+      
+      // تشغيل سلسلة أصوات
+      playSequence(soundNames, delay = 300) {
+        soundNames.forEach((name, index) => {
+          setTimeout(() => this.play(name), index * delay);
+        });
+      }
+    };
+
+    // 🔔 نظام الإشعارات والرسائل التفاعلية الذكي
+    const NotificationSystem = {
+      student: null,
+      
+      // رسائل متنوعة حسب الأداء
+      messages: {
+        welcome: [
+          "أهلاً وسهلاً {name}! مرحبًا بك في درس 2-3 — الأسموزية والبطاطس المثير! 🧬",
+          "مرحبًا {name}! أنت على وشك خوض مغامرة علمية رائعة! 🔬",
+          "أهلاً {name}! دعنا نكتشف أسرار العلوم معًا! ✨"
+        ],
+        
+        encouragement: [
+          "ممتاز {name}! أنت تتقدم بشكل رائع! 🌟",
+          "أحسنت {name}! استمر على هذا الأداء المميز! 💪",
+          "رائع {name}! أنت تبهرني بذكائك! 🧠",
+          "عظيم {name}! كل إجابة تقربك من النجاح! 🎯"
+        ],
+        
+        motivation: [
+          "لا تستسلم {name}! المحاولة جزء من التعلم! 💚",
+          "فكر مرة أخرى {name}، أنت أقرب للإجابة الصحيحة! 🤔",
+          "المحاولة الجيدة {name}! التعلم من الأخطاء يجعلنا أقوى! 💎",
+          "تركيزك يتحسن {name}! المحاولة القادمة ستكون أفضل! ⚡"
+        ],
+        
+        milestone: [
+          "🎉 ممتاز {name}! لقد أكملت 25% من الأسئلة!",
+          "🚀 رائع {name}! وصلت لمنتصف الطريق - 50%!",
+          "⭐ مذهل {name}! 75% مكتملة - أنت بطل/ة!",
+          "🏆 تهانينا {name}! أكملت جميع الأسئلة بنجاح!"
+        ],
+        
+        finalResults: {
+          excellent: [
+            "🏆 مذهل {name}! أداء استثنائي - أنت عالم/ة حقيقي/ة!",
+            "⭐ رائع جداً {name}! إتقان كامل للموضوع!"
+          ],
+          good: [
+            "👏 أحسنت {name}! أداء جيد جداً - استمر في التفوق!",
+            "💪 عمل ممتاز {name}! أنت على الطريق الصحيح!"
+          ],
+          average: [
+            "📚 أداء جيد {name}! مراجعة بسيطة وستكون في القمة!",
+            "🎯 استمر {name}! أنت تتحسن مع كل محاولة!"
+          ],
+          needsWork: [
+            "💚 لا بأس {name}! التعلم رحلة - استمر في المحاولة!",
+            "🌱 كل خطأ فرصة للتعلم {name}! أنت في الطريق الصحيح!"
+          ]
+        }
+      },
+      
+      // تحديد مستوى الأداء
+      getPerformanceLevel(percentage) {
+        if (percentage >= 90) return 'excellent';
+        if (percentage >= 75) return 'good';
+        if (percentage >= 60) return 'average';
+        return 'needsWork';
+      },
+      
+      // اختيار رسالة عشوائية
+      getRandomMessage(category, percentage = null) {
+        let messages = this.messages[category];
+        if (percentage !== null && this.messages[category][this.getPerformanceLevel(percentage)]) {
+          messages = this.messages[category][this.getPerformanceLevel(percentage)];
+        }
+        
+        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+        return randomMsg.replace('{name}', this.student?.name || 'البطل/ة');
+      },
+      
+      // عرض إشعار ذكي
+      showSmart(category, options = {}) {
+        const message = this.getRandomMessage(category, options.percentage);
+        
+        Swal.fire({
+          title: options.title || 'رسالة ذكية 🤖',
+          text: message,
+          icon: options.icon || 'info',
+          timer: options.timer || 3000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+          toast: options.toast || true,
+          position: options.position || 'top-end',
+          customClass: {
+            popup: 'animated-notification'
+          }
+        });
+        
+        // تشغيل صوت مناسب
+        if (options.sound) {
+          SoundSystem.play(options.sound);
+        }
+      }
+    };
+
+    const storageKey = "watyn_bio_student";
+    let consecutiveCorrect = 0; // متتبع الإجابات الصحيحة المتتالية
+    let totalAnswered = 0; // إجمالي الأسئلة المجابة
+
+    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
+    function setStudent(obj){ 
+      localStorage.setItem(storageKey, JSON.stringify(obj)); 
+      NotificationSystem.student = obj;
+    }
+
+    </footer>
+    
+
+    
+    AOS.init({ duration: 700, once: true });
+    // 🎵 نظام صوتي ذكي متقدم
+    const SoundSystem = {
+      sounds: {
+        // أصوات الإجابات
+        correct: new Howl({ src: ['../../assets/audio/clap.mp3'], volume: 0.6 }),
+        wrong: new Howl({ src: ['../../assets/audio/wrong_answer.mp3'], volume: 0.5 }),
+        
+        // أصوات التفاعل
+        click: new Howl({ src: ['../../assets/audio/Click.mp3'], volume: 0.4 }),
+        select: new Howl({ src: ['../../assets/audio/select.mp3'], volume: 0.4 }),
+        
+        // أصوات التقدم والإنجاز
+        progress: new Howl({ src: ['../../assets/audio/Notification.mp3'], volume: 0.3 }),
+        milestone: new Howl({ src: ['../../assets/audio/long-beep.mp3'], volume: 0.4 }),
+        
+        // أصوات الاحتفال
+        celebration: new Howl({ src: ['../../assets/audio/win.mp3'], volume: 0.7 }),
+        firework: new Howl({ src: ['../../assets/audio/win-Blockbusters.mp3'], volume: 0.5 }),
+        
+        // أصوات التطبيق
+        start: new Howl({ src: ['../../assets/audio/startapp.mp3'], volume: 0.5 }),
+        reset: new Howl({ src: ['../../assets/audio/reveal.mp3'], volume: 0.4 })
+      },
+      
+      // تشغيل صوت مع تأثيرات بصرية
+      play(soundName, visualEffect = null) {
+        if (this.sounds[soundName]) {
+          this.sounds[soundName].play();
+          if (visualEffect) visualEffect();
+        }
+      },
+      
+      // تشغيل سلسلة أصوات
+      playSequence(soundNames, delay = 300) {
+        soundNames.forEach((name, index) => {
+          setTimeout(() => this.play(name), index * delay);
+        });
+      }
+    };
+
+    // 🔔 نظام الإشعارات والرسائل التفاعلية الذكي
+    const NotificationSystem = {
+      student: null,
+      
+      // رسائل متنوعة حسب الأداء
+      messages: {
+        welcome: [
+          "أهلاً وسهلاً {name}! مرحبًا بك في درس 2-3 — الأسموزية والبطاطس المثير! 🧬",
+          "مرحبًا {name}! أنت على وشك خوض مغامرة علمية رائعة! 🔬",
+          "أهلاً {name}! دعنا نكتشف أسرار العلوم معًا! ✨"
+        ],
+        
+        encouragement: [
+          "ممتاز {name}! أنت تتقدم بشكل رائع! 🌟",
+          "أحسنت {name}! استمر على هذا الأداء المميز! 💪",
+          "رائع {name}! أنت تبهرني بذكائك! 🧠",
+          "عظيم {name}! كل إجابة تقربك من النجاح! 🎯"
+        ],
+        
+        motivation: [
+          "لا تستسلم {name}! المحاولة جزء من التعلم! 💚",
+          "فكر مرة أخرى {name}، أنت أقرب للإجابة الصحيحة! 🤔",
+          "المحاولة الجيدة {name}! التعلم من الأخطاء يجعلنا أقوى! 💎",
+          "تركيزك يتحسن {name}! المحاولة القادمة ستكون أفضل! ⚡"
+        ],
+        
+        milestone: [
+          "🎉 ممتاز {name}! لقد أكملت 25% من الأسئلة!",
+          "🚀 رائع {name}! وصلت لمنتصف الطريق - 50%!",
+          "⭐ مذهل {name}! 75% مكتملة - أنت بطل/ة!",
+          "🏆 تهانينا {name}! أكملت جميع الأسئلة بنجاح!"
+        ],
+        
+        finalResults: {
+          excellent: [
+            "🏆 مذهل {name}! أداء استثنائي - أنت عالم/ة حقيقي/ة!",
+            "⭐ رائع جداً {name}! إتقان كامل للموضوع!"
+          ],
+          good: [
+            "👏 أحسنت {name}! أداء جيد جداً - استمر في التفوق!",
+            "💪 عمل ممتاز {name}! أنت على الطريق الصحيح!"
+          ],
+          average: [
+            "📚 أداء جيد {name}! مراجعة بسيطة وستكون في القمة!",
+            "🎯 استمر {name}! أنت تتحسن مع كل محاولة!"
+          ],
+          needsWork: [
+            "💚 لا بأس {name}! التعلم رحلة - استمر في المحاولة!",
+            "🌱 كل خطأ فرصة للتعلم {name}! أنت في الطريق الصحيح!"
+          ]
+        }
+      },
+      
+      // تحديد مستوى الأداء
+      getPerformanceLevel(percentage) {
+        if (percentage >= 90) return 'excellent';
+        if (percentage >= 75) return 'good';
+        if (percentage >= 60) return 'average';
+        return 'needsWork';
+      },
+      
+      // اختيار رسالة عشوائية
+      getRandomMessage(category, percentage = null) {
+        let messages = this.messages[category];
+        if (percentage !== null && this.messages[category][this.getPerformanceLevel(percentage)]) {
+          messages = this.messages[category][this.getPerformanceLevel(percentage)];
+        }
+        
+        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+        return randomMsg.replace('{name}', this.student?.name || 'البطل/ة');
+      },
+      
+      // عرض إشعار ذكي
+      showSmart(category, options = {}) {
+        const message = this.getRandomMessage(category, options.percentage);
+        
+        Swal.fire({
+          title: options.title || 'رسالة ذكية 🤖',
+          text: message,
+          icon: options.icon || 'info',
+          timer: options.timer || 3000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+          toast: options.toast || true,
+          position: options.position || 'top-end',
+          customClass: {
+            popup: 'animated-notification'
+          }
+        });
+        
+        // تشغيل صوت مناسب
+        if (options.sound) {
+          SoundSystem.play(options.sound);
+        }
+      }
+    };
+
+    const storageKey = "watyn_bio_student";
+    let consecutiveCorrect = 0; // متتبع الإجابات الصحيحة المتتالية
+    let totalAnswered = 0; // إجمالي الأسئلة المجابة
+
+    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
+    function setStudent(obj){ 
+      localStorage.setItem(storageKey, JSON.stringify(obj)); 
+      NotificationSystem.student = obj;
+    }
+
+    const el = { start: document.getElementById('btnStart'), quiz: document.getElementById('quiz'), submit: document.getElementById('btnSubmit'), reset: document.getElementById('btnReset'), meta: document.getElementById('studentMeta'), bar: document.getElementById('barFill'), done: document.getElementById('countDone'), total: document.getElementById('countTotal') };
+    const storageKey = "watyn_bio_student"; let consecutiveCorrect = 0, totalAnswered = 0;
+    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }  function updateMeta(){ const s = getStudent(); el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…"; }  } }); if (answered > oldProgress) { checkMilestones(pc, answered); } } ); gsap.fromTo('.progress', { scale: 1 }, { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 }); } } function computeScore(){ const blocks = Array.from(document.querySelectorAll('.q[data-qid]')); let correct = 0; blocks.forEach(b=>{ const sel = b.querySelector('.choice.correct'); if(sel) correct++; }); return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) }; } function celebrate(){
+      // احتفال متقدم مع أصوات متعددة
+      SoundSystem.playSequence(['celebration', 'firework'], 500);
+      
+      const duration = 2500; 
+      const end = Date.now() + duration;
+      
+      // تأثيرات الكونفيتي المحسنة
+      (function frame(){
+        confetti({ 
+          particleCount: 5, 
+          angle: 60, 
+          spread: 80, 
+          origin: { x: 0 },
+          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
+        });
+        confetti({ 
+          particleCount: 5, 
+          angle: 120, 
+          spread: 80, 
+          origin: { x: 1 },
+          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
+        });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+      
+      // تأثير بصري للشاشة كاملة
+      gsap.fromTo('body', 
+        {backgroundColor: 'transparent'}, 
+        {backgroundColor: 'rgba(245,158,11,0.1)', duration: 0.5, yoyo: true, repeat: 1}
+      );
+    }, colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6'] }); confetti({ particleCount: 5, angle: 120, spread: 80, origin: { x: 1 }, colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6'] }); if (Date.now() < end) requestAnimationFrame(frame); })(); gsap.fromTo('body', {backgroundColor: 'transparent'}, {backgroundColor: 'rgba(245,158,11,0.1)', duration: 0.5, yoyo: true, repeat: 1}); }
+      sounds: {
+    async function askStudent(){
+      SoundSystem.play('start');
+      
+      const { value: formValues } = await Swal.fire({
+        title: 'مرحبًا في عالم العلوم! 🧬',
+        html:
+          `<div style="text-align:right">
+            <div style="margin-bottom:12px;font-weight:700;color:#d97706">أدخل بياناتك لتبدأ رحلتك العلمية:</div>
+            <input id="swal-name" class="swal2-input" placeholder="اسم الطالب/ـة" style="text-align:right">
+            <input id="swal-class" class="swal2-input" placeholder="الصف (مثال: التاسع/1)" style="text-align:right">
+            <div style="font-size:13px;color:#6b7280;margin-top:8px">
+              💡 سيتم استخدام اسمك لإرسال رسائل تشجيعية مخصصة!
+            </div>
+          </div>`,
+        focusConfirm: false,
+        confirmButtonText: '🚀 ابدأ المغامرة',
+        confirmButtonColor: '#d97706',
+        showCancelButton: true,
+        cancelButtonText: 'إلغاء',
+        preConfirm: () => {
+          const name = document.getElementById('swal-name').value?.trim();
+          const klass = document.getElementById('swal-class').value?.trim();
+          if(!name || !klass){
+            Swal.showValidationMessage('يرجى إدخال الاسم والصف');
+            return false;
+          }
+          return { name, klass };
+        }
+      });
+      
+      if(formValues){
+        setStudent(formValues);
+        updateMeta();
+        
+        // رسالة ترحيب ذكية
+        setTimeout(() => {
+          NotificationSystem.showSmart('welcome', {
+            title: 'أهلاً وسهلاً! 👋',
+            icon: 'success',
+            timer: 4000,
+            sound: 'select'
+          });
+        }, 500);
+        
+        el.quiz.style.display = "block";
+        gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6});
+      }
+    } return { name, klass }; } }); if(formValues){ setStudent(formValues); updateMeta(); setTimeout(() => { NotificationSystem.showSmart('welcome', { title: 'أهلاً وسهلاً! 👋', icon: 'success', timer: 4000, sound: 'select' }); }, 500); el.quiz.style.display = "block"; gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6}); } }
+        wrong: new Howl({ src: ['../../assets/audio/wrong_answer.mp3'], volume: 0.5 }),
+    function updateProgress(){
+      const total = document.querySelectorAll('.q[data-qid]').length;
+      const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
+        q.querySelector('.choice.correct, .choice.wrong')
+      ).length;
+      const oldProgress = parseInt(el.done.textContent) || 0;
+      
+      el.total.textContent = total;
+      el.done.textContent = answered;
+      const pc = Math.round((answered / total) * 100);
+      
+      // تأثير بصري لشريط التقدم مع صوت
+      gsap.to(el.bar, {
+        width: pc + "%",
+        duration: 0.5,
+        ease: "power2.out",
+        onComplete: () => {
+          if (answered > oldProgress) {
+            SoundSystem.play('progress');
+          }
+        }
+      });
+      
+      // إشعارات عند النقاط المهمة
+      if (answered > oldProgress) {
+        checkMilestones(pc, answered, total);
+      }
+    }
+    
+    // فحص النقاط المهمة في التقدم
+    function checkMilestones(percentage, questionCount, totalQuestions) {
+      const milestones = [25, 50, 75, 100];
+      const reached = milestones.find(m => percentage >= m && (percentage - 5) < m);
+      
+      if (reached && questionCount === Math.ceil(totalQuestions * reached / 100)) {
+        SoundSystem.play('milestone');
+        NotificationSystem.showSmart('milestone', {
+          title: 'إنجاز رائع! 🎯',
+          icon: 'success',
+          timer: 4000,
+          percentage: reached,
+          sound: null
+        });
+        
+        // تأثير بصري خاص للإنجازات
+        gsap.fromTo('.progress', 
+          { scale: 1 }, 
+          { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 }
+        );
+      }
+    }
+     if (consecutiveCorrect >= 5) { NotificationSystem.showSmart('encouragement', { title: 'أداء استثنائي! 🔥', icon: 'success', timer: 2500 }); consecutiveCorrect = 0; } } else { choice.classList.add('wrong'); consecutiveCorrect = 0; SoundSystem.play('wrong'); gsap.fromTo(choice, {x:0}, {x:-8, duration:.08, yoyo:true, repeat:6, ease: "power2.inOut"}); if (totalAnswered >= 3) { setTimeout(() => { NotificationSystem.showSmart('motivation', { title: 'استمر في المحاولة! 💪', icon: 'info', timer: 2500 }); }, 1000); } } updateProgress(); });
+        select: new Howl({ src: ['../../assets/audio/select.mp3'], volume: 0.4 }),
+    el.submit.addEventListener('click', ()=>{ const s = getStudent(); const { correct, total, percent } = computeScore(); celebrate(); const performanceLevel = NotificationSystem.getPerformanceLevel(percent); const smartMessage = NotificationSystem.getRandomMessage('finalResults', percent); let resultIcon = 'success'; let resultColor = '#10b981'; if (percent < 60) { resultIcon = 'info'; resultColor = '#3b82f6'; } Swal.fire({ title: `${performanceLevel === 'excellent' ? '🏆' : performanceLevel === 'good' ? '⭐' : performanceLevel === 'average' ? '👍' : '💪'} النتائج النهائية`, html: `<div style="text-align:right;line-height:2.2;padding:10px"><div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);padding:15px;border-radius:12px;margin-bottom:15px"><div><strong>👤 الاسم:</strong> ${s?.name || '-'}</div><div><strong>🏫 الصف:</strong> ${s?.klass || '-'}</div></div><div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);padding:15px;border-radius:12px;margin-bottom:15px"><div><strong>📊 النتيجة:</strong> ${correct} من ${total} سؤال</div><div><strong>📈 النسبة المئوية:</strong> <span style="color:#059669;font-size:18px;font-weight:900">${percent}%</span></div></div><div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);padding:15px;border-radius:12px;font-weight:600;color:#92400e">${smartMessage}</div></div>`, icon: resultIcon, confirmButtonText: '🔄 إعادة المحاولة', confirmButtonColor: resultColor, showDenyButton: true, denyButtonText: '🏠 العودة للرئيسية', denyButtonColor: '#d97706' }).then(res=>{ if(res.isConfirmed) { resetQuiz(); } else { window.location.href='https://devapp099.github.io/watyn-bio-activities-/index.html'; } }); });
+        milestone: new Howl({ src: ['../../assets/audio/long-beep.mp3'], volume: 0.4 }),
+    function resetQuiz(){
+      SoundSystem.play('reset');
+      
+      // إعادة تعيين المتغيرات
+      consecutiveCorrect = 0;
+      totalAnswered = 0;
+      
+      document.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      updateProgress();
+      
+      gsap.from("#quiz .q", {opacity:0, y:15, stagger:.06, duration:.5});
+      window.scrollTo({ top:0, behavior:'smooth' });
+      
+      // رسالة تحفيز لإعادة المحاولة
+      setTimeout(() => {
+        NotificationSystem.showSmart('encouragement', {
+          title: 'بداية جديدة! 🌟',
+          icon: 'info',
+          timer: 2000
+        });
+      }, 1000);
+    }); window.scrollTo({ top:0, behavior:'smooth' }); setTimeout(() => { NotificationSystem.showSmart('encouragement', { title: 'بداية جديدة! 🌟', icon: 'info', timer: 2000 }); }, 1000); }
+        firework: new Howl({ src: ['../../assets/audio/win-Blockbusters.mp3'], volume: 0.5 }),
+    el.start.addEventListener('click', askStudent); el.reset.addEventListener('click', resetQuiz); [el.start, el.submit, el.reset].forEach(btn => { if (btn) { btn.addEventListener('mouseenter', () => SoundSystem.play('select')); btn.addEventListener('click', () => SoundSystem.play('click')); } }); document.querySelectorAll('.choice').forEach(choice => { choice.addEventListener('mouseenter', () => { SoundSystem.play('select'); }); }); updateMeta();
+    updateProgress();
+    el.reset.addEventListener('click', resetQuiz);
+
+    // إضافة أصوات للأزرار
+    [el.start, el.submit, el.reset].forEach(btn => {
+      if (btn) {
+        btn.addEventListener('mouseenter', () => SoundSystem.play('select'));
+        btn.addEventListener('click', () => SoundSystem.play('click'));
+      }
+    });
+
+    // رسالة ترحيب عامة عند تحميل الصفحة
+    setTimeout(() => {
+      const student = getStudent();
+      if (student) {
+        NotificationSystem.student = student;
+        NotificationSystem.showSmart('welcome', {
+          title: 'مرحباً بعودتك! 👋',
+          timer: 3000,
+          sound: 'select'
+        });
+      }
+    }, 1000);
+  </script>et: new Howl({ src: ['../../assets/audio/reveal.mp3'], volume: 0.4 })
+</body>,
+</html>
+      play(soundName, visualEffect = null) {
+        if (this.sounds[soundName]) {
+          this.sounds[soundName].play();
+          if (visualEffect) visualEffect();
+        }
+      },
+      
+      playSequence(soundNames, delay = 300) {
+        soundNames.forEach((name, index) => {
+          setTimeout(() => this.play(name), index * delay);
+        });
+      }
+    };
+
+    // 🔔 نظام الإشعارات والرسائل التفاعلية الذكي
+    
+
+    // باقي الكود مع التحسينات الصوتية والذكية...
+    
+
+    async function askStudent(){
+      SoundSystem.play('start');
+      
+      const { value: formValues } = await Swal.fire({
+        title: 'مرحبًا في عالم العلوم! 🧬',
+        html:
+          `<div style="text-align:right">
+            <div style="margin-bottom:12px;font-weight:700;color:#d97706">أدخل بياناتك لتبدأ رحلتك العلمية:</div>
+            <input id="swal-name" class="swal2-input" placeholder="اسم الطالب/ـة" style="text-align:right">
+            <input id="swal-class" class="swal2-input" placeholder="الصف (مثال: التاسع/1)" style="text-align:right">
+            <div style="font-size:13px;color:#6b7280;margin-top:8px">
+              💡 سيتم استخدام اسمك لإرسال رسائل تشجيعية مخصصة!
+            </div>
+          </div>`,
+        focusConfirm: false,
+        confirmButtonText: '🚀 ابدأ المغامرة',
+        confirmButtonColor: '#d97706',
+        showCancelButton: true,
+        cancelButtonText: 'إلغاء',
+        preConfirm: () => {
+          const name = document.getElementById('swal-name').value?.trim();
+          const klass = document.getElementById('swal-class').value?.trim();
+          if(!name || !klass){
+            Swal.showValidationMessage('يرجى إدخال الاسم والصف');
+            return false;
+          }
+          return { name, klass };
+        }
+      });
+      
+      if(formValues){
+        setStudent(formValues);
+        updateMeta();
+        
+        // رسالة ترحيب ذكية
+        setTimeout(() => {
+          NotificationSystem.showSmart('welcome', {
+            title: 'أهلاً وسهلاً! 👋',
+            icon: 'success',
+            timer: 4000,
+            sound: 'select'
+          });
+        }, 500);
+        
+        el.quiz.style.display = "block";
+        gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6});
+      }
+    }
+          return { name, klass };
+        }
+      });
+      
+      if(formValues){
+        setStudent(formValues);
+        updateMeta();
+        
+        setTimeout(() => {
+          NotificationSystem.showSmart('welcome', {
+            title: 'أهلاً وسهلاً! 👋',
+            icon: 'success',
+            timer: 4000,
+            sound: 'select'
+          });
+        }, 500);
+        
+        el.quiz.style.display = "block";
+        gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6});
+      }
+    }
+
+    // نظام الإجابة المحسن مع الأصوات
+    function updateProgress(){
+      const total = document.querySelectorAll('.q[data-qid]').length;
+      const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
+        q.querySelector('.choice.correct, .choice.wrong')
+      ).length;
+      const oldProgress = parseInt(el.done.textContent) || 0;
+      
+      el.total.textContent = total;
+      el.done.textContent = answered;
+      const pc = Math.round((answered / total) * 100);
+      
+      // تأثير بصري لشريط التقدم مع صوت
+      gsap.to(el.bar, {
+        width: pc + "%",
+        duration: 0.5,
+        ease: "power2.out",
+        onComplete: () => {
+          if (answered > oldProgress) {
+            SoundSystem.play('progress');
+          }
+        }
+      });
+      
+      // إشعارات عند النقاط المهمة
+      if (answered > oldProgress) {
+        checkMilestones(pc, answered, total);
+      }
+    }
+    
+    // فحص النقاط المهمة في التقدم
+    function checkMilestones(percentage, questionCount, totalQuestions) {
+      const milestones = [25, 50, 75, 100];
+      const reached = milestones.find(m => percentage >= m && (percentage - 5) < m);
+      
+      if (reached && questionCount === Math.ceil(totalQuestions * reached / 100)) {
+        SoundSystem.play('milestone');
+        NotificationSystem.showSmart('milestone', {
+          title: 'إنجاز رائع! 🎯',
+          icon: 'success',
+          timer: 4000,
+          percentage: reached,
+          sound: null
+        });
+        
+        // تأثير بصري خاص للإنجازات
+        gsap.fromTo('.progress', 
+          { scale: 1 }, 
+          { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 }
+        );
+      }
+    }
+    
+          consecutiveCorrect = 0;
+        }
+        
+      } else {
+        choice.classList.add('wrong');
+        consecutiveCorrect = 0;
+        
+        SoundSystem.play('wrong');
+        
+        gsap.fromTo(choice, 
+          {x:0}, 
+          {x:-8, duration:.08, yoyo:true, repeat:6, ease: "power2.inOut"}
+        );
+        
+        if (totalAnswered >= 3) {
+          setTimeout(() => {
+            NotificationSystem.showSmart('motivation', {
+              title: 'استمر في المحاولة! 💪',
+              icon: 'info',
+              timer: 2500
+            });
+          }, 1000);
+        }
+      }
+      
+      updateProgress();
+    });
+
+    function celebrate(){
+      // احتفال متقدم مع أصوات متعددة
+      SoundSystem.playSequence(['celebration', 'firework'], 500);
+      
+      const duration = 2500; 
+      const end = Date.now() + duration;
+      
+      // تأثيرات الكونفيتي المحسنة
+      (function frame(){
+        confetti({ 
+          particleCount: 5, 
+          angle: 60, 
+          spread: 80, 
+          origin: { x: 0 },
+          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
+        });
+        confetti({ 
+          particleCount: 5, 
+          angle: 120, 
+          spread: 80, 
+          origin: { x: 1 },
+          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
+        });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+      
+      // تأثير بصري للشاشة كاملة
+      gsap.fromTo('body', 
+        {backgroundColor: 'transparent'}, 
+        {backgroundColor: 'rgba(245,158,11,0.1)', duration: 0.5, yoyo: true, repeat: 1}
+      );
+    },
+          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
+        });
+        confetti({ 
+          particleCount: 5, 
+          angle: 120, 
+          spread: 80, 
+          origin: { x: 1 },
+          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
+        });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+      
+      gsap.fromTo('body', 
+        {backgroundColor: 'transparent'}, 
+        {backgroundColor: 'rgba(245,158,11,0.1)', duration: 0.5, yoyo: true, repeat: 1}
+      );
+    }
+
+    // إضافة أصوات للأزرار والخيارات
+    [el.start, el.submit, el.reset].forEach(btn => {
+      if (btn) {
+        btn.addEventListener('mouseenter', () => SoundSystem.play('select'));
+        btn.addEventListener('click', () => SoundSystem.play('click'));
+      }
+    });
+
+    document.querySelectorAll('.choice').forEach(choice => {
+      choice.addEventListener('mouseenter', () => {
+        SoundSystem.play('select');
+      });
+    });
+
+    const el = {
+      start: document.getElementById('btnStart'),
+      quiz: document.getElementById('quiz'),
+      submit: document.getElementById('btnSubmit'),
+      reset: document.getElementById('btnReset'),
+      meta: document.getElementById('studentMeta'),
+      bar: document.getElementById('barFill'),
+      done: document.getElementById('countDone'),
+      total: document.getElementById('countTotal')
+    };
+
+    const storageKey = "watyn_bio_student";
+    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
+    
+
+    function updateMeta(){
+      const s = getStudent();
+      el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
+    }
+
+    // شريط التقدّم: أي اختيار (صحيح أو خاطئ) يُعدّ إجابة
+    
+        }
+      });
+      
+      if (answered > oldProgress) {
+        checkMilestones(pc, answered);
+      }
+    }
+    
+    );
+        
+        gsap.fromTo('.progress', 
+          { scale: 1 }, 
+          { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 }
+        );
+      }
+    }
+
+    el.submit.addEventListener('click', ()=>{
+      const s = getStudent();
+      const { correct, total, percent } = computeScore();
+      
+      celebrate();
+      
+      const performanceLevel = NotificationSystem.getPerformanceLevel(percent);
+      const smartMessage = NotificationSystem.getRandomMessage('finalResults', percent);
+      
+      let resultIcon = 'success';
+      let resultColor = '#10b981';
+      
+      if (percent < 60) {
+        resultIcon = 'info';
+        resultColor = '#3b82f6';
+      }
+      
+      Swal.fire({
+        title: `${performanceLevel === 'excellent' ? '🏆' : performanceLevel === 'good' ? '⭐' : performanceLevel === 'average' ? '👍' : '💪'} النتائج النهائية`,
+        html: `
+          <div style="text-align:right;line-height:2.2;padding:10px">
+            <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);padding:15px;border-radius:12px;margin-bottom:15px">
+              <div><strong>👤 الاسم:</strong> ${s?.name || '-'}</div>
+              <div><strong>🏫 الصف:</strong> ${s?.klass || '-'}</div>
+            </div>
+            <div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);padding:15px;border-radius:12px;margin-bottom:15px">
+              <div><strong>📊 النتيجة:</strong> ${correct} من ${total} سؤال</div>
+              <div><strong>📈 النسبة المئوية:</strong> <span style="color:#059669;font-size:18px;font-weight:900">${percent}%</span></div>
+            </div>
+            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);padding:15px;border-radius:12px;font-weight:600;color:#92400e">
+              ${smartMessage}
+            </div>
+          </div>`,
+        icon: resultIcon,
+        confirmButtonText: '🔄 إعادة المحاولة',
+        confirmButtonColor: resultColor,
+        showDenyButton: true,
+        denyButtonText: '🏠 العودة للرئيسية',
+        denyButtonColor: '#d97706'
+      }).then(res=>{ 
+        if(res.isConfirmed) {
+          resetQuiz(); 
+        } else {
+          window.location.href='https://devapp099.github.io/watyn-bio-activities-/index.html'; 
+        }
+      });
+    });
+
+    function resetQuiz(){
+      SoundSystem.play('reset');
+      
+      // إعادة تعيين المتغيرات
+      consecutiveCorrect = 0;
+      totalAnswered = 0;
+      
+      document.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      updateProgress();
+      
+      gsap.from("#quiz .q", {opacity:0, y:15, stagger:.06, duration:.5});
+      window.scrollTo({ top:0, behavior:'smooth' });
+      
+      // رسالة تحفيز لإعادة المحاولة
+      setTimeout(() => {
+        NotificationSystem.showSmart('encouragement', {
+          title: 'بداية جديدة! 🌟',
+          icon: 'info',
+          timer: 2000
+        });
+      }, 1000);
+    });
+      window.scrollTo({ top:0, behavior:'smooth' });
+      
+      setTimeout(() => {
+        NotificationSystem.showSmart('encouragement', {
+          title: 'بداية جديدة! 🌟',
+          icon: 'info',
+          timer: 2000
+        });
+      }, 1000);
+    }
+
+    el.reset.addEventListener('click', resetQuiz);
+
+    // تهيئة أولية
+    updateMeta();
+    updateProgress();
+    el.reset.addEventListener('click', resetQuiz);
+
+    // إضافة أصوات للأزرار
+    [el.start, el.submit, el.reset].forEach(btn => {
+      if (btn) {
+        btn.addEventListener('mouseenter', () => SoundSystem.play('select'));
+        btn.addEventListener('click', () => SoundSystem.play('click'));
+      }
+    });
+
+    // رسالة ترحيب عامة عند تحميل الصفحة
+    setTimeout(() => {
+      const student = getStudent();
+      if (student) {
+        NotificationSystem.student = student;
+        NotificationSystem.showSmart('welcome', {
+          title: 'مرحباً بعودتك! 👋',
+          timer: 3000,
+          sound: 'select'
+        });
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
+
+// نظام الإجابة المحسن مع الذكاء الاصطناعي
+    document.addEventListener('click', (e)=>{
+      const choice = e.target.closest('.choice');
+      if(!choice) return;
+      
+      // تشغيل صوت النقر
+      SoundSystem.play('click');
+      
+      const container = choice.closest('.choices');
+      const wasAnswered = container.querySelector('.choice.correct, .choice.wrong');
+      
+      // منع إعادة الإجابة على نفس السؤال
+      if (wasAnswered) return;
+      
+      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      
+      totalAnswered++;
+      
+      if(choice.dataset.correct === "true"){
+        choice.classList.add('correct');
+        consecutiveCorrect++;
+        
+        SoundSystem.play('correct');
+        
+        // تأثير بصري للإجابة الصحيحة
+        gsap.fromTo(choice, 
+          {scale:1, backgroundColor: 'rgba(52,211,153,.10)'}, 
+          {scale:1.05, y:-4, duration:.3, yoyo:true, repeat:1, ease: "back.out(1.7)"}
+        );
+        
+        // رسائل تشجيع ذكية حسب الأداء
+        if (consecutiveCorrect >= 5) {
+          NotificationSystem.showSmart('encouragement', {
+            title: 'أداء استثنائي! 🔥',
+            icon: 'success',
+            timer: 2500
+          });
+          consecutiveCorrect = 0;
+        }
+        
+      } else {
+        choice.classList.add('wrong');
+        consecutiveCorrect = 0;
+        
+        SoundSystem.play('wrong');
+        
+        // تأثير بصري للإجابة الخاطئة
+        gsap.fromTo(choice, 
+          {x:0}, 
+          {x:-8, duration:.08, yoyo:true, repeat:6, ease: "power2.inOut"}
+        );
+        
+        // رسائل تحفيز ذكية
+        if (totalAnswered >= 3) {
+          setTimeout(() => {
+            NotificationSystem.showSmart('motivation', {
+              title: 'استمر في المحاولة! 💪',
+              icon: 'info',
+              timer: 2500
+            });
+          }, 1000);
+        }
+      }
+      
+      updateProgress();
+    });
+
+    // إضافة أصوات للأزرار وتأثيرات تفاعلية
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.choice').forEach(choice => {
+        choice.addEventListener('mouseenter', () => {
+          SoundSystem.play('select');
+        });
+      });
+    });
+el.submit.addEventListener('click', ()=>{
+      const s = getStudent();
+      const { correct, total, percent } = computeScore();
+      
+      celebrate();
+      
+      // رسالة نتائج ذكية مخصصة
+      const performanceLevel = NotificationSystem.getPerformanceLevel(percent);
+      const smartMessage = NotificationSystem.getRandomMessage('finalResults', percent);
+      
+      let resultIcon = 'success';
+      let resultColor = '#10b981';
+      
+      if (percent < 60) {
+        resultIcon = 'info';
+        resultColor = '#3b82f6';
+      }
+      
+      Swal.fire({
+        title: `${performanceLevel === 'excellent' ? '🏆' : performanceLevel === 'good' ? '⭐' : performanceLevel === 'average' ? '👍' : '💪'} النتائج النهائية`,
+        html: `
+          <div style="text-align:right;line-height:2.2;padding:10px">
+            <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);padding:15px;border-radius:12px;margin-bottom:15px">
+              <div><strong>👤 الاسم:</strong> ${s?.name || '-'}</div>
+              <div><strong>🏫 الصف:</strong> ${s?.klass || '-'}</div>
+            </div>
+            <div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);padding:15px;border-radius:12px;margin-bottom:15px">
+              <div><strong>📊 النتيجة:</strong> ${correct} من ${total} سؤال</div>
+              <div><strong>📈 النسبة المئوية:</strong> <span style="color:#059669;font-size:18px;font-weight:900">${percent}%</span></div>
+            </div>
+            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);padding:15px;border-radius:12px;font-weight:600;color:#92400e">
+              ${smartMessage}
+            </div>
+          </div>`,
+        icon: resultIcon,
+        confirmButtonText: '🔄 إعادة المحاولة',
+        confirmButtonColor: resultColor,
+        showDenyButton: true,
+        denyButtonText: '🏠 العودة للرئيسية',
+        denyButtonColor: '#d97706'
+      }).then(res=>{ 
+        if(res.isConfirmed) {
+          resetQuiz(); 
+        } else {
+          window.location.href='https://devapp099.github.io/bioclass9/'; 
+        }
+      });
+    });
