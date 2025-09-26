@@ -113,7 +113,6 @@
       }
     };
 
-    
     const EnhancedNotificationSystem = {
       student: null,
       lessonInfo: {
@@ -334,10 +333,7 @@
   </div>
 
   <script>
-    AOS.init({ duration: 700, once: true });
     // 🎵 النظام الصوتي الذكي المتقدم
-    ;
-    ;
 
     // بنك الأسئلة — 20 سؤال (يمكنك الزيادة بإضافة عناصر جديدة لنهاية المصفوفة)
     const bank = [
@@ -458,16 +454,6 @@
         setStudent(formValues);
         EnhancedNotificationSystem.student = formValues;
         updateMeta();
-    
-    // تهيئة AOS للأنيميشن
-    AOS.init({
-      duration: 700,
-      easing: 'ease',
-      once: true,
-      offset: 50
-    });
-    
-    console.log('✨ تم تهيئة AOS للأنيميشن');
         
         // تفعيل النظام الذكي مع الرسالة الترحيبية
         EnhancedNotificationSystem.initForStudent(formValues);
@@ -554,7 +540,6 @@
       });
     });
 
-        
     // فحص النقاط المهمة في التقدم
     function checkMilestones(percentage, questionCount, totalQuestions) {
       const milestones = [25, 50, 75, 100];
@@ -693,9 +678,9 @@
 
     el.start.addEventListener('click', askStudent);
 
-    el.submit.addEventListener('click', ()=>{
+    el.submit.addEventListener("click", () => {submit.addEventListener('click', ()=>{
       const s = getStudent();
-      const { correct, total, percent } = computeScore();
+      const { correct, total, percent }}); = computeScore();
       celebrate();
       
       // رسالة نتائج ذكية مخصصة
@@ -763,10 +748,4 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
 
