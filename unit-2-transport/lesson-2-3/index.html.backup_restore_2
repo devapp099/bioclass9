@@ -1,7 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <title>🧪 درس 4-1 — النظام الغذائي</title>
+  <title>🧪 درس 2-3 — الأسموزية والبطاطس</title>
+  
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet" />
@@ -22,12 +23,15 @@
     html,body{height:100%}
     body{
       margin:0; background: var(--bg);
-      min-height:100vh; color:var(--text); font-family:"Cairo", system-ui, sans-serif; line-height:1.7; letter-spacing:.2px;
+      min-height:100vh;
+      color:var(--text); font-family:"Cairo", system-ui, sans-serif; line-height:1.7; letter-spacing:.2px;
       position: relative;
     }
     body::before {
-      content: ''; position: fixed; inset:0;
-      background:
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: 
         radial-gradient(circle at 20% 80%, rgba(255,165,0,.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(255,69,0,.12) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(255,20,147,.1) 0%, transparent 50%);
@@ -45,9 +49,9 @@
     .logo{width:42px; height:42px; border-radius:12px;
       background: conic-gradient(from 200deg, var(--primary), var(--accent), #10b981, #3b82f6);
       box-shadow: 0 8px 24px rgba(245,158,11,.35);
-      animation: spin 20s linear infinite;
+      animation: logoRotate 20s linear infinite;
     }
-    @keyframes spin { to { transform: rotate(360deg) } }
+    @keyframes logoRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     .title{font-weight:900; font-size:clamp(20px,3vw,28px)}
     .subtitle{font-weight:700; font-size:clamp(14px,2vw,16px); color:var(--muted)}
     .card{
@@ -57,12 +61,14 @@
       box-shadow: var(--card-shadow);
       transition: all 0.3s ease;
     }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1) }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1); }
     h1{font-size:clamp(28px,4vw,40px); margin:0 0 6px; font-weight:900;
        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;}
     h2{font-size:clamp(18px,3vw,22px); margin:10px 0 14px; font-weight:800; color:var(--primary)}
     p.lead{color:var(--muted); font-size:clamp(15px,2.4vw,18px); margin-top:0}
+    .grid{display:grid; gap:16px}
+    @media (min-width: 840px){ .grid-2{grid-template-columns:1fr 1fr} .grid-3{grid-template-columns:repeat(3,1fr)} }
     .btn{
       all:unset; cursor:pointer; padding:14px 18px; border-radius:16px; font-weight:800;
       border:1px solid rgba(245,158,11,.3);
@@ -94,6 +100,7 @@
     .credit{color:var(--text); font-weight:800}
     a.card-link{ display:block; text-decoration:none; color:inherit }
   </style>
+
 </head>
 <body>
   <div class="wrap">
@@ -101,8 +108,9 @@
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          <div class="title">🧪 درس 4-1 — النظام الغذائي</div>
+          <div class="title">🧪 درس 2-3 — الأسموزية والبطاطس</div>
           <div class="subtitle" id="studentMeta">مرحبًا! لنبدأ…</div>
+          <!-- شريط التقدّم -->
           <div class="progress">
             <div>التقدّم:</div>
             <div class="bar"><span id="barFill"></span></div>
@@ -110,224 +118,224 @@
           </div>
         </div>
       </div>
-      <a class="btn-ghost" href="../../index.html">← العودة</a>
     </header>
 
     <section class="card" style="margin-top:18px; position:relative" data-aos="zoom-in">
       <div class="pulse"></div>
       <h1>🎯 أهداف الدرس</h1>
-      <p class="lead">مكوّنات النظام الغذائي المتوازن ودور المغذيات الكبرى والصغرى وكيفية قراءة الخيارات الغذائية.</p>
+      <p class="lead">استقصاء تأثير تركيز المحلول على كتلة شرائح البطاطس وتفسير النتائج.</p>
       <ul>
-        <li>التفريق بين كربوهيدرات/دهون/بروتين ووظائفها الأساسية.</li>
-        <li>أهمية الألياف والماء والفيتامينات والمعادن.</li>
-        <li>مبادئ «الطبق المتوازن» وحساب السعرات من المغذّيات.</li>
+        <li>تعريف الأسموزية بدقة واتجاه حركة الماء عبر الغشاء شبه المنفذ.</li>
+        <li>التمييز بين المحاليل مفرطة/مخففة/متعادلـة التوتر وتأثيرها على الخلايا النباتية.</li>
+        <li>استنتاج «نقطة التعادل الإسموزي» من بيانات التغير النسبي في الكتلة.</li>
       </ul>
       <div style="display:flex; gap:10px; flex-wrap:wrap">
         <button id="btnStart" class="btn">ابدأ النشاط</button>
+        <a class="btn-ghost" href="../../index.html">← العودة</a>
       </div>
     </section>
 
     <section id="quiz" class="card" style="margin-top:16px; display:none" data-aos="fade-up">
       <h2>الأسئلة التفاعلية</h2>
 
-      <!-- 20 سؤال -->
+      <!-- 20 سؤالًا -->
       <article class="q" data-qid="q1">
-        <div><strong>1) من وظائف البروتين الأساسية:</strong></div>
+        <div><strong>1) الأسموزية هي انتقال الماء عبر غشاء شبه منفذ من بيئة:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">النمو وبناء الأنسجة</div>
-          <div class="choice" data-correct="false">تخزين طويل للطاقة فقط</div>
-          <div class="choice" data-correct="false">تزويد الألياف</div>
-          <div class="choice" data-correct="false">إمداد فيتامين د</div>
+          <div class="choice" data-correct="true">أقل تركيزًا للمذاب (أعلى ماء) إلى أعلى تركيز للمذاب</div>
+          <div class="choice" data-correct="false">أعلى تركيز مذاب إلى الأقل</div>
+          <div class="choice" data-correct="false">متساوية التركيز بلا حركة عشوائية</div>
+          <div class="choice" data-correct="false">لا علاقة لها بفرق التركيز</div>
         </div>
       </article>
 
       <article class="q" data-qid="q2">
-        <div><strong>2) المغذّي الأنسب للطاقة السريعة:</strong></div>
+        <div><strong>2) انخفاض كتلة شريحة البطاطس بعد النقع يدل على أن المحلول كان:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الكربوهيدرات</div>
-          <div class="choice" data-correct="false">البروتين</div>
-          <div class="choice" data-correct="false">الحديد</div>
-          <div class="choice" data-correct="false">الكالسيوم</div>
+          <div class="choice" data-correct="true">مفرط التوتر (Hypertonic)</div>
+          <div class="choice" data-correct="false">مخفّف التوتر (Hypotonic)</div>
+          <div class="choice" data-correct="false">متعادل التوتر</div>
+          <div class="choice" data-correct="false">ماءً نقيًا</div>
         </div>
       </article>
 
       <article class="q" data-qid="q3">
-        <div><strong>3) نقص فيتامين (د) قد يؤدي إلى:</strong></div>
+        <div><strong>3) في المحلول متعادل التوتر بالنسبة لخلايا البطاطس:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الكساح/لين العظام</div>
-          <div class="choice" data-correct="false">فقر دم فوري</div>
-          <div class="choice" data-correct="false">قصور الغدة الدرقية</div>
-          <div class="choice" data-correct="false">قِصر النظر</div>
+          <div class="choice" data-correct="true">لا يتغير الوزن تقريبًا (تغير ≈ 0%)</div>
+          <div class="choice" data-correct="false">يزداد الوزن كثيرًا</div>
+          <div class="choice" data-correct="false">ينخفض الوزن كثيرًا</div>
+          <div class="choice" data-correct="false">تحدث بلازموليز تام</div>
         </div>
       </article>
 
       <article class="q" data-qid="q4">
-        <div><strong>4) الألياف الغذائية تفيد في:</strong></div>
+        <div><strong>4) المتغير المستقل الشائع في تجربة البطاطس هو:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تحسين حركة الأمعاء والشعور بالشبع</div>
-          <div class="choice" data-correct="false">رفع ضغط الدم</div>
-          <div class="choice" data-correct="false">زيادة الكوليسترول</div>
-          <div class="choice" data-correct="false">نقص الماء</div>
+          <div class="choice" data-correct="true">تركيز محلول السكروز</div>
+          <div class="choice" data-correct="false">كتلة الشريحة النهائية</div>
+          <div class="choice" data-correct="false">نسبة التغير المئوي</div>
+          <div class="choice" data-correct="false">نوع الميزان</div>
         </div>
       </article>
 
       <article class="q" data-qid="q5">
-        <div><strong>5) مثال لمصدر دهون صحية غير مشبعة:</strong></div>
+        <div><strong>5) المتغير التابع المناسب قياسه هو:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الأسماك الدهنية/المكسرات/زيت الزيتون</div>
-          <div class="choice" data-correct="false">السمن الصناعي المتحوّل</div>
-          <div class="choice" data-correct="false">الدهون المتحولة</div>
-          <div class="choice" data-correct="false">الدهون المهدرجة</div>
+          <div class="choice" data-correct="true">% التغير في الكتلة</div>
+          <div class="choice" data-correct="false">حجم الكوب</div>
+          <div class="choice" data-correct="false">عدد الأكواب</div>
+          <div class="choice" data-correct="false">نوع المقص</div>
         </div>
       </article>
 
       <article class="q" data-qid="q6">
-        <div><strong>6) الحديد ضروري لـ:</strong></div>
+        <div><strong>6) لضمان «اختبار عادل» يجب ضبط جميع ما يلي عدا:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تكوين الهيموغلوبين ونقل الأكسجين</div>
-          <div class="choice" data-correct="false">إنتاج الأنسولين</div>
-          <div class="choice" data-correct="false">صنع فيتامين سي</div>
-          <div class="choice" data-correct="false">تحلل النشا</div>
+          <div class="choice" data-correct="false">زمن النقع</div>
+          <div class="choice" data-correct="false">حجم/سماكة الشرائح</div>
+          <div class="choice" data-correct="false">درجة الحرارة</div>
+          <div class="choice" data-correct="true">تركيز المحلول المستخدم</div>
         </div>
       </article>
 
       <article class="q" data-qid="q7">
-        <div><strong>7) فيتامين (د) يساعد الجسم على:</strong></div>
+        <div><strong>7) تجفيف الشرائح بلطف قبل الوزن النهائي مهم لأنه:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">امتصاص الكالسيوم وصحة العظام</div>
-          <div class="choice" data-correct="false">تخزين الغلوكوز في العضلات</div>
-          <div class="choice" data-correct="false">صنع الأحماض الأمينية</div>
-          <div class="choice" data-correct="false">تكوين الألياف</div>
+          <div class="choice" data-correct="true">يزيل الماء السطحي لتكون الكتلة ممثلة للمحتوى الداخلي</div>
+          <div class="choice" data-correct="false">يمنع حدوث الأسموزية</div>
+          <div class="choice" data-correct="false">يزيد الكتلة عمدًا</div>
+          <div class="choice" data-correct="false">يعقم الشرائح</div>
         </div>
       </article>
 
       <article class="q" data-qid="q8">
-        <div><strong>8) من وظائف الماء في الجسم:</strong></div>
+        <div><strong>8) إذا وُضعت الشريحة في ماء نقي، فالمتوقع أن:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">نقل المواد وتنظيم الحرارة</div>
-          <div class="choice" data-correct="false">تزويد 9 سعرات/غرام</div>
-          <div class="choice" data-correct="false">تخزين فيتامينات دائمة</div>
-          <div class="choice" data-correct="false">بناء الهيموغلوبين</div>
+          <div class="choice" data-correct="true">تزداد الكتلة وتصبح الخلايا ممتلئة (Turgid)</div>
+          <div class="choice" data-correct="false">تنخفض الكتلة وتحدث بلازموليز</div>
+          <div class="choice" data-correct="false">لا يتغير شيء إطلاقًا</div>
+          <div class="choice" data-correct="false">تتحلل الأنسجة فورًا</div>
         </div>
       </article>
 
       <article class="q" data-qid="q9">
-        <div><strong>9) الاحتياج للطاقة (السعرات) يتأثر بـ:</strong></div>
+        <div><strong>9) البلازموليز يحدث عندما تكون البيئة خارج الخلية:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">العمر والجنس والوزن والنشاط</div>
-          <div class="choice" data-correct="false">لون العين</div>
-          <div class="choice" data-correct="false">فصيلة الدم فقط</div>
-          <div class="choice" data-correct="false">طول الشعر</div>
+          <div class="choice" data-correct="true">مفرطة التوتر فيخرج الماء وتنكمش الفجوة</div>
+          <div class="choice" data-correct="false">مخففة التوتر فيدخل الماء</div>
+          <div class="choice" data-correct="false">متعادلـة تمامًا</div>
+          <div class="choice" data-correct="false">خالية من المذاب والماء</div>
         </div>
       </article>
 
       <article class="q" data-qid="q10">
-        <div><strong>10) الصوديوم والبوتاسيوم يُسهمان في:</strong></div>
+        <div><strong>10) استخدام قاطع أسطواني موحّد (Cork borer) يساعد على:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">توازن السوائل ووظيفة الأعصاب والعضلات</div>
-          <div class="choice" data-correct="false">تصبغ الجلد</div>
-          <div class="choice" data-correct="false">تخزين الدهون</div>
-          <div class="choice" data-correct="false">إنتاج فيتامينات</div>
+          <div class="choice" data-correct="true">توحيد مساحة السطح/السمك لكل الشرائح</div>
+          <div class="choice" data-correct="false">زيادة اختلاف السمك</div>
+          <div class="choice" data-correct="false">تسريع التجفيف</div>
+          <div class="choice" data-correct="false">منع امتصاص الماء نهائيًا</div>
         </div>
       </article>
 
       <article class="q" data-qid="q11">
-        <div><strong>11) لتعزيز امتصاص الحديد من المصادر النباتية يُفضّل تناوله مع:</strong></div>
+        <div><strong>11) ارتفاع درجة الحرارة أثناء النقع يؤدي عادةً إلى:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">فيتامين (ج) (حمضيّات/فلفل)</div>
-          <div class="choice" data-correct="false">الماء فقط</div>
-          <div class="choice" data-correct="false">الألياف بكثرة</div>
-          <div class="choice" data-correct="false">الملح</div>
+          <div class="choice" data-correct="true">تسريع وصول الاتزان الإسموزي (حركة جزيئات أسرع)</div>
+          <div class="choice" data-correct="false">إيقاف الأسموزية</div>
+          <div class="choice" data-correct="false">انخفاض الذوبانية دومًا للصفر</div>
+          <div class="choice" data-correct="false">تغيير نوع المذاب</div>
         </div>
       </article>
 
       <article class="q" data-qid="q12">
-        <div><strong>12) الإفراط في الصوديوم يرتبط بـ:</strong></div>
+        <div><strong>12) تكرار القياسات (التكرارات) مفيد لأنه:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">ارتفاع ضغط الدم</div>
-          <div class="choice" data-correct="false">فقر الدم</div>
-          <div class="choice" data-correct="false">انخفاض حرارة الجسم</div>
-          <div class="choice" data-correct="false">زيادة البصر</div>
+          <div class="choice" data-correct="true">يزيد الموثوقية ويسمح بحساب متوسط يقلل أثر القيم الشاذة</div>
+          <div class="choice" data-correct="false">يُغيّر اتجاه الأسموزية</div>
+          <div class="choice" data-correct="false">يقلل حجم العينة المقاسة</div>
+          <div class="choice" data-correct="false">يلغي الحاجة لضبط المتغيرات</div>
         </div>
       </article>
 
       <article class="q" data-qid="q13">
-        <div><strong>13) الكربوهيدرات المعقّدة الأفضل للصحة غالبًا:</strong></div>
+        <div><strong>13) في مخطط (% التغير في الكتلة) مقابل تركيز السكروز، فإن تركيز التعادل الإسموزي يُستدل عليه عند:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الحبوب الكاملة (أرز بني/شوفان)</div>
-          <div class="choice" data-correct="false">السكر الأبيض</div>
-          <div class="choice" data-correct="false">الحلوى فقط</div>
-          <div class="choice" data-correct="false">المشروبات المحلّاة</div>
+          <div class="choice" data-correct="true">نقطة تقاطع المنحنى مع الصفر (لا تغيّر في الكتلة)</div>
+          <div class="choice" data-correct="false">أكبر قيمة موجبة</div>
+          <div class="choice" data-correct="false">أكبر قيمة سالبة</div>
+          <div class="choice" data-correct="false">أي نقطة على المنحنى</div>
         </div>
       </article>
 
       <article class="q" data-qid="q14">
-        <div><strong>14) وجبة تحوي 50غ كربوهيدرات، 10غ دهون، 20غ بروتين. مجموع السعرات ≈</strong></div>
+        <div><strong>14) إذا كانت الكتلة الابتدائية 5.00جم والنهائية 5.60جم، فإن % التغير يساوي تقريبًا:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">370 ك.سعرة</div>
-          <div class="choice" data-correct="false">330 ك.سعرة</div>
-          <div class="choice" data-correct="false">410 ك.سعرة</div>
-          <div class="choice" data-correct="false">290 ك.سعرة</div>
+          <div class="choice" data-correct="true">+12%</div>
+          <div class="choice" data-correct="false">+6%</div>
+          <div class="choice" data-correct="false">-12%</div>
+          <div class="choice" data-correct="false">0%</div>
         </div>
       </article>
 
       <article class="q" data-qid="q15">
-        <div><strong>15) في «الطبق المتوازن» يُفضّل أن تُشكّل الخضار والفاكهة:</strong></div>
+        <div><strong>15) إذا كانت الكتلة الابتدائية 5.00جم والنهائية 4.25جم، فإن % التغير يساوي تقريبًا:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">نصف الطبق تقريبًا</div>
-          <div class="choice" data-correct="false">الطبق كاملًا</div>
-          <div class="choice" data-correct="false">ربع الطبق فقط</div>
-          <div class="choice" data-correct="false">لا شيءَ منها</div>
+          <div class="choice" data-correct="true">-15%</div>
+          <div class="choice" data-correct="false">-5%</div>
+          <div class="choice" data-correct="false">+15%</div>
+          <div class="choice" data-correct="false">0%</div>
         </div>
       </article>
 
       <article class="q" data-qid="q16">
-        <div><strong>16) لكل غرام دهون:</strong></div>
+        <div><strong>16) عند النقطة التي تكون فيها مياه الخلية ومحاليل النقع متساوية الجهد المائي، فإن الخلايا تكون:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">≈ 9 ك.سعرة</div>
-          <div class="choice" data-correct="false">≈ 4 ك.سعرة</div>
-          <div class="choice" data-correct="false">≈ 0 ك.سعرة</div>
-          <div class="choice" data-correct="false">≈ 2 ك.سعرة</div>
+          <div class="choice" data-correct="true">بلا صافي دخول أو خروج للماء</div>
+          <div class="choice" data-correct="false">ممتلئة بشدة دائمًا</div>
+          <div class="choice" data-correct="false">منقبضة دائمًا</div>
+          <div class="choice" data-correct="false">خالية من الفجوة العصارية</div>
         </div>
       </article>
 
       <article class="q" data-qid="q17">
-        <div><strong>17) مصدر جيّد لأحماض أوميغا-3:</strong></div>
+        <div><strong>17) أيٌّ مما يلي خطأ منهجي يزيد عدم الدقة في النتائج؟</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الأسماك الدهنية (سلمون/سردين)</div>
-          <div class="choice" data-correct="false">السكر البني</div>
-          <div class="choice" data-correct="false">المعكرونة البيضاء</div>
-          <div class="choice" data-correct="false">المشروبات الغازية</div>
+          <div class="choice" data-correct="true">عدم تجفيف الشرائح قبل الوزن النهائي</div>
+          <div class="choice" data-correct="false">استخدام ميزان مُعاير</div>
+          <div class="choice" data-correct="false">توحيد زمن النقع</div>
+          <div class="choice" data-correct="false">استخدام تركيزات معروفة</div>
         </div>
       </article>
 
       <article class="q" data-qid="q18">
-        <div><strong>18) عدم تحمّل اللاكتوز يعني:</strong></div>
+        <div><strong>18) أي بيان صحيح حول اتجاه الماء في المحاليل المختلفة؟</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">صعوبة هضم سكر الحليب لنقص إنزيم اللاكتاز</div>
-          <div class="choice" data-correct="false">حساسية سمكية</div>
-          <div class="choice" data-correct="false">عدم تحمل الغلوتين</div>
-          <div class="choice" data-correct="false">نقص الحديد</div>
+          <div class="choice" data-correct="true">Hypotonic: يدخل الماء إلى الخلية • Hypertonic: يخرج الماء</div>
+          <div class="choice" data-correct="false">Hypotonic: يخرج الماء • Hypertonic: يدخل الماء</div>
+          <div class="choice" data-correct="false">Isotonic: يدخل الماء صافيًا</div>
+          <div class="choice" data-correct="false">جميعها تُدخل الماء صافيًا</div>
         </div>
       </article>
 
       <article class="q" data-qid="q19">
-        <div><strong>19) أي الوجبات التالية أقرب لوجبة متوازنة؟</strong></div>
+        <div><strong>19) إذا كانت نقطة التعادل الإسموزي ≈ 0.30 مول/لتر سكروز، فالمحاليل الأقل من 0.30 م تكون غالبًا:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">أرز بني + دجاج مشوي + سلطة خضراء + لبن زبادي</div>
-          <div class="choice" data-correct="false">بطاطس مقلية فقط</div>
-          <div class="choice" data-correct="false">حلوى ومشروب غازي</div>
-          <div class="choice" data-correct="false">خبز أبيض فقط</div>
+          <div class="choice" data-correct="true">مخففة التوتر بالنسبة للبطاطس (زيادة كتلة)</div>
+          <div class="choice" data-correct="false">مفرطة التوتر (نقص كتلة)</div>
+          <div class="choice" data-correct="false">متعادلـة التوتر دومًا</div>
+          <div class="choice" data-correct="false">غير مناسبة للأسموزية</div>
         </div>
       </article>
 
       <article class="q" data-qid="q20">
-        <div><strong>20) أي مما يلي يُعد من «المغذّيات الصغرى»؟</strong></div>
+        <div><strong>20) سبب شائع لقيمة شاذّة واحدة بين ثلاث قراءات هو:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الفيتامينات والمعادن</div>
-          <div class="choice" data-correct="false">الكربوهيدرات</div>
-          <div class="choice" data-correct="false">الدهون</div>
-          <div class="choice" data-correct="false">البروتين</div>
+          <div class="choice" data-correct="true">عدم توحيد طول/قطر الشريحة أو خطأ وزن منفرد</div>
+          <div class="choice" data-correct="false">قانون الأسموزية تغيّر مؤقتًا</div>
+          <div class="choice" data-correct="false">انعدام الذوبان فجأة</div>
+          <div class="choice" data-correct="false">توقف الحركة البراونية</div>
         </div>
       </article>
 
@@ -392,7 +400,7 @@
       // رسائل متنوعة حسب الأداء
       messages: {
         welcome: [
-          "أهلاً وسهلاً {name}! مرحبًا بك في درس 4-1 — النظام الغذائي المثير! 🧬",
+          "أهلاً وسهلاً {name}! مرحبًا بك في درس 2-3 — الأسموزية والبطاطس المثير! 🧬",
           "مرحبًا {name}! أنت على وشك خوض مغامرة علمية رائعة! 🔬",
           "أهلاً {name}! دعنا نكتشف أسرار العلوم معًا! ✨"
         ],
@@ -492,38 +500,45 @@
       NotificationSystem.student = obj;
     }
 
-    // 🎵 نظام صوتي ذكي متقدم
+
     
 
-    // 🔔 نظام الإشعارات والرسائل التفاعلية الذكي
     
 
-
-    // بنك الأسئلة المخصص للدرس
-    const bank = [
-      {q:"التمثيل الضوئي يحدث في:", c:["الميتوكندريا", "البلاستيدات الخضراء", "النواة", "الفجوة"], a:1},
-      {q:"المعادلة العامة للتمثيل الضوئي:", c:["CO2 + H2O + ضوء → جلوكوز + O2", "جلوكوز + O2 → CO2 + H2O", "H2O فقط", "CO2 فقط"], a:0},
-      {q:"العوامل المحددة للتمثيل الضوئي:", c:["شدة الضوء، CO2، الحرارة", "اللون فقط", "الوقت فقط", "حجم الورقة فقط"], a:0},
-      {q:"الكلوروفيل يمتص الضوء:", c:["الأخضر فقط", "الأحمر والأزرق أكثر من الأخضر", "البنفسجي فقط", "جميع الألوان بنفس القدر"], a:1},
-      {q:"نواتج التمثيل الضوئي:", c:["CO2 والماء", "الجلوكوز والأكسجين", "النيتروجين", "الأحماض"], a:1}
-    ];
-
-    const el = {
-      start: document.getElementById('btnStart'),
-      quiz: document.getElementById('quiz'),
-      submit: document.getElementById('btnSubmit'),
-      reset: document.getElementById('btnReset'),
-      meta: document.getElementById('studentMeta'),
-      bar: document.getElementById('barFill'),
-      done: document.getElementById('countDone'),
-      total: document.getElementById('countTotal')
-    };
-
-    const storageKey = "watyn_bio_student";
-     // إجمالي الأسئلة المجابة
-
-    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
-    
+    const el = { start: document.getElementById('btnStart'), quiz: document.getElementById('quiz'), submit: document.getElementById('btnSubmit'), reset: document.getElementById('btnReset'), meta: document.getElementById('studentMeta'), bar: document.getElementById('barFill'), done: document.getElementById('countDone'), total: document.getElementById('countTotal') };
+    const storageKey = "watyn_bio_student"; let consecutiveCorrect = 0, totalAnswered = 0;
+    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }  function updateMeta(){ const s = getStudent(); el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…"; }  } }); if (answered > oldProgress) { checkMilestones(pc, answered); } } ); gsap.fromTo('.progress', { scale: 1 }, { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 }); } } function computeScore(){ const blocks = Array.from(document.querySelectorAll('.q[data-qid]')); let correct = 0; blocks.forEach(b=>{ const sel = b.querySelector('.choice.correct'); if(sel) correct++; }); return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) }; } function celebrate(){
+      // احتفال متقدم مع أصوات متعددة
+      SoundSystem.playSequence(['celebration', 'firework'], 500);
+      
+      const duration = 2500; 
+      const end = Date.now() + duration;
+      
+      // تأثيرات الكونفيتي المحسنة
+      (function frame(){
+        confetti({ 
+          particleCount: 5, 
+          angle: 60, 
+          spread: 80, 
+          origin: { x: 0 },
+          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
+        });
+        confetti({ 
+          particleCount: 5, 
+          angle: 120, 
+          spread: 80, 
+          origin: { x: 1 },
+          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
+        });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+      
+      // تأثير بصري للشاشة كاملة
+      gsap.fromTo('body', 
+        {backgroundColor: 'transparent'}, 
+        {backgroundColor: 'rgba(245,158,11,0.1)', duration: 0.5, yoyo: true, repeat: 1}
+      );
+    }, colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6'] }); confetti({ particleCount: 5, angle: 120, spread: 80, origin: { x: 1 }, colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6'] }); if (Date.now() < end) requestAnimationFrame(frame); })(); gsap.fromTo('body', {backgroundColor: 'transparent'}, {backgroundColor: 'rgba(245,158,11,0.1)', duration: 0.5, yoyo: true, repeat: 1}); }
 
     async function askStudent(){
       SoundSystem.play('start');
@@ -572,53 +587,8 @@
         el.quiz.style.display = "block";
         gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6});
       }
-    }
-          return { name, klass };
-        }
-      });
-      
-      if(formValues){
-        setStudent(formValues);
-        updateMeta();
-        
-        // رسالة ترحيب ذكية
-        setTimeout(() => {
-          NotificationSystem.showSmart('welcome', {
-            title: 'أهلاً وسهلاً! 👋',
-            icon: 'success',
-            timer: 4000,
-            sound: 'select'
-          });
-        }, 500);
-        
-        el.quiz.style.display = "block";
-        gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6});
-      }
-    }
-          return { name, klass };
-        }
-      });
-      if(formValues){
-        setStudent(formValues);
-        updateMeta();
-        el.quiz.style.display = "block";
-        gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.5});
-        // تهيئة شريط التقدّم
-        document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
-        document.getElementById('countDone').textContent = 0;
-        el.bar.style.width = '0%';
-      }
-    }
+    } return { name, klass }; } }); if(formValues){ setStudent(formValues); updateMeta(); setTimeout(() => { NotificationSystem.showSmart('welcome', { title: 'أهلاً وسهلاً! 👋', icon: 'success', timer: 4000, sound: 'select' }); }, 500); el.quiz.style.display = "block"; gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6}); } }
 
-    function updateMeta(){
-      const s = getStudent();
-      el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
-    }
-
-    // شريط التقدّم: أي اختيار (صحيح أو خاطئ) يُعدّ إجابة
-    
-
-    // نظام الإجابة المحسن مع الذكاء الاصطناعي
     function updateProgress(){
       const total = document.querySelectorAll('.q[data-qid]').length;
       const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
@@ -670,126 +640,9 @@
         );
       }
     }
-    
-          consecutiveCorrect = 0; // إعادة تعيين العداد
-        }
-        
-      } else {
-        choice.classList.add('wrong');
-        consecutiveCorrect = 0; // إعادة تعيين العداد للإجابات الصحيحة
-        
-        SoundSystem.play('wrong');
-        
-        // تأثير بصري للإجابة الخاطئة
-        gsap.fromTo(choice, 
-          {x:0}, 
-          {x:-8, duration:.08, yoyo:true, repeat:6, ease: "power2.inOut"}
-        );
-        
-        // رسائل تحفيز ذكية
-        if (totalAnswered >= 3) {
-          setTimeout(() => {
-            NotificationSystem.showSmart('motivation', {
-              title: 'استمر في المحاولة! 💪',
-              icon: 'info',
-              timer: 2500
-            });
-          }, 1000);
-        }
-      }
-      
-      updateProgress();
-    });
+     if (consecutiveCorrect >= 5) { NotificationSystem.showSmart('encouragement', { title: 'أداء استثنائي! 🔥', icon: 'success', timer: 2500 }); consecutiveCorrect = 0; } } else { choice.classList.add('wrong'); consecutiveCorrect = 0; SoundSystem.play('wrong'); gsap.fromTo(choice, {x:0}, {x:-8, duration:.08, yoyo:true, repeat:6, ease: "power2.inOut"}); if (totalAnswered >= 3) { setTimeout(() => { NotificationSystem.showSmart('motivation', { title: 'استمر في المحاولة! 💪', icon: 'info', timer: 2500 }); }, 1000); } } updateProgress(); });
 
-    // إضافة أصوات للأزرار وتأثيرات تفاعلية
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.choice').forEach(choice => {
-        choice.addEventListener('mouseenter', () => {
-          SoundSystem.play('select');
-        });
-      });
-    });
-
-    function computeScore(){
-      const blocks = Array.from(document.querySelectorAll('.q[data-qid]'));
-      let correct = 0;
-      blocks.forEach(b=>{ if(b.querySelector('.choice.correct')) correct++; });
-      return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
-    }
-
-    function celebrate(){
-      // احتفال متقدم مع أصوات متعددة
-      SoundSystem.playSequence(['celebration', 'firework'], 500);
-      
-      const duration = 2500; 
-      const end = Date.now() + duration;
-      
-      // تأثيرات الكونفيتي المحسنة
-      (function frame(){
-        confetti({ 
-          particleCount: 5, 
-          angle: 60, 
-          spread: 80, 
-          origin: { x: 0 },
-          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
-        });
-        confetti({ 
-          particleCount: 5, 
-          angle: 120, 
-          spread: 80, 
-          origin: { x: 1 },
-          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
-        });
-        if (Date.now() < end) requestAnimationFrame(frame);
-      })();
-      
-      // تأثير بصري للشاشة كاملة
-      gsap.fromTo('body', 
-        {backgroundColor: 'transparent'}, 
-        {backgroundColor: 'rgba(245,158,11,0.1)', duration: 0.5, yoyo: true, repeat: 1}
-      );
-    },
-          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
-        });
-        confetti({ 
-          particleCount: 5, 
-          angle: 120, 
-          spread: 80, 
-          origin: { x: 1 },
-          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
-        });
-        if (Date.now() < end) requestAnimationFrame(frame);
-      })();
-      
-      // تأثير بصري للشاشة كاملة
-      gsap.fromTo('body', 
-        {backgroundColor: 'transparent'}, 
-        {backgroundColor: 'rgba(245,158,11,0.1)', duration: 0.5, yoyo: true, repeat: 1}
-      );
-    }
-
-    el.start.addEventListener('click', askStudent);
-
-    el.submit.addEventListener('click', ()=>{
-      const s = getStudent();
-      const { correct, total, percent } = computeScore();
-      celebrate();
-      Swal.fire({
-        title: 'أحسنت يا بطل/ة! 🎉',
-        html: `
-          <div style="text-align:right;line-height:1.9">
-            <div><strong>الاسم:</strong> ${s?.name || '-'} </div>
-            <div><strong>الصف:</strong> ${s?.klass || '-'} </div>
-            <div><strong>درجتك:</strong> ${correct} / ${total} — <strong>${percent}%</strong></div>
-          </div>`,
-        icon: 'success',
-        confirmButtonText: 'إعادة المحاولة',
-        confirmButtonColor: '#10b981',
-        showDenyButton: true,
-        denyButtonText: 'العودة',
-        denyButtonColor: '#d97706'
-      }).then(res=>{ if(res.isConfirmed) resetQuiz(); });
-    });
+    el.submit.addEventListener('click', ()=>{ const s = getStudent(); const { correct, total, percent } = computeScore(); celebrate(); const performanceLevel = NotificationSystem.getPerformanceLevel(percent); const smartMessage = NotificationSystem.getRandomMessage('finalResults', percent); let resultIcon = 'success'; let resultColor = '#10b981'; if (percent < 60) { resultIcon = 'info'; resultColor = '#3b82f6'; } Swal.fire({ title: `${performanceLevel === 'excellent' ? '🏆' : performanceLevel === 'good' ? '⭐' : performanceLevel === 'average' ? '👍' : '💪'} النتائج النهائية`, html: `<div style="text-align:right;line-height:2.2;padding:10px"><div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);padding:15px;border-radius:12px;margin-bottom:15px"><div><strong>👤 الاسم:</strong> ${s?.name || '-'}</div><div><strong>🏫 الصف:</strong> ${s?.klass || '-'}</div></div><div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);padding:15px;border-radius:12px;margin-bottom:15px"><div><strong>📊 النتيجة:</strong> ${correct} من ${total} سؤال</div><div><strong>📈 النسبة المئوية:</strong> <span style="color:#059669;font-size:18px;font-weight:900">${percent}%</span></div></div><div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);padding:15px;border-radius:12px;font-weight:600;color:#92400e">${smartMessage}</div></div>`, icon: resultIcon, confirmButtonText: '🔄 إعادة المحاولة', confirmButtonColor: resultColor, showDenyButton: true, denyButtonText: '🏠 العودة للرئيسية', denyButtonColor: '#d97706' }).then(res=>{ if(res.isConfirmed) { resetQuiz(); } else { window.location.href='https://devapp099.github.io/watyn-bio-activities-/index.html'; } }); });
 
     function resetQuiz(){
       SoundSystem.play('reset');
@@ -812,13 +665,9 @@
           timer: 2000
         });
       }, 1000);
-    });
-      window.scrollTo({ top:0, behavior:'smooth' });
-      el.done.textContent = 0; el.bar.style.width = '0%';
-    }
+    }); window.scrollTo({ top:0, behavior:'smooth' }); setTimeout(() => { NotificationSystem.showSmart('encouragement', { title: 'بداية جديدة! 🌟', icon: 'info', timer: 2000 }); }, 1000); }
 
-    // تهيئة أولية
-    updateMeta();
+    el.start.addEventListener('click', askStudent); el.reset.addEventListener('click', resetQuiz); [el.start, el.submit, el.reset].forEach(btn => { if (btn) { btn.addEventListener('mouseenter', () => SoundSystem.play('select')); btn.addEventListener('click', () => SoundSystem.play('click')); } }); document.querySelectorAll('.choice').forEach(choice => { choice.addEventListener('mouseenter', () => { SoundSystem.play('select'); }); }); updateMeta();
     updateProgress();
     el.reset.addEventListener('click', resetQuiz);
 

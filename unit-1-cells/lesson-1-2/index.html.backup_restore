@@ -1,7 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <title>🧪 درس 4-1 — النظام الغذائي</title>
+  <title>🧪 درس 1-2 — رسم الخلايا وحساب التكبير</title>
+  
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet" />
@@ -22,16 +23,23 @@
     html,body{height:100%}
     body{
       margin:0; background: var(--bg);
-      min-height:100vh; color:var(--text); font-family:"Cairo", system-ui, sans-serif; line-height:1.7; letter-spacing:.2px;
+      min-height:100vh;
+      color:var(--text); font-family:"Cairo", system-ui, sans-serif; line-height:1.7; letter-spacing:.2px;
       position: relative;
     }
     body::before {
-      content: ''; position: fixed; inset:0;
-      background:
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
         radial-gradient(circle at 20% 80%, rgba(255,165,0,.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(255,69,0,.12) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(255,20,147,.1) 0%, transparent 50%);
-      z-index: -1; pointer-events: none;
+      z-index: -1;
+      pointer-events: none;
     }
     .wrap{max-width:1100px; margin-inline:auto; padding:24px}
     header{
@@ -45,11 +53,14 @@
     .logo{width:42px; height:42px; border-radius:12px;
       background: conic-gradient(from 200deg, var(--primary), var(--accent), #10b981, #3b82f6);
       box-shadow: 0 8px 24px rgba(245,158,11,.35);
-      animation: spin 20s linear infinite;
+      animation: logoRotate 20s linear infinite;
     }
-    @keyframes spin { to { transform: rotate(360deg) } }
+    @keyframes logoRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     .title{font-weight:900; font-size:clamp(20px,3vw,28px)}
     .subtitle{font-weight:700; font-size:clamp(14px,2vw,16px); color:var(--muted)}
+    .progress{display:flex; align-items:center; gap:8px; font-weight:800; color:#7c2d12; margin-top:6px}
+    .bar{flex:1; height:8px; background:rgba(0,0,0,.08); border-radius:999px; overflow:hidden}
+    .bar>span{display:block; height:100%; width:0%; background:linear-gradient(90deg,#f59e0b,#d97706); transition:width .25s ease}
     .card{
       background: linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);
       border:1px solid rgba(255,255,255,.4);
@@ -57,21 +68,32 @@
       box-shadow: var(--card-shadow);
       transition: all 0.3s ease;
     }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1) }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1);
+    }
     h1{font-size:clamp(28px,4vw,40px); margin:0 0 6px; font-weight:900;
        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
-       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;}
+       -webkit-background-clip: text;
+       -webkit-text-fill-color: transparent;
+       background-clip: text;}
     h2{font-size:clamp(18px,3vw,22px); margin:10px 0 14px; font-weight:800; color:var(--primary)}
     p.lead{color:var(--muted); font-size:clamp(15px,2.4vw,18px); margin-top:0}
+    .grid{display:grid; gap:16px}
+    @media (min-width: 840px){ .grid-2{grid-template-columns:1fr 1fr} .grid-3{grid-template-columns:repeat(3,1fr)} }
     .btn{
       all:unset; cursor:pointer; padding:14px 18px; border-radius:16px; font-weight:800;
       border:1px solid rgba(245,158,11,.3);
       background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
-      color:white; box-shadow: 0 8px 24px rgba(245,158,11,.25);
+      color:white;
+      box-shadow: 0 8px 24px rgba(245,158,11,.25);
       transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
     }
-    .btn:hover{ transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 35px rgba(245,158,11,.35);
-      background:linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%); }
+    .btn:hover{ 
+      transform: translateY(-3px) scale(1.02); 
+      box-shadow: 0 15px 35px rgba(245,158,11,.35);
+      background:linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+    }
     .btn-ghost{ all:unset; cursor:pointer; padding:12px 14px; border-radius:14px; font-weight:800; color:var(--muted);
       border:1px dashed rgba(0,0,0,.2); }
     .pulse{ position:absolute; inset:0; border-radius:inherit; pointer-events:none;
@@ -85,15 +107,12 @@
     .choice:hover{ transform: translateX(-2px); background:rgba(0,0,0,.06) }
     .choice.correct{ border-color: rgba(16,185,129,.55); background: rgba(16,185,129,.12) }
     .choice.wrong{ border-color: rgba(239,68,68,.55); background: rgba(239,68,68,.12) }
-    /* شريط التقدّم */
-    .progress{display:flex; align-items:center; gap:8px; font-weight:800; color:#7c2d12; margin-top:6px}
-    .bar{flex:1; height:8px; background:rgba(0,0,0,.08); border-radius:999px; overflow:hidden}
-    .bar>span{display:block; height:100%; width:0%; background:linear-gradient(90deg,#f59e0b,#d97706); transition:width .25s ease}
     footer{ margin-top:34px; padding:18px; border-top:1px solid rgba(0,0,0,.08);
       color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
     .credit{color:var(--text); font-weight:800}
     a.card-link{ display:block; text-decoration:none; color:inherit }
   </style>
+
 </head>
 <body>
   <div class="wrap">
@@ -101,8 +120,9 @@
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          <div class="title">🧪 درس 4-1 — النظام الغذائي</div>
+          <div class="title">🧪 درس 1-2 — رسم الخلايا وحساب التكبير</div>
           <div class="subtitle" id="studentMeta">مرحبًا! لنبدأ…</div>
+          <!-- شريط التقدم -->
           <div class="progress">
             <div>التقدّم:</div>
             <div class="bar"><span id="barFill"></span></div>
@@ -110,224 +130,224 @@
           </div>
         </div>
       </div>
-      <a class="btn-ghost" href="../../index.html">← العودة</a>
     </header>
 
     <section class="card" style="margin-top:18px; position:relative" data-aos="zoom-in">
       <div class="pulse"></div>
       <h1>🎯 أهداف الدرس</h1>
-      <p class="lead">مكوّنات النظام الغذائي المتوازن ودور المغذيات الكبرى والصغرى وكيفية قراءة الخيارات الغذائية.</p>
+      <p class="lead">إتقان الرسم العلمي للخلية باستخدام المجهر وحساب التكبير من القياسات.</p>
       <ul>
-        <li>التفريق بين كربوهيدرات/دهون/بروتين ووظائفها الأساسية.</li>
-        <li>أهمية الألياف والماء والفيتامينات والمعادن.</li>
-        <li>مبادئ «الطبق المتوازن» وحساب السعرات من المغذّيات.</li>
+        <li>اتباع قواعد الرسم العلمي (عنوان/مقياس/تسميات).</li>
+        <li>حساب التكبير = حجم الصورة ÷ الحجم الحقيقي (مع توحيد الوحدات).</li>
+        <li>التعرّف على أجزاء المجهر ووظائفها وإجراءات السلامة.</li>
       </ul>
       <div style="display:flex; gap:10px; flex-wrap:wrap">
         <button id="btnStart" class="btn">ابدأ النشاط</button>
+        <a class="btn-ghost" href="../../index.html">← العودة</a>
       </div>
     </section>
 
     <section id="quiz" class="card" style="margin-top:16px; display:none" data-aos="fade-up">
       <h2>الأسئلة التفاعلية</h2>
 
-      <!-- 20 سؤال -->
+      <!-- 20 سؤالًا دقيقة ومراجَعة -->
       <article class="q" data-qid="q1">
-        <div><strong>1) من وظائف البروتين الأساسية:</strong></div>
+        <div><strong>1) قطر الخلية في الصورة = 50 مم، والحجم الحقيقي = 100 ميكرومتر. التكبير ≈</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">النمو وبناء الأنسجة</div>
-          <div class="choice" data-correct="false">تخزين طويل للطاقة فقط</div>
-          <div class="choice" data-correct="false">تزويد الألياف</div>
-          <div class="choice" data-correct="false">إمداد فيتامين د</div>
+          <div class="choice" data-correct="false">×50</div>
+          <div class="choice" data-correct="true">×500</div>
+          <div class="choice" data-correct="false">×5000</div>
+          <div class="choice" data-correct="false">×200</div>
         </div>
       </article>
 
       <article class="q" data-qid="q2">
-        <div><strong>2) المغذّي الأنسب للطاقة السريعة:</strong></div>
+        <div><strong>2) الصيغة الصحيحة للتكبير:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الكربوهيدرات</div>
-          <div class="choice" data-correct="false">البروتين</div>
-          <div class="choice" data-correct="false">الحديد</div>
-          <div class="choice" data-correct="false">الكالسيوم</div>
+          <div class="choice" data-correct="false">التكبير = الحجم الحقيقي ÷ حجم الصورة</div>
+          <div class="choice" data-correct="true">التكبير = حجم الصورة ÷ الحجم الحقيقي</div>
+          <div class="choice" data-correct="false">التكبير = حجم الصورة × الحجم الحقيقي</div>
+          <div class="choice" data-correct="false">لا توجد صيغة ثابتة</div>
         </div>
       </article>
 
       <article class="q" data-qid="q3">
-        <div><strong>3) نقص فيتامين (د) قد يؤدي إلى:</strong></div>
+        <div><strong>3) العدسة العينية ×10 والشيئية ×40، التكبير الكلي يساوي:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الكساح/لين العظام</div>
-          <div class="choice" data-correct="false">فقر دم فوري</div>
-          <div class="choice" data-correct="false">قصور الغدة الدرقية</div>
-          <div class="choice" data-correct="false">قِصر النظر</div>
+          <div class="choice" data-correct="false">×4</div>
+          <div class="choice" data-correct="false">×40</div>
+          <div class="choice" data-correct="true">×400</div>
+          <div class="choice" data-correct="false">×80</div>
         </div>
       </article>
 
       <article class="q" data-qid="q4">
-        <div><strong>4) الألياف الغذائية تفيد في:</strong></div>
+        <div><strong>4) نبدأ الملاحظة عادة باستخدام:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تحسين حركة الأمعاء والشعور بالشبع</div>
-          <div class="choice" data-correct="false">رفع ضغط الدم</div>
-          <div class="choice" data-correct="false">زيادة الكوليسترول</div>
-          <div class="choice" data-correct="false">نقص الماء</div>
+          <div class="choice" data-correct="true">العدسة الشيئية ×4 (منخفضة)</div>
+          <div class="choice" data-correct="false">العدسة الشيئية ×40 مباشرة</div>
+          <div class="choice" data-correct="false">العدسة الزيتية</div>
+          <div class="choice" data-correct="false">لا فرق</div>
         </div>
       </article>
 
       <article class="q" data-qid="q5">
-        <div><strong>5) مثال لمصدر دهون صحية غير مشبعة:</strong></div>
+        <div><strong>5) وظيفة مقبض الضبط الخشن:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الأسماك الدهنية/المكسرات/زيت الزيتون</div>
-          <div class="choice" data-correct="false">السمن الصناعي المتحوّل</div>
-          <div class="choice" data-correct="false">الدهون المتحولة</div>
-          <div class="choice" data-correct="false">الدهون المهدرجة</div>
+          <div class="choice" data-correct="true">التركيز الابتدائي على تكبير منخفض</div>
+          <div class="choice" data-correct="false">زيادة شدة الإضاءة</div>
+          <div class="choice" data-correct="false">تغيير العدسة العينية</div>
+          <div class="choice" data-correct="false">تثبيت الشريحة</div>
         </div>
       </article>
 
       <article class="q" data-qid="q6">
-        <div><strong>6) الحديد ضروري لـ:</strong></div>
+        <div><strong>6) وظيفة مقبض الضبط الدقيق:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تكوين الهيموغلوبين ونقل الأكسجين</div>
-          <div class="choice" data-correct="false">إنتاج الأنسولين</div>
-          <div class="choice" data-correct="false">صنع فيتامين سي</div>
-          <div class="choice" data-correct="false">تحلل النشا</div>
+          <div class="choice" data-correct="false">تثبيت الشريحة</div>
+          <div class="choice" data-correct="true">تحسين وضوح الصورة بدقة</div>
+          <div class="choice" data-correct="false">تقليل الاهتزاز</div>
+          <div class="choice" data-correct="false">فتح الحجاب الحاجز</div>
         </div>
       </article>
 
       <article class="q" data-qid="q7">
-        <div><strong>7) فيتامين (د) يساعد الجسم على:</strong></div>
+        <div><strong>7) وظيفة الحجاب الحاجز (الدايافرام):</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">امتصاص الكالسيوم وصحة العظام</div>
-          <div class="choice" data-correct="false">تخزين الغلوكوز في العضلات</div>
-          <div class="choice" data-correct="false">صنع الأحماض الأمينية</div>
-          <div class="choice" data-correct="false">تكوين الألياف</div>
+          <div class="choice" data-correct="true">التحكم بكمية الضوء المار</div>
+          <div class="choice" data-correct="false">تكبير الصورة</div>
+          <div class="choice" data-correct="false">تثبيت الشريحة</div>
+          <div class="choice" data-correct="false">تغيير العدسات</div>
         </div>
       </article>
 
       <article class="q" data-qid="q8">
-        <div><strong>8) من وظائف الماء في الجسم:</strong></div>
+        <div><strong>8) 1 ملم يساوي:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">نقل المواد وتنظيم الحرارة</div>
-          <div class="choice" data-correct="false">تزويد 9 سعرات/غرام</div>
-          <div class="choice" data-correct="false">تخزين فيتامينات دائمة</div>
-          <div class="choice" data-correct="false">بناء الهيموغلوبين</div>
+          <div class="choice" data-correct="false">10 ميكرومتر</div>
+          <div class="choice" data-correct="false">100 ميكرومتر</div>
+          <div class="choice" data-correct="true">1000 ميكرومتر</div>
+          <div class="choice" data-correct="false">10000 ميكرومتر</div>
         </div>
       </article>
 
       <article class="q" data-qid="q9">
-        <div><strong>9) الاحتياج للطاقة (السعرات) يتأثر بـ:</strong></div>
+        <div><strong>9) حجم خلية حقيقي = 80 μm عند تكبير ×400. حجم الصورة ≈</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">العمر والجنس والوزن والنشاط</div>
-          <div class="choice" data-correct="false">لون العين</div>
-          <div class="choice" data-correct="false">فصيلة الدم فقط</div>
-          <div class="choice" data-correct="false">طول الشعر</div>
+          <div class="choice" data-correct="false">8 مم</div>
+          <div class="choice" data-correct="false">16 مم</div>
+          <div class="choice" data-correct="true">32 مم</div>
+          <div class="choice" data-correct="false">40 مم</div>
         </div>
       </article>
 
       <article class="q" data-qid="q10">
-        <div><strong>10) الصوديوم والبوتاسيوم يُسهمان في:</strong></div>
+        <div><strong>10) حجم صورة خلية = 30 مم، والتكبير = ×300. الحجم الحقيقي ≈</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">توازن السوائل ووظيفة الأعصاب والعضلات</div>
-          <div class="choice" data-correct="false">تصبغ الجلد</div>
-          <div class="choice" data-correct="false">تخزين الدهون</div>
-          <div class="choice" data-correct="false">إنتاج فيتامينات</div>
+          <div class="choice" data-correct="false">10 μm</div>
+          <div class="choice" data-correct="true">100 μm</div>
+          <div class="choice" data-correct="false">300 μm</div>
+          <div class="choice" data-correct="false">9000 μm</div>
         </div>
       </article>
 
       <article class="q" data-qid="q11">
-        <div><strong>11) لتعزيز امتصاص الحديد من المصادر النباتية يُفضّل تناوله مع:</strong></div>
+        <div><strong>11) عند زيادة التكبير، فإن مجال الرؤية عادة:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">فيتامين (ج) (حمضيّات/فلفل)</div>
-          <div class="choice" data-correct="false">الماء فقط</div>
-          <div class="choice" data-correct="false">الألياف بكثرة</div>
-          <div class="choice" data-correct="false">الملح</div>
+          <div class="choice" data-correct="false">يزداد</div>
+          <div class="choice" data-correct="true">يقل</div>
+          <div class="choice" data-correct="false">لا يتغير</div>
+          <div class="choice" data-correct="false">ينعكس</div>
         </div>
       </article>
 
       <article class="q" data-qid="q12">
-        <div><strong>12) الإفراط في الصوديوم يرتبط بـ:</strong></div>
+        <div><strong>12) عند تحريك الشريحة لليمين، تتحرك الصورة:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">ارتفاع ضغط الدم</div>
-          <div class="choice" data-correct="false">فقر الدم</div>
-          <div class="choice" data-correct="false">انخفاض حرارة الجسم</div>
-          <div class="choice" data-correct="false">زيادة البصر</div>
+          <div class="choice" data-correct="false">يمينًا</div>
+          <div class="choice" data-correct="true">يسارًا</div>
+          <div class="choice" data-correct="false">لا تتحرك</div>
+          <div class="choice" data-correct="false">للأعلى فقط</div>
         </div>
       </article>
 
       <article class="q" data-qid="q13">
-        <div><strong>13) الكربوهيدرات المعقّدة الأفضل للصحة غالبًا:</strong></div>
+        <div><strong>13) أفضل أداة لتنظيف العدسات:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الحبوب الكاملة (أرز بني/شوفان)</div>
-          <div class="choice" data-correct="false">السكر الأبيض</div>
-          <div class="choice" data-correct="false">الحلوى فقط</div>
-          <div class="choice" data-correct="false">المشروبات المحلّاة</div>
+          <div class="choice" data-correct="false">قطن عادي</div>
+          <div class="choice" data-correct="false">منديل ورقي</div>
+          <div class="choice" data-correct="true">ورق عدسات خاص</div>
+          <div class="choice" data-correct="false">قماش خشن</div>
         </div>
       </article>
 
       <article class="q" data-qid="q14">
-        <div><strong>14) وجبة تحوي 50غ كربوهيدرات، 10غ دهون، 20غ بروتين. مجموع السعرات ≈</strong></div>
+        <div><strong>14) وضع الغطاء الزجاجي يكون:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">370 ك.سعرة</div>
-          <div class="choice" data-correct="false">330 ك.سعرة</div>
-          <div class="choice" data-correct="false">410 ك.سعرة</div>
-          <div class="choice" data-correct="false">290 ك.سعرة</div>
+          <div class="choice" data-correct="false">عموديًا مباشرة</div>
+          <div class="choice" data-correct="true">بزاوية لتجنب الفقاعات</div>
+          <div class="choice" data-correct="false">لا داعي له</div>
+          <div class="choice" data-correct="false">بعد الانتهاء من الملاحظة</div>
         </div>
       </article>
 
       <article class="q" data-qid="q15">
-        <div><strong>15) في «الطبق المتوازن» يُفضّل أن تُشكّل الخضار والفاكهة:</strong></div>
+        <div><strong>15) إذا كان شريط المقياس في الرسم طوله 1 سم ويمثل 100 μm فعليًا، فالتكبير ≈</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">نصف الطبق تقريبًا</div>
-          <div class="choice" data-correct="false">الطبق كاملًا</div>
-          <div class="choice" data-correct="false">ربع الطبق فقط</div>
-          <div class="choice" data-correct="false">لا شيءَ منها</div>
+          <div class="choice" data-correct="false">×5</div>
+          <div class="choice" data-correct="true">×100</div>
+          <div class="choice" data-correct="false">×1000</div>
+          <div class="choice" data-correct="false">×10</div>
         </div>
       </article>
 
       <article class="q" data-qid="q16">
-        <div><strong>16) لكل غرام دهون:</strong></div>
+        <div><strong>16) قياس صورة نواة = 12 مم، والحجم الحقيقي = 60 μm. التكبير ≈</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">≈ 9 ك.سعرة</div>
-          <div class="choice" data-correct="false">≈ 4 ك.سعرة</div>
-          <div class="choice" data-correct="false">≈ 0 ك.سعرة</div>
-          <div class="choice" data-correct="false">≈ 2 ك.سعرة</div>
+          <div class="choice" data-correct="false">×120</div>
+          <div class="choice" data-correct="true">×200</div>
+          <div class="choice" data-correct="false">×300</div>
+          <div class="choice" data-correct="false">×600</div>
         </div>
       </article>
 
       <article class="q" data-qid="q17">
-        <div><strong>17) مصدر جيّد لأحماض أوميغا-3:</strong></div>
+        <div><strong>17) من قواعد الرسم العلمي الجيد:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الأسماك الدهنية (سلمون/سردين)</div>
-          <div class="choice" data-correct="false">السكر البني</div>
-          <div class="choice" data-correct="false">المعكرونة البيضاء</div>
-          <div class="choice" data-correct="false">المشروبات الغازية</div>
+          <div class="choice" data-correct="true">خطوط نظيفة دون تظليل زخرفي</div>
+          <div class="choice" data-correct="false">إضافة ألوان قوية</div>
+          <div class="choice" data-correct="false">كتابة النص فوق الرسم مباشرة</div>
+          <div class="choice" data-correct="false">عدم تحديد العنوان</div>
         </div>
       </article>
 
       <article class="q" data-qid="q18">
-        <div><strong>18) عدم تحمّل اللاكتوز يعني:</strong></div>
+        <div><strong>18) يجب أن يتضمن الرسم العلمي:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">صعوبة هضم سكر الحليب لنقص إنزيم اللاكتاز</div>
-          <div class="choice" data-correct="false">حساسية سمكية</div>
-          <div class="choice" data-correct="false">عدم تحمل الغلوتين</div>
-          <div class="choice" data-correct="false">نقص الحديد</div>
+          <div class="choice" data-correct="true">عنوان مناسب + مقياس + تسميات واضحة</div>
+          <div class="choice" data-correct="false">عنوان فقط</div>
+          <div class="choice" data-correct="false">تسميات فقط</div>
+          <div class="choice" data-correct="false">مقياس فقط</div>
         </div>
       </article>
 
       <article class="q" data-qid="q19">
-        <div><strong>19) أي الوجبات التالية أقرب لوجبة متوازنة؟</strong></div>
+        <div><strong>19) إذا كان مجال الرؤية عند ×4 ≈ 4.5 مم، فعند ×40 يصبح تقريبًا:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">أرز بني + دجاج مشوي + سلطة خضراء + لبن زبادي</div>
-          <div class="choice" data-correct="false">بطاطس مقلية فقط</div>
-          <div class="choice" data-correct="false">حلوى ومشروب غازي</div>
-          <div class="choice" data-correct="false">خبز أبيض فقط</div>
+          <div class="choice" data-correct="false">4.5 مم</div>
+          <div class="choice" data-correct="true">0.45 مم</div>
+          <div class="choice" data-correct="false">0.045 مم</div>
+          <div class="choice" data-correct="false">9 مم</div>
         </div>
       </article>
 
       <article class="q" data-qid="q20">
-        <div><strong>20) أي مما يلي يُعد من «المغذّيات الصغرى»؟</strong></div>
+        <div><strong>20) العدسة العينية ×10 والشيئية الزيتية ×100. التكبير الكلي =</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الفيتامينات والمعادن</div>
-          <div class="choice" data-correct="false">الكربوهيدرات</div>
-          <div class="choice" data-correct="false">الدهون</div>
-          <div class="choice" data-correct="false">البروتين</div>
+          <div class="choice" data-correct="false">×100</div>
+          <div class="choice" data-correct="false">×500</div>
+          <div class="choice" data-correct="true">×1000</div>
+          <div class="choice" data-correct="false">×10</div>
         </div>
       </article>
 
@@ -338,7 +358,7 @@
     </section>
 
     <footer class="card" data-aos="fade-up" data-aos-delay="50">
-      <div><span class="credit">🎨 تصميم: الوتين الضامرية |لمار السيابية|مها المعمرية|مريم محمود البلوشية|مريم وائل البلوشية| — 🏫 مدرسة عاتكة بنت زيد — تحت إشراف الأستاذة سامية 👩‍🏫</span></div>
+      <div><span class="credit">🎨 تصميم: الوتين الضامرية | لمار السيابية | مها المعمرية | مريم محمود البلوشية | مريم وائل البلوشية — 🏫 مدرسة عاتكة بنت زيد — تحت إشراف الأستاذة سامية 👩‍🏫</span></div>
       <div>© انشطة تعليمية الوتين 🌟</div>
     </footer>
   </div>
@@ -392,7 +412,7 @@
       // رسائل متنوعة حسب الأداء
       messages: {
         welcome: [
-          "أهلاً وسهلاً {name}! مرحبًا بك في درس 4-1 — النظام الغذائي المثير! 🧬",
+          "أهلاً وسهلاً {name}! مرحبًا بك في درس 1-2 — رسم الخلايا وحساب التكبير المثير! 🧬",
           "مرحبًا {name}! أنت على وشك خوض مغامرة علمية رائعة! 🔬",
           "أهلاً {name}! دعنا نكتشف أسرار العلوم معًا! ✨"
         ],
@@ -492,21 +512,12 @@
       NotificationSystem.student = obj;
     }
 
+
     // 🎵 نظام صوتي ذكي متقدم
     
 
     // 🔔 نظام الإشعارات والرسائل التفاعلية الذكي
     
-
-
-    // بنك الأسئلة المخصص للدرس
-    const bank = [
-      {q:"التمثيل الضوئي يحدث في:", c:["الميتوكندريا", "البلاستيدات الخضراء", "النواة", "الفجوة"], a:1},
-      {q:"المعادلة العامة للتمثيل الضوئي:", c:["CO2 + H2O + ضوء → جلوكوز + O2", "جلوكوز + O2 → CO2 + H2O", "H2O فقط", "CO2 فقط"], a:0},
-      {q:"العوامل المحددة للتمثيل الضوئي:", c:["شدة الضوء، CO2، الحرارة", "اللون فقط", "الوقت فقط", "حجم الورقة فقط"], a:0},
-      {q:"الكلوروفيل يمتص الضوء:", c:["الأخضر فقط", "الأحمر والأزرق أكثر من الأخضر", "البنفسجي فقط", "جميع الألوان بنفس القدر"], a:1},
-      {q:"نواتج التمثيل الضوئي:", c:["CO2 والماء", "الجلوكوز والأكسجين", "النيتروجين", "الأحماض"], a:1}
-    ];
 
     const el = {
       start: document.getElementById('btnStart'),
@@ -595,28 +606,32 @@
         gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6});
       }
     }
-          return { name, klass };
-        }
-      });
-      if(formValues){
-        setStudent(formValues);
-        updateMeta();
-        el.quiz.style.display = "block";
-        gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.5});
-        // تهيئة شريط التقدّم
-        document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
-        document.getElementById('countDone').textContent = 0;
-        el.bar.style.width = '0%';
-      }
-    }
 
     function updateMeta(){
       const s = getStudent();
       el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
     }
 
-    // شريط التقدّم: أي اختيار (صحيح أو خاطئ) يُعدّ إجابة
     
+        }
+      });
+      
+      // إشعارات عند النقاط المهمة
+      if (answered > oldProgress) {
+        checkMilestones(pc, answered, total);
+      }
+    }
+    
+    // فحص النقاط المهمة في التقدم
+    );
+        
+        // تأثير بصري خاص للإنجازات
+        gsap.fromTo('.progress', 
+          { scale: 1 }, 
+          { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 }
+        );
+      }
+    }
 
     // نظام الإجابة المحسن مع الذكاء الاصطناعي
     function updateProgress(){
@@ -713,7 +728,7 @@
     function computeScore(){
       const blocks = Array.from(document.querySelectorAll('.q[data-qid]'));
       let correct = 0;
-      blocks.forEach(b=>{ if(b.querySelector('.choice.correct')) correct++; });
+      blocks.forEach(b=>{ const sel = b.querySelector('.choice.correct'); if(sel) correct++; });
       return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
     }
 
@@ -773,22 +788,50 @@
     el.submit.addEventListener('click', ()=>{
       const s = getStudent();
       const { correct, total, percent } = computeScore();
+      
       celebrate();
+      
+      // رسالة نتائج ذكية مخصصة
+      const performanceLevel = NotificationSystem.getPerformanceLevel(percent);
+      const smartMessage = NotificationSystem.getRandomMessage('finalResults', percent);
+      
+      let resultIcon = 'success';
+      let resultColor = '#10b981';
+      
+      if (percent < 60) {
+        resultIcon = 'info';
+        resultColor = '#3b82f6';
+      }
+      
       Swal.fire({
-        title: 'أحسنت يا بطل/ة! 🎉',
+        title: `${performanceLevel === 'excellent' ? '🏆' : performanceLevel === 'good' ? '⭐' : performanceLevel === 'average' ? '👍' : '💪'} النتائج النهائية`,
         html: `
-          <div style="text-align:right;line-height:1.9">
-            <div><strong>الاسم:</strong> ${s?.name || '-'} </div>
-            <div><strong>الصف:</strong> ${s?.klass || '-'} </div>
-            <div><strong>درجتك:</strong> ${correct} / ${total} — <strong>${percent}%</strong></div>
+          <div style="text-align:right;line-height:2.2;padding:10px">
+            <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);padding:15px;border-radius:12px;margin-bottom:15px">
+              <div><strong>👤 الاسم:</strong> ${s?.name || '-'}</div>
+              <div><strong>🏫 الصف:</strong> ${s?.klass || '-'}</div>
+            </div>
+            <div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);padding:15px;border-radius:12px;margin-bottom:15px">
+              <div><strong>📊 النتيجة:</strong> ${correct} من ${total} سؤال</div>
+              <div><strong>📈 النسبة المئوية:</strong> <span style="color:#059669;font-size:18px;font-weight:900">${percent}%</span></div>
+            </div>
+            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);padding:15px;border-radius:12px;font-weight:600;color:#92400e">
+              ${smartMessage}
+            </div>
           </div>`,
-        icon: 'success',
-        confirmButtonText: 'إعادة المحاولة',
-        confirmButtonColor: '#10b981',
+        icon: resultIcon,
+        confirmButtonText: '🔄 إعادة المحاولة',
+        confirmButtonColor: resultColor,
         showDenyButton: true,
-        denyButtonText: 'العودة',
+        denyButtonText: '🏠 العودة للرئيسية',
         denyButtonColor: '#d97706'
-      }).then(res=>{ if(res.isConfirmed) resetQuiz(); });
+      }).then(res=>{ 
+        if(res.isConfirmed) {
+          resetQuiz(); 
+        } else {
+          window.location.href='https://devapp099.github.io/watyn-bio-activities-/index.html'; 
+        }
+      });
     });
 
     function resetQuiz(){
@@ -814,10 +857,28 @@
       }, 1000);
     });
       window.scrollTo({ top:0, behavior:'smooth' });
-      el.done.textContent = 0; el.bar.style.width = '0%';
+      
+      // رسالة تحفيز لإعادة المحاولة
+      setTimeout(() => {
+        NotificationSystem.showSmart('encouragement', {
+          title: 'بداية جديدة! 🌟',
+          icon: 'info',
+          timer: 2000
+        });
+      }, 1000);
     }
 
-    // تهيئة أولية
+    el.reset.addEventListener('click', resetQuiz);
+
+    // إضافة أصوات للأزرار
+    [el.start, el.submit, el.reset].forEach(btn => {
+      if (btn) {
+        btn.addEventListener('mouseenter', () => SoundSystem.play('select'));
+        btn.addEventListener('click', () => SoundSystem.play('click'));
+      }
+    });
+
+    // بدء التطبيق
     updateMeta();
     updateProgress();
     el.reset.addEventListener('click', resetQuiz);

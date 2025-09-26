@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <title>🧪 درس 4-1 — النظام الغذائي</title>
+  <title>🧪 درس 4-2 — امتصاص فيتامين د (20 سؤالًا)</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet" />
@@ -25,13 +25,12 @@
       min-height:100vh; color:var(--text); font-family:"Cairo", system-ui, sans-serif; line-height:1.7; letter-spacing:.2px;
       position: relative;
     }
-    body::before {
-      content: ''; position: fixed; inset:0;
+    body::before { content:''; position:fixed; inset:0;
       background:
         radial-gradient(circle at 20% 80%, rgba(255,165,0,.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(255,69,0,.12) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(255,20,147,.1) 0%, transparent 50%);
-      z-index: -1; pointer-events: none;
+      z-index:-1; pointer-events:none;
     }
     .wrap{max-width:1100px; margin-inline:auto; padding:24px}
     header{
@@ -45,37 +44,33 @@
     .logo{width:42px; height:42px; border-radius:12px;
       background: conic-gradient(from 200deg, var(--primary), var(--accent), #10b981, #3b82f6);
       box-shadow: 0 8px 24px rgba(245,158,11,.35);
-      animation: spin 20s linear infinite;
+      animation:spin 20s linear infinite;
     }
-    @keyframes spin { to { transform: rotate(360deg) } }
+    @keyframes spin{to{transform:rotate(360deg)}}
     .title{font-weight:900; font-size:clamp(20px,3vw,28px)}
     .subtitle{font-weight:700; font-size:clamp(14px,2vw,16px); color:var(--muted)}
     .card{
       background: linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);
-      border:1px solid rgba(255,255,255,.4);
-      border-radius:22px; padding:22px;
-      box-shadow: var(--card-shadow);
-      transition: all 0.3s ease;
+      border:1px solid rgba(255,255,255,.4); border-radius:22px; padding:22px; box-shadow: var(--card-shadow);
+      transition: all .3s ease;
     }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1) }
+    .card:hover{ transform:translateY(-6px); box-shadow:0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1) }
     h1{font-size:clamp(28px,4vw,40px); margin:0 0 6px; font-weight:900;
-       background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
-       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;}
+      background:linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;}
     h2{font-size:clamp(18px,3vw,22px); margin:10px 0 14px; font-weight:800; color:var(--primary)}
     p.lead{color:var(--muted); font-size:clamp(15px,2.4vw,18px); margin-top:0}
     .btn{
       all:unset; cursor:pointer; padding:14px 18px; border-radius:16px; font-weight:800;
       border:1px solid rgba(245,158,11,.3);
-      background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
-      color:white; box-shadow: 0 8px 24px rgba(245,158,11,.25);
+      background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%); color:#fff;
+      box-shadow:0 8px 24px rgba(245,158,11,.25);
       transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
     }
-    .btn:hover{ transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 35px rgba(245,158,11,.35);
+    .btn:hover{ transform:translateY(-3px) scale(1.02); box-shadow:0 15px 35px rgba(245,158,11,.35);
       background:linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%); }
     .btn-ghost{ all:unset; cursor:pointer; padding:12px 14px; border-radius:14px; font-weight:800; color:var(--muted);
-      border:1px dashed rgba(0,0,0,.2); }
-    .pulse{ position:absolute; inset:0; border-radius:inherit; pointer-events:none;
-      background: radial-gradient(600px 200px at 70% 0%, rgba(245,158,11,.12), transparent 60%); filter: blur(10px); }
+      border:1px dashed rgba(0,0,0,.2) }
     .q{ display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:16px; background:rgba(0,0,0,.03);
       border:1px solid rgba(0,0,0,.06) }
     .choices{display:grid; gap:10px}
@@ -92,7 +87,6 @@
     footer{ margin-top:34px; padding:18px; border-top:1px solid rgba(0,0,0,.08);
       color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
     .credit{color:var(--text); font-weight:800}
-    a.card-link{ display:block; text-decoration:none; color:inherit }
   </style>
 </head>
 <body>
@@ -101,7 +95,7 @@
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          <div class="title">🧪 درس 4-1 — النظام الغذائي</div>
+          <div class="title">🧪 درس 4-2 — امتصاص فيتامين د</div>
           <div class="subtitle" id="studentMeta">مرحبًا! لنبدأ…</div>
           <div class="progress">
             <div>التقدّم:</div>
@@ -116,11 +110,11 @@
     <section class="card" style="margin-top:18px; position:relative" data-aos="zoom-in">
       <div class="pulse"></div>
       <h1>🎯 أهداف الدرس</h1>
-      <p class="lead">مكوّنات النظام الغذائي المتوازن ودور المغذيات الكبرى والصغرى وكيفية قراءة الخيارات الغذائية.</p>
+      <p class="lead">العوامل التي تؤثر في تصنيع/امتصاص فيتامين (د)، وأهم المصادر، وكيفية الحفاظ على عظام صحية.</p>
       <ul>
-        <li>التفريق بين كربوهيدرات/دهون/بروتين ووظائفها الأساسية.</li>
-        <li>أهمية الألياف والماء والفيتامينات والمعادن.</li>
-        <li>مبادئ «الطبق المتوازن» وحساب السعرات من المغذّيات.</li>
+        <li>التعرّض الآمن لأشعة UVB وعوامل تقلله أو تعززه.</li>
+        <li>مصادر غذائية وفيتامين (د) كمُغذٍّ ذائب في الدهن.</li>
+        <li>مواقف يومية تؤثر في الحالة الغذائية لفيتامين (د).</li>
       </ul>
       <div style="display:flex; gap:10px; flex-wrap:wrap">
         <button id="btnStart" class="btn">ابدأ النشاط</button>
@@ -130,204 +124,185 @@
     <section id="quiz" class="card" style="margin-top:16px; display:none" data-aos="fade-up">
       <h2>الأسئلة التفاعلية</h2>
 
-      <!-- 20 سؤال -->
-      <article class="q" data-qid="q1">
-        <div><strong>1) من وظائف البروتين الأساسية:</strong></div>
+      <!-- 1-14 (كما كانت) -->
+      <article class="q" data-qid="q1"><div><strong>1) ينتج الجسم فيتامين (د) عند التعرّض لـ:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">النمو وبناء الأنسجة</div>
-          <div class="choice" data-correct="false">تخزين طويل للطاقة فقط</div>
-          <div class="choice" data-correct="false">تزويد الألياف</div>
-          <div class="choice" data-correct="false">إمداد فيتامين د</div>
+          <div class="choice" data-correct="true">أشعة UVB من الشمس</div>
+          <div class="choice" data-correct="false">أشعة الراديو</div>
+          <div class="choice" data-correct="false">الأشعة السينية</div>
+          <div class="choice" data-correct="false">الليزر الأحمر فقط</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q2">
-        <div><strong>2) المغذّي الأنسب للطاقة السريعة:</strong></div>
+      <article class="q" data-qid="q2"><div><strong>2) عامل يُقلّل تصنيع فيتامين (د) في الجلد:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الكربوهيدرات</div>
-          <div class="choice" data-correct="false">البروتين</div>
-          <div class="choice" data-correct="false">الحديد</div>
-          <div class="choice" data-correct="false">الكالسيوم</div>
+          <div class="choice" data-correct="true">الملابس السميكة وتغطية واسعة</div>
+          <div class="choice" data-correct="false">كشف الذراعين والساقين لفترة معتدلة</div>
+          <div class="choice" data-correct="false">المشي في الهواء الطلق</div>
+          <div class="choice" data-correct="false">تعرّض قصير لأشعة الظهيرة</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q3">
-        <div><strong>3) نقص فيتامين (د) قد يؤدي إلى:</strong></div>
+      <article class="q" data-qid="q3"><div><strong>3) أفضل وقت يومي لوصول UVB إلى الجلد عادةً:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الكساح/لين العظام</div>
-          <div class="choice" data-correct="false">فقر دم فوري</div>
-          <div class="choice" data-correct="false">قصور الغدة الدرقية</div>
-          <div class="choice" data-correct="false">قِصر النظر</div>
+          <div class="choice" data-correct="true">قرب منتصف النهار (عندما تكون الظلال أقصر)</div>
+          <div class="choice" data-correct="false">عند الشروق فقط</div>
+          <div class="choice" data-correct="false">قبيل الغروب فقط</div>
+          <div class="choice" data-correct="false">لا يهم الوقت</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q4">
-        <div><strong>4) الألياف الغذائية تفيد في:</strong></div>
+      <article class="q" data-qid="q4"><div><strong>4) الجلد الأغمق (ميلانين أعلى) يعني غالبًا أنه يحتاج:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تحسين حركة الأمعاء والشعور بالشبع</div>
-          <div class="choice" data-correct="false">رفع ضغط الدم</div>
-          <div class="choice" data-correct="false">زيادة الكوليسترول</div>
-          <div class="choice" data-correct="false">نقص الماء</div>
+          <div class="choice" data-correct="true">زمن تعرّض أطول للحصول على نفس الكمية</div>
+          <div class="choice" data-correct="false">زمنًا أقصر دومًا</div>
+          <div class="choice" data-correct="false">لا فرق إطلاقًا</div>
+          <div class="choice" data-correct="false">تعرّضًا خلف الزجاج</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q5">
-        <div><strong>5) مثال لمصدر دهون صحية غير مشبعة:</strong></div>
+      <article class="q" data-qid="q5"><div><strong>5) الزجاج في النوافذ:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الأسماك الدهنية/المكسرات/زيت الزيتون</div>
-          <div class="choice" data-correct="false">السمن الصناعي المتحوّل</div>
-          <div class="choice" data-correct="false">الدهون المتحولة</div>
-          <div class="choice" data-correct="false">الدهون المهدرجة</div>
+          <div class="choice" data-correct="true">يحجب معظم UVB فلا يكفي للتصنيع</div>
+          <div class="choice" data-correct="false">يزيد UVB</div>
+          <div class="choice" data-correct="false">لا يغيّر شيئًا</div>
+          <div class="choice" data-correct="false">يحوّل UVB إلى فيتامين (د)</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q6">
-        <div><strong>6) الحديد ضروري لـ:</strong></div>
+      <article class="q" data-qid="q6"><div><strong>6) عامل جغرافي يقلل وصول UVB:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تكوين الهيموغلوبين ونقل الأكسجين</div>
-          <div class="choice" data-correct="false">إنتاج الأنسولين</div>
-          <div class="choice" data-correct="false">صنع فيتامين سي</div>
-          <div class="choice" data-correct="false">تحلل النشا</div>
+          <div class="choice" data-correct="true">العرض الجغرافي العالي/فصل الشتاء</div>
+          <div class="choice" data-correct="false">المناطق الاستوائية دائمًا</div>
+          <div class="choice" data-correct="false">المدينة عند الظهيرة صيفًا</div>
+          <div class="choice" data-correct="false">السماء صافية ومدّة قصيرة</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q7">
-        <div><strong>7) فيتامين (د) يساعد الجسم على:</strong></div>
+      <article class="q" data-qid="q7"><div><strong>7) استخدام واقٍ شمسي عالي الحماية (SPF):</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">قد يقلّل تصنيع فيتامين (د) عند استخدامه على كامل الجلد</div>
+          <div class="choice" data-correct="false">يزيد تصنيع فيتامين (د)</div>
+          <div class="choice" data-correct="false">لا يؤثر في UVB</div>
+          <div class="choice" data-correct="false">يمنع امتصاص الكالسيوم مباشرةً</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q8"><div><strong>8) من المصادر الغذائية الجيدة لفيتامين (د):</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">الأسماك الدهنية/زيت كبد الحوت/أطعمة مُدعّمة</div>
+          <div class="choice" data-correct="false">الخس فقط</div>
+          <div class="choice" data-correct="false">الأرز الأبيض</div>
+          <div class="choice" data-correct="false">الماء</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q9"><div><strong>9) امتصاص فيتامين (د) من الغذاء يكون أفضل عند تناوله مع:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">كمية دهون صحّية (لأنه ذائب في الدهن)</div>
+          <div class="choice" data-correct="false">الماء فقط</div>
+          <div class="choice" data-correct="false">الألياف العالية دائمًا</div>
+          <div class="choice" data-correct="false">الثلج</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q10"><div><strong>10) نقص فيتامين (د) قد يؤثر على:</strong></div>
         <div class="choices">
           <div class="choice" data-correct="true">امتصاص الكالسيوم وصحة العظام</div>
-          <div class="choice" data-correct="false">تخزين الغلوكوز في العضلات</div>
-          <div class="choice" data-correct="false">صنع الأحماض الأمينية</div>
-          <div class="choice" data-correct="false">تكوين الألياف</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q8">
-        <div><strong>8) من وظائف الماء في الجسم:</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">نقل المواد وتنظيم الحرارة</div>
-          <div class="choice" data-correct="false">تزويد 9 سعرات/غرام</div>
-          <div class="choice" data-correct="false">تخزين فيتامينات دائمة</div>
-          <div class="choice" data-correct="false">بناء الهيموغلوبين</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q9">
-        <div><strong>9) الاحتياج للطاقة (السعرات) يتأثر بـ:</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">العمر والجنس والوزن والنشاط</div>
+          <div class="choice" data-correct="false">السمع مباشرة</div>
           <div class="choice" data-correct="false">لون العين</div>
-          <div class="choice" data-correct="false">فصيلة الدم فقط</div>
           <div class="choice" data-correct="false">طول الشعر</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q10">
-        <div><strong>10) الصوديوم والبوتاسيوم يُسهمان في:</strong></div>
+      <article class="q" data-qid="q11"><div><strong>11) أي عبارة أدقّ؟</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">توازن السوائل ووظيفة الأعصاب والعضلات</div>
-          <div class="choice" data-correct="false">تصبغ الجلد</div>
-          <div class="choice" data-correct="false">تخزين الدهون</div>
-          <div class="choice" data-correct="false">إنتاج فيتامينات</div>
+          <div class="choice" data-correct="true">فيتامين (د) من الفيتامينات الذائبة في الدهن</div>
+          <div class="choice" data-correct="false">مركّب ذائب في الماء دومًا</div>
+          <div class="choice" data-correct="false">إنزيم هضمي</div>
+          <div class="choice" data-correct="false">هرمون درقي</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q11">
-        <div><strong>11) لتعزيز امتصاص الحديد من المصادر النباتية يُفضّل تناوله مع:</strong></div>
+      <article class="q" data-qid="q12"><div><strong>12) من الفئات الأكثر عرضة لنقص فيتامين (د):</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">فيتامين (ج) (حمضيّات/فلفل)</div>
-          <div class="choice" data-correct="false">الماء فقط</div>
-          <div class="choice" data-correct="false">الألياف بكثرة</div>
-          <div class="choice" data-correct="false">الملح</div>
+          <div class="choice" data-correct="true">كبار السن/قليل التعرّض للشمس/تغطية كاملة للجلد</div>
+          <div class="choice" data-correct="false">من يعيش في الاستواء مع تعرّض يومي</div>
+          <div class="choice" data-correct="false">السبّاحون في الهواء الطلق ظهرًا</div>
+          <div class="choice" data-correct="false">العمال في الشمس الاستوائية</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q12">
-        <div><strong>12) الإفراط في الصوديوم يرتبط بـ:</strong></div>
+      <article class="q" data-qid="q13"><div><strong>13) أيهما صحيح بخصوص الجرعات العالية جدًا من المكمّلات؟</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">ارتفاع ضغط الدم</div>
-          <div class="choice" data-correct="false">فقر الدم</div>
-          <div class="choice" data-correct="false">انخفاض حرارة الجسم</div>
-          <div class="choice" data-correct="false">زيادة البصر</div>
+          <div class="choice" data-correct="true">الزيادة المفرطة قد تضرّ، بخلاف التعرّض المعتدل للشمس</div>
+          <div class="choice" data-correct="false">لا ضرر إطلاقًا مهما كانت الكمية</div>
+          <div class="choice" data-correct="false">الشمس دائمًا خطرة حتى تعرّض قصير</div>
+          <div class="choice" data-correct="false">لا علاقة لفيتامين (د) بالكالسيوم</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q13">
-        <div><strong>13) الكربوهيدرات المعقّدة الأفضل للصحة غالبًا:</strong></div>
+      <article class="q" data-qid="q14"><div><strong>14) ما الذي يزيد الاستفادة من الشمس لصنع فيتامين (د) بأمان؟</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الحبوب الكاملة (أرز بني/شوفان)</div>
-          <div class="choice" data-correct="false">السكر الأبيض</div>
-          <div class="choice" data-correct="false">الحلوى فقط</div>
-          <div class="choice" data-correct="false">المشروبات المحلّاة</div>
+          <div class="choice" data-correct="true">تعرّض معتدل غير مُحرق للذراعين/الساقين ثم حماية لاحقًا</div>
+          <div class="choice" data-correct="false">التعرّض الطويل حتى الاحتراق</div>
+          <div class="choice" data-correct="false">البقاء خلف زجاج النافذة</div>
+          <div class="choice" data-correct="false">التعرّض ليلًا</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q14">
-        <div><strong>14) وجبة تحوي 50غ كربوهيدرات، 10غ دهون، 20غ بروتين. مجموع السعرات ≈</strong></div>
+      <!-- 15-20 الإضافية -->
+      <article class="q" data-qid="q15"><div><strong>15) كلما كانت مساحة الجلد المكشوف أكبر (بدون حروق):</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">370 ك.سعرة</div>
-          <div class="choice" data-correct="false">330 ك.سعرة</div>
-          <div class="choice" data-correct="false">410 ك.سعرة</div>
-          <div class="choice" data-correct="false">290 ك.سعرة</div>
+          <div class="choice" data-correct="true">زاد تصنيع فيتامين (د) خلال زمن التعرّض نفسه</div>
+          <div class="choice" data-correct="false">قلّ تصنيع فيتامين (د)</div>
+          <div class="choice" data-correct="false">لا علاقة لمساحة الجلد</div>
+          <div class="choice" data-correct="false">يتحوّل UVB إلى UVA</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q15">
-        <div><strong>15) في «الطبق المتوازن» يُفضّل أن تُشكّل الخضار والفاكهة:</strong></div>
+      <article class="q" data-qid="q16"><div><strong>16) يتحوّل فيتامين (د) في الجسم عبر خطوتين أساسيتين:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">نصف الطبق تقريبًا</div>
-          <div class="choice" data-correct="false">الطبق كاملًا</div>
-          <div class="choice" data-correct="false">ربع الطبق فقط</div>
-          <div class="choice" data-correct="false">لا شيءَ منها</div>
+          <div class="choice" data-correct="true">أولًا في الكبد ثم يُنشَّط في الكلى</div>
+          <div class="choice" data-correct="false">يُنشّطه الجلد فقط</div>
+          <div class="choice" data-correct="false">الأمعاء فقط</div>
+          <div class="choice" data-correct="false">لا يحتاج أي تحوّل</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q16">
-        <div><strong>16) لكل غرام دهون:</strong></div>
+      <article class="q" data-qid="q17"><div><strong>17) من الحالات التي قد تتطلّب متابعة طبية لجرعات المكمّلات:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">≈ 9 ك.سعرة</div>
-          <div class="choice" data-correct="false">≈ 4 ك.سعرة</div>
-          <div class="choice" data-correct="false">≈ 0 ك.سعرة</div>
-          <div class="choice" data-correct="false">≈ 2 ك.سعرة</div>
+          <div class="choice" data-correct="true">السمنة أو مشكلات سوء الامتصاص/أمراض الكلى</div>
+          <div class="choice" data-correct="false">الصحّة الممتازة ودمج الشمس والغذاء دائمًا</div>
+          <div class="choice" data-correct="false">كل شخص دون استثناء</div>
+          <div class="choice" data-correct="false">لا أحد مطلقًا</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q17">
-        <div><strong>17) مصدر جيّد لأحماض أوميغا-3:</strong></div>
+      <article class="q" data-qid="q18"><div><strong>18) علامة شائعة لنقص فيتامين (د) عند البالغين:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الأسماك الدهنية (سلمون/سردين)</div>
-          <div class="choice" data-correct="false">السكر البني</div>
-          <div class="choice" data-correct="false">المعكرونة البيضاء</div>
-          <div class="choice" data-correct="false">المشروبات الغازية</div>
+          <div class="choice" data-correct="true">آلام العظام/ضعف العضلات والإرهاق</div>
+          <div class="choice" data-correct="false">تحسّن الرؤية ليلًا</div>
+          <div class="choice" data-correct="false">نزلة برد فورية دائمًا</div>
+          <div class="choice" data-correct="false">ازدياد الطول بسرعة</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q18">
-        <div><strong>18) عدم تحمّل اللاكتوز يعني:</strong></div>
+      <article class="q" data-qid="q19"><div><strong>19) يعيش طالب في منطقة عالية العرض الجغرافي شتاءً؛ الأنسب للحفاظ على المستوى:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">صعوبة هضم سكر الحليب لنقص إنزيم اللاكتاز</div>
-          <div class="choice" data-correct="false">حساسية سمكية</div>
-          <div class="choice" data-correct="false">عدم تحمل الغلوتين</div>
-          <div class="choice" data-correct="false">نقص الحديد</div>
+          <div class="choice" data-correct="true">الاعتماد على أطعمة مُدعّمة/مكمّلات بجرعات مناسبة بإشراف</div>
+          <div class="choice" data-correct="false">التعرّض الطويل في البرد حتى الاحتراق</div>
+          <div class="choice" data-correct="false">البقاء داخل المنزل قرب النافذة</div>
+          <div class="choice" data-correct="false">إيقاف الكالسيوم بالكامل</div>
         </div>
       </article>
 
-      <article class="q" data-qid="q19">
-        <div><strong>19) أي الوجبات التالية أقرب لوجبة متوازنة؟</strong></div>
+      <article class="q" data-qid="q20"><div><strong>20) أي العبارة أدقّ بخصوص نوع المكمّل:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">أرز بني + دجاج مشوي + سلطة خضراء + لبن زبادي</div>
-          <div class="choice" data-correct="false">بطاطس مقلية فقط</div>
-          <div class="choice" data-correct="false">حلوى ومشروب غازي</div>
-          <div class="choice" data-correct="false">خبز أبيض فقط</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q20">
-        <div><strong>20) أي مما يلي يُعد من «المغذّيات الصغرى»؟</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">الفيتامينات والمعادن</div>
-          <div class="choice" data-correct="false">الكربوهيدرات</div>
-          <div class="choice" data-correct="false">الدهون</div>
-          <div class="choice" data-correct="false">البروتين</div>
+          <div class="choice" data-correct="true">فيتامين D3 شائع وفعّال لرفع المستوى مقارنة بـ D2</div>
+          <div class="choice" data-correct="false">D2 وD3 ليسا فيتامينين</div>
+          <div class="choice" data-correct="false">D3 غير مناسب أبدًا</div>
+          <div class="choice" data-correct="false">النوع لا يهم إطلاقًا لكل الناس</div>
         </div>
       </article>
 
@@ -338,7 +313,7 @@
     </section>
 
     <footer class="card" data-aos="fade-up" data-aos-delay="50">
-      <div><span class="credit">🎨 تصميم: الوتين الضامرية |لمار السيابية|مها المعمرية|مريم محمود البلوشية|مريم وائل البلوشية| — 🏫 مدرسة عاتكة بنت زيد — تحت إشراف الأستاذة سامية 👩‍🏫</span></div>
+      <div><span class="credit">🎨 تصميم: الوتين الضامرية |لمار السيابية|مها المعمرية|مريم محمود البلوشية|مريم وائل البلوشية| — 🏫 مدرسة عاتكة بنت زيد — بإشراف الأستاذة سامية 👩‍🏫</span></div>
       <div>© انشطة تعليمية الوتين 🌟</div>
     </footer>
   </div>
@@ -392,7 +367,7 @@
       // رسائل متنوعة حسب الأداء
       messages: {
         welcome: [
-          "أهلاً وسهلاً {name}! مرحبًا بك في درس 4-1 — النظام الغذائي المثير! 🧬",
+          "أهلاً وسهلاً {name}! مرحبًا بك في درس 4-2 — امتصاص فيتامين د (20 سؤالًا) المثير! 🧬",
           "مرحبًا {name}! أنت على وشك خوض مغامرة علمية رائعة! 🔬",
           "أهلاً {name}! دعنا نكتشف أسرار العلوم معًا! ✨"
         ],
@@ -499,15 +474,6 @@
     
 
 
-    // بنك الأسئلة المخصص للدرس
-    const bank = [
-      {q:"التمثيل الضوئي يحدث في:", c:["الميتوكندريا", "البلاستيدات الخضراء", "النواة", "الفجوة"], a:1},
-      {q:"المعادلة العامة للتمثيل الضوئي:", c:["CO2 + H2O + ضوء → جلوكوز + O2", "جلوكوز + O2 → CO2 + H2O", "H2O فقط", "CO2 فقط"], a:0},
-      {q:"العوامل المحددة للتمثيل الضوئي:", c:["شدة الضوء، CO2، الحرارة", "اللون فقط", "الوقت فقط", "حجم الورقة فقط"], a:0},
-      {q:"الكلوروفيل يمتص الضوء:", c:["الأخضر فقط", "الأحمر والأزرق أكثر من الأخضر", "البنفسجي فقط", "جميع الألوان بنفس القدر"], a:1},
-      {q:"نواتج التمثيل الضوئي:", c:["CO2 والماء", "الجلوكوز والأكسجين", "النيتروجين", "الأحماض"], a:1}
-    ];
-
     const el = {
       start: document.getElementById('btnStart'),
       quiz: document.getElementById('quiz'),
@@ -603,7 +569,6 @@
         updateMeta();
         el.quiz.style.display = "block";
         gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.5});
-        // تهيئة شريط التقدّم
         document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
         document.getElementById('countDone').textContent = 0;
         el.bar.style.width = '0%';
@@ -615,7 +580,7 @@
       el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
     }
 
-    // شريط التقدّم: أي اختيار (صحيح أو خاطئ) يُعدّ إجابة
+    // تقدّم: أي اختيار = إجابة
     
 
     // نظام الإجابة المحسن مع الذكاء الاصطناعي
@@ -817,7 +782,7 @@
       el.done.textContent = 0; el.bar.style.width = '0%';
     }
 
-    // تهيئة أولية
+    // تهيئة عدّاد الأسئلة
     updateMeta();
     updateProgress();
     el.reset.addEventListener('click', resetQuiz);

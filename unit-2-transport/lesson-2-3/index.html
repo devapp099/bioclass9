@@ -505,6 +505,15 @@
 
     
 
+    // بنك الأسئلة المخصص للدرس
+    const bank = [
+      {q:"الأسموزية هي انتشار:", c:["السكر", "الأملاح", "الماء عبر غشاء شبه منفذ", "البروتين"], a:2},
+      {q:"عند وضع خلية في محلول مخفف (منخفض التركيز):", c:["تنكمش", "تنتفخ بدخول الماء", "لا يحدث شيء", "تموت فوراً"], a:1},
+      {q:"المحلول المتساوي التوتر مع الخلية:", c:["يسبب انتفاخها", "يسبب انكماشها", "لا يؤثر على حجمها", "يدمرها"], a:2},
+      {q:"تجربة البطاطس في المحاليل تثبت:", c:["التنفس", "الأسموزية وتأثير التركيز", "التمثيل الضوئي", "الهضم"], a:1},
+      {q:"عندما تفقد الخلية النباتية الماء:", c:["تنتفخ", "يحدث ذبول", "تنمو أسرع", "تتضاعف"], a:1}
+    ];
+
     const el = { start: document.getElementById('btnStart'), quiz: document.getElementById('quiz'), submit: document.getElementById('btnSubmit'), reset: document.getElementById('btnReset'), meta: document.getElementById('studentMeta'), bar: document.getElementById('barFill'), done: document.getElementById('countDone'), total: document.getElementById('countTotal') };
     const storageKey = "watyn_bio_student"; let consecutiveCorrect = 0, totalAnswered = 0;
     function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }  function updateMeta(){ const s = getStudent(); el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…"; }  } }); if (answered > oldProgress) { checkMilestones(pc, answered); } } ); gsap.fromTo('.progress', { scale: 1 }, { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 }); } } function computeScore(){ const blocks = Array.from(document.querySelectorAll('.q[data-qid]')); let correct = 0; blocks.forEach(b=>{ const sel = b.querySelector('.choice.correct'); if(sel) correct++; }); return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) }; } function celebrate(){
