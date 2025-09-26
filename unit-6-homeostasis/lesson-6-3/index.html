@@ -12,6 +12,138 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+
+  <script>
+    // 🔊 النظام الصوتي المحسّن المُصلح
+    const SoundSystem = {
+      enabled: true,
+      currentVolume: 0.7,
+      sounds: {},
+      
+      // تهيئة جميع الأصوات مع مسارات محلية صحيحة
+      init() {
+        const soundMappings = {
+          'correct': 'win.mp3',
+          'wrong': 'wrong_answer.mp3', 
+          'click': 'Click.mp3',
+          'select': 'select.mp3',
+          'milestone': 'g.mp3',
+          'celebration': 'win-Blockbusters.mp3',
+          'complete': 'end-timer.mp3',
+          'start': 'start-timer.mp3',
+          'welcome': 'name-start.mp3',
+          'progress': 'Notification.mp3'
+        };
+        
+        Object.keys(soundMappings).forEach(type => {
+          this.sounds[type] = new Howl({
+            src: [`../../assets/audio/${soundMappings[type]}`],
+            volume: this.getContextualVolume(type),
+            preload: true,
+            onloaderror: (id, error) => {
+              console.warn(`⚠️ فشل تحميل الصوت ${type}: ${error}`);
+            },
+            onload: () => {
+              console.log(`✅ تم تحميل الصوت: ${type}`);
+            }
+          });
+        });
+        
+        console.log('🎵 تم تهيئة النظام الصوتي المحسّن بنجاح');
+      },
+      
+      // تشغيل صوت مع معالجة الأخطاء
+      play(soundType) {
+        if (!this.enabled) {
+          console.log('🔇 النظام الصوتي معطل');
+          return;
+        }
+        
+        if (!this.sounds[soundType]) {
+          console.warn(`⚠️ الصوت غير موجود: ${soundType}`);
+          return;
+        }
+        
+        try {
+          const contextualVolume = this.getContextualVolume(soundType);
+          this.sounds[soundType].volume(contextualVolume);
+          this.sounds[soundType].play();
+          
+          console.log(`🔊 تم تشغيل الصوت: ${soundType} بمستوى ${contextualVolume}`);
+          this.trackSoundUsage(soundType);
+        } catch (error) {
+          console.error(`❌ خطأ في تشغيل الصوت ${soundType}:`, error);
+        }
+      },
+      
+      // تحديد مستوى الصوت حسب السياق
+      getContextualVolume(soundType) {
+        const contextMap = {
+          'celebration': 0.9,
+          'milestone': 0.8,
+          'correct': 0.7,
+          'welcome': 0.6,
+          'wrong': 0.5,
+          'progress': 0.4,
+          'click': 0.4,
+          'select': 0.3
+        };
+        return contextMap[soundType] || this.currentVolume;
+      },
+      
+      // تتبع استخدام الأصوات
+      trackSoundUsage(soundType) {
+        if (!window.soundStats) window.soundStats = {};
+        window.soundStats[soundType] = (window.soundStats[soundType] || 0) + 1;
+      },
+      
+      // تشغيل متسلسل
+      sequence(sounds, delay = 500) {
+        sounds.forEach((sound, index) => {
+          setTimeout(() => this.play(sound), index * delay);
+        });
+      },
+      
+      // تفعيل/إلغاء تفعيل النظام
+      toggle() {
+        this.enabled = !this.enabled;
+        console.log(`🎵 النظام الصوتي: ${this.enabled ? 'مُفعل' : 'معطل'}`);
+        return this.enabled;
+      },
+      
+      // اختبار جميع الأصوات
+      testAll() {
+        console.log('🧪 اختبار جميع الأصوات...');
+        const sounds = Object.keys(this.sounds);
+        sounds.forEach((sound, index) => {
+          setTimeout(() => {
+            console.log(`🎵 اختبار: ${sound}`);
+            this.play(sound);
+          }, index * 1000);
+        });
+      }
+    };
+
+    // تهيئة النظام عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('🚀 بدء تهيئة النظام الصوتي...');
+      
+      // تأخير قصير للتأكد من تحميل Howler
+      setTimeout(() => {
+        if (typeof Howl !== 'undefined') {
+          SoundSystem.init();
+          
+          // اختبار سريع للتأكد من العمل
+          setTimeout(() => {
+            console.log('🧪 اختبار النظام الصوتي...');
+            // يمكن إلغاء التعليق للاختبار: SoundSystem.play('welcome');
+          }, 1000);
+        } else {
+          console.error('❌ مكتبة Howler غير محملة');
+        }
+      }, 500);
+    });
+  </script>
   <style>
     :root{
       --bg:linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); --card:#ffffff; --muted:#6b7280; --text:#1f2937;
