@@ -1,8 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <title>💧 درس 2-1 — الانتشار والنقل السلبي</title>
-  
+  <title>🧪 درس 4-1 — النظام الغذائي</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet" />
@@ -23,14 +22,12 @@
     html,body{height:100%}
     body{
       margin:0; background: var(--bg);
-      min-height:100vh;
-      color:var(--text); font-family:"Cairo", system-ui, sans-serif; line-height:1.7; letter-spacing:.2px;
+      min-height:100vh; color:var(--text); font-family:"Cairo", system-ui, sans-serif; line-height:1.7; letter-spacing:.2px;
       position: relative;
     }
     body::before {
-      content: '';
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: 
+      content: ''; position: fixed; inset:0;
+      background:
         radial-gradient(circle at 20% 80%, rgba(255,165,0,.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(255,69,0,.12) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(255,20,147,.1) 0%, transparent 50%);
@@ -48,9 +45,9 @@
     .logo{width:42px; height:42px; border-radius:12px;
       background: conic-gradient(from 200deg, var(--primary), var(--accent), #10b981, #3b82f6);
       box-shadow: 0 8px 24px rgba(245,158,11,.35);
-      animation: logoRotate 20s linear infinite;
+      animation: spin 20s linear infinite;
     }
-    @keyframes logoRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes spin { to { transform: rotate(360deg) } }
     .title{font-weight:900; font-size:clamp(20px,3vw,28px)}
     .subtitle{font-weight:700; font-size:clamp(14px,2vw,16px); color:var(--muted)}
     .card{
@@ -66,14 +63,11 @@
        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;}
     h2{font-size:clamp(18px,3vw,22px); margin:10px 0 14px; font-weight:800; color:var(--primary)}
     p.lead{color:var(--muted); font-size:clamp(15px,2.4vw,18px); margin-top:0}
-    .grid{display:grid; gap:16px}
-    @media (min-width: 840px){ .grid-2{grid-template-columns:1fr 1fr} .grid-3{grid-template-columns:repeat(3,1fr)} }
     .btn{
       all:unset; cursor:pointer; padding:14px 18px; border-radius:16px; font-weight:800;
       border:1px solid rgba(245,158,11,.3);
       background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
-      color:white;
-      box-shadow: 0 8px 24px rgba(245,158,11,.25);
+      color:white; box-shadow: 0 8px 24px rgba(245,158,11,.25);
       transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
     }
     .btn:hover{ transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 35px rgba(245,158,11,.35);
@@ -98,8 +92,8 @@
     footer{ margin-top:34px; padding:18px; border-top:1px solid rgba(0,0,0,.08);
       color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
     .credit{color:var(--text); font-weight:800}
+    a.card-link{ display:block; text-decoration:none; color:inherit }
   </style>
-
 </head>
 <body>
   <div class="wrap">
@@ -107,9 +101,8 @@
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          <div class="title">🪴 درس 2-2 — كيف تحصل النباتات على الماء؟</div>
+          <div class="title">🧪 درس 4-1 — النظام الغذائي</div>
           <div class="subtitle" id="studentMeta">مرحبًا! لنبدأ…</div>
-          <!-- شريط التقدّم -->
           <div class="progress">
             <div>التقدّم:</div>
             <div class="bar"><span id="barFill"></span></div>
@@ -117,224 +110,224 @@
           </div>
         </div>
       </div>
+      <a class="btn-ghost" href="../../index.html">← العودة</a>
     </header>
 
     <section class="card" style="margin-top:18px; position:relative" data-aos="zoom-in">
       <div class="pulse"></div>
       <h1>🎯 أهداف الدرس</h1>
-      <p class="lead">تفسير امتصاص الماء عبر الشعيرات الجذرية ونقله عبر الخشب بآليات الأسموزية والسحب بالنتح.</p>
+      <p class="lead">مكوّنات النظام الغذائي المتوازن ودور المغذيات الكبرى والصغرى وكيفية قراءة الخيارات الغذائية.</p>
       <ul>
-        <li>تعرّف تكيفات خلية الشعيرة الجذرية ومساري النقل: الأبُوبلاست/السيمبلاست وشريط كاسبار.</li>
-        <li>شرح نظرية التماسُك–الشد (Cohesion–Tension) ودور النتح والضغط الجذري.</li>
-        <li>تحليل العوامل المؤثرة في النتح ومسار الماء من التربة إلى الهواء.</li>
+        <li>التفريق بين كربوهيدرات/دهون/بروتين ووظائفها الأساسية.</li>
+        <li>أهمية الألياف والماء والفيتامينات والمعادن.</li>
+        <li>مبادئ «الطبق المتوازن» وحساب السعرات من المغذّيات.</li>
       </ul>
       <div style="display:flex; gap:10px; flex-wrap:wrap">
         <button id="btnStart" class="btn">ابدأ النشاط</button>
-        <a class="btn-ghost" href="../../index.html">← العودة</a>
       </div>
     </section>
 
     <section id="quiz" class="card" style="margin-top:16px; display:none" data-aos="fade-up">
       <h2>الأسئلة التفاعلية</h2>
 
-      <!-- 20 سؤالًا -->
+      <!-- 20 سؤال -->
       <article class="q" data-qid="q1">
-        <div><strong>1) تكيف رئيس لخلية الشعيرة الجذرية يزيد الامتصاص:</strong></div>
+        <div><strong>1) من وظائف البروتين الأساسية:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">مساحة سطح كبيرة واستطالة رفيعة</div>
-          <div class="choice" data-correct="false">جدار سميك جدًا يقلّل النفاذية</div>
-          <div class="choice" data-correct="false">غياب الفجوة العصارية</div>
-          <div class="choice" data-correct="false">قصر شديد في الطول</div>
+          <div class="choice" data-correct="true">النمو وبناء الأنسجة</div>
+          <div class="choice" data-correct="false">تخزين طويل للطاقة فقط</div>
+          <div class="choice" data-correct="false">تزويد الألياف</div>
+          <div class="choice" data-correct="false">إمداد فيتامين د</div>
         </div>
       </article>
 
       <article class="q" data-qid="q2">
-        <div><strong>2) يدخل الماء إلى خلية الشعيرة الجذرية أساسًا بفعل:</strong></div>
+        <div><strong>2) المغذّي الأنسب للطاقة السريعة:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الأسموزية عبر غشاء شبه منفذ</div>
-          <div class="choice" data-correct="false">النقل النشط للماء</div>
-          <div class="choice" data-correct="false">الانتشار البسيط للغلوكوز</div>
-          <div class="choice" data-correct="false">البلعمة</div>
+          <div class="choice" data-correct="true">الكربوهيدرات</div>
+          <div class="choice" data-correct="false">البروتين</div>
+          <div class="choice" data-correct="false">الحديد</div>
+          <div class="choice" data-correct="false">الكالسيوم</div>
         </div>
       </article>
 
       <article class="q" data-qid="q3">
-        <div><strong>3) ينتقل الماء صعودًا في النبات عبر:</strong></div>
+        <div><strong>3) نقص فيتامين (د) قد يؤدي إلى:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الخشب</div>
-          <div class="choice" data-correct="false">اللحاء</div>
-          <div class="choice" data-correct="false">النسيج العمادي فقط</div>
-          <div class="choice" data-correct="false">الفراغات بين الخلايا فقط</div>
+          <div class="choice" data-correct="true">الكساح/لين العظام</div>
+          <div class="choice" data-correct="false">فقر دم فوري</div>
+          <div class="choice" data-correct="false">قصور الغدة الدرقية</div>
+          <div class="choice" data-correct="false">قِصر النظر</div>
         </div>
       </article>
 
       <article class="q" data-qid="q4">
-        <div><strong>4) المسار الأبُوبلاستي (Apoplast) يعني انتقال الماء عبر:</strong></div>
+        <div><strong>4) الألياف الغذائية تفيد في:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الجدران والفراغات بين الخلايا دون عبور غشاء</div>
-          <div class="choice" data-correct="false">السيتوبلازم عبر الروابط البلازمية فقط</div>
-          <div class="choice" data-correct="false">الأوعية الغربالية</div>
-          <div class="choice" data-correct="false">المريكزات</div>
+          <div class="choice" data-correct="true">تحسين حركة الأمعاء والشعور بالشبع</div>
+          <div class="choice" data-correct="false">رفع ضغط الدم</div>
+          <div class="choice" data-correct="false">زيادة الكوليسترول</div>
+          <div class="choice" data-correct="false">نقص الماء</div>
         </div>
       </article>
 
       <article class="q" data-qid="q5">
-        <div><strong>5) شريط كاسبار في الإندودرميس يَحول دون استمرار المسار الأبُوبلاستي لأنه:</strong></div>
+        <div><strong>5) مثال لمصدر دهون صحية غير مشبعة:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">مشرّب بالسوبرين فيجبر الماء على عبور الغشاء (سيمبلاست)</div>
-          <div class="choice" data-correct="false">يفتح القنوات ممرًا مباشرًا</div>
-          <div class="choice" data-correct="false">يزيد سمك الخشب</div>
-          <div class="choice" data-correct="false">يمنع الأسموزية داخل الجذر</div>
+          <div class="choice" data-correct="true">الأسماك الدهنية/المكسرات/زيت الزيتون</div>
+          <div class="choice" data-correct="false">السمن الصناعي المتحوّل</div>
+          <div class="choice" data-correct="false">الدهون المتحولة</div>
+          <div class="choice" data-correct="false">الدهون المهدرجة</div>
         </div>
       </article>
 
       <article class="q" data-qid="q6">
-        <div><strong>6) الآلية الأساسية لرفع الماء نهارًا في النباتات الطويلة هي:</strong></div>
+        <div><strong>6) الحديد ضروري لـ:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">السحب بالنتح (نظرية التماسُك–الشد)</div>
-          <div class="choice" data-correct="false">الضغط الجذري وحده</div>
-          <div class="choice" data-correct="false">النقل النشط للماء لأعلى</div>
-          <div class="choice" data-correct="false">الخاصية الشعرية وحدها</div>
+          <div class="choice" data-correct="true">تكوين الهيموغلوبين ونقل الأكسجين</div>
+          <div class="choice" data-correct="false">إنتاج الأنسولين</div>
+          <div class="choice" data-correct="false">صنع فيتامين سي</div>
+          <div class="choice" data-correct="false">تحلل النشا</div>
         </div>
       </article>
 
       <article class="q" data-qid="q7">
-        <div><strong>7) خاصية «التماسُك» في الماء تعني:</strong></div>
+        <div><strong>7) فيتامين (د) يساعد الجسم على:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">ترابط جزيئات الماء ببعضها بروابط هيدروجينية</div>
-          <div class="choice" data-correct="false">التصاق الماء بجدران الوعاء</div>
-          <div class="choice" data-correct="false">انجذاب الماء للأيونات فقط</div>
-          <div class="choice" data-correct="false">تفكك عمود الماء بسهولة</div>
+          <div class="choice" data-correct="true">امتصاص الكالسيوم وصحة العظام</div>
+          <div class="choice" data-correct="false">تخزين الغلوكوز في العضلات</div>
+          <div class="choice" data-correct="false">صنع الأحماض الأمينية</div>
+          <div class="choice" data-correct="false">تكوين الألياف</div>
         </div>
       </article>
 
       <article class="q" data-qid="q8">
-        <div><strong>8) خاصية «الالتصاق» تساعد على:</strong></div>
+        <div><strong>8) من وظائف الماء في الجسم:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تثبيت عمود الماء على جدران الخشب (شعرية)</div>
-          <div class="choice" data-correct="false">تقليل صعود الماء</div>
-          <div class="choice" data-correct="false">إغلاق الثغور</div>
-          <div class="choice" data-correct="false">تحليل السوبرين</div>
+          <div class="choice" data-correct="true">نقل المواد وتنظيم الحرارة</div>
+          <div class="choice" data-correct="false">تزويد 9 سعرات/غرام</div>
+          <div class="choice" data-correct="false">تخزين فيتامينات دائمة</div>
+          <div class="choice" data-correct="false">بناء الهيموغلوبين</div>
         </div>
       </article>
 
       <article class="q" data-qid="q9">
-        <div><strong>9) أي العوامل التالية يزيد معدل النتح عادةً؟</strong></div>
+        <div><strong>9) الاحتياج للطاقة (السعرات) يتأثر بـ:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">ارتفاع الحرارة + انخفاض الرطوبة + حركة الهواء</div>
-          <div class="choice" data-correct="false">ارتفاع الرطوبة + انعدام الهواء</div>
-          <div class="choice" data-correct="false">انخفاض الحرارة + رطوبة عالية</div>
-          <div class="choice" data-correct="false">ظلام دائم</div>
+          <div class="choice" data-correct="true">العمر والجنس والوزن والنشاط</div>
+          <div class="choice" data-correct="false">لون العين</div>
+          <div class="choice" data-correct="false">فصيلة الدم فقط</div>
+          <div class="choice" data-correct="false">طول الشعر</div>
         </div>
       </article>
 
       <article class="q" data-qid="q10">
-        <div><strong>10) تفتح الثغور عندما:</strong></div>
+        <div><strong>10) الصوديوم والبوتاسيوم يُسهمان في:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تمتلئ الخلايا الحارسة بالماء (انتفاخ/امتلاء)</div>
-          <div class="choice" data-correct="false">تفقد الخلايا الحارسة الماء (ترهّل)</div>
-          <div class="choice" data-correct="false">ينعدم الضوء دائمًا</div>
-          <div class="choice" data-correct="false">تغلق قنوات K⁺</div>
+          <div class="choice" data-correct="true">توازن السوائل ووظيفة الأعصاب والعضلات</div>
+          <div class="choice" data-correct="false">تصبغ الجلد</div>
+          <div class="choice" data-correct="false">تخزين الدهون</div>
+          <div class="choice" data-correct="false">إنتاج فيتامينات</div>
         </div>
       </article>
 
       <article class="q" data-qid="q11">
-        <div><strong>11) في تربة مالحة جدًا قد:</strong></div>
+        <div><strong>11) لتعزيز امتصاص الحديد من المصادر النباتية يُفضّل تناوله مع:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تفقد الشعيرات الجذرية ماءها بالأسموزية فتذبل</div>
-          <div class="choice" data-correct="false">يزيد امتصاص الماء تلقائيًا</div>
-          <div class="choice" data-correct="false">يتحوّل الخشب إلى لحاء</div>
-          <div class="choice" data-correct="false">تنعدم الأيونات في التربة</div>
+          <div class="choice" data-correct="true">فيتامين (ج) (حمضيّات/فلفل)</div>
+          <div class="choice" data-correct="false">الماء فقط</div>
+          <div class="choice" data-correct="false">الألياف بكثرة</div>
+          <div class="choice" data-correct="false">الملح</div>
         </div>
       </article>
 
       <article class="q" data-qid="q12">
-        <div><strong>12) الضغط الجذري يظهر بوضوح عندما:</strong></div>
+        <div><strong>12) الإفراط في الصوديوم يرتبط بـ:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">ينخفض النتح (ليلًا) فتلاحظ «الإدماع/الندى الطرفي»</div>
-          <div class="choice" data-correct="false">يزداد النتح نهارًا</div>
-          <div class="choice" data-correct="false">تنعدم الأملاح في التربة</div>
-          <div class="choice" data-correct="false">تغلق جميع الثغور دائمًا</div>
+          <div class="choice" data-correct="true">ارتفاع ضغط الدم</div>
+          <div class="choice" data-correct="false">فقر الدم</div>
+          <div class="choice" data-correct="false">انخفاض حرارة الجسم</div>
+          <div class="choice" data-correct="false">زيادة البصر</div>
         </div>
       </article>
 
       <article class="q" data-qid="q13">
-        <div><strong>13) وظيفة شريط كاسبار الأساسية:</strong></div>
+        <div><strong>13) الكربوهيدرات المعقّدة الأفضل للصحة غالبًا:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">ضمان الانتقاء؛ إجبار الماء على المرور عبر أغشية</div>
-          <div class="choice" data-correct="false">زيادة قطر أوعية الخشب</div>
-          <div class="choice" data-correct="false">منع انتقال الأملاح إلى الورقة كليًا</div>
-          <div class="choice" data-correct="false">فتح الثغور</div>
+          <div class="choice" data-correct="true">الحبوب الكاملة (أرز بني/شوفان)</div>
+          <div class="choice" data-correct="false">السكر الأبيض</div>
+          <div class="choice" data-correct="false">الحلوى فقط</div>
+          <div class="choice" data-correct="false">المشروبات المحلّاة</div>
         </div>
       </article>
 
       <article class="q" data-qid="q14">
-        <div><strong>14) أوعية الخشب تتميّز بأنها:</strong></div>
+        <div><strong>14) وجبة تحوي 50غ كربوهيدرات، 10غ دهون، 20غ بروتين. مجموع السعرات ≈</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">خلايا ميتة مجوّفة ذات جدران مُلجننة</div>
-          <div class="choice" data-correct="false">خلايا حية بلا جدران</div>
-          <div class="choice" data-correct="false">غنية بالكلوروفيل</div>
-          <div class="choice" data-correct="false">تنتج النشا</div>
+          <div class="choice" data-correct="true">370 ك.سعرة</div>
+          <div class="choice" data-correct="false">330 ك.سعرة</div>
+          <div class="choice" data-correct="false">410 ك.سعرة</div>
+          <div class="choice" data-correct="false">290 ك.سعرة</div>
         </div>
       </article>
 
       <article class="q" data-qid="q15">
-        <div><strong>15) زيادة رطوبة الهواء حول الورقة تؤدي إلى:</strong></div>
+        <div><strong>15) في «الطبق المتوازن» يُفضّل أن تُشكّل الخضار والفاكهة:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">انخفاض معدل النتح</div>
-          <div class="choice" data-correct="false">ارتفاع النتح</div>
-          <div class="choice" data-correct="false">ثبات المعدل دومًا</div>
-          <div class="choice" data-correct="false">إغلاق كاسبار</div>
+          <div class="choice" data-correct="true">نصف الطبق تقريبًا</div>
+          <div class="choice" data-correct="false">الطبق كاملًا</div>
+          <div class="choice" data-correct="false">ربع الطبق فقط</div>
+          <div class="choice" data-correct="false">لا شيءَ منها</div>
         </div>
       </article>
 
       <article class="q" data-qid="q16">
-        <div><strong>16) إغلاق الثغور ظهر الظهيرة يقلّل الفقد المائي لكنه:</strong></div>
+        <div><strong>16) لكل غرام دهون:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">يقلّل دخول CO₂ فيهبط التمثيل الضوئي</div>
-          <div class="choice" data-correct="false">يزيد امتصاص CO₂</div>
-          <div class="choice" data-correct="false">لا يؤثر على التمثيل</div>
-          <div class="choice" data-correct="false">يحطم أوعية الخشب</div>
+          <div class="choice" data-correct="true">≈ 9 ك.سعرة</div>
+          <div class="choice" data-correct="false">≈ 4 ك.سعرة</div>
+          <div class="choice" data-correct="false">≈ 0 ك.سعرة</div>
+          <div class="choice" data-correct="false">≈ 2 ك.سعرة</div>
         </div>
       </article>
 
       <article class="q" data-qid="q17">
-        <div><strong>17) وجود «الأكواپورينات» (قنوات ماء) في الأغشية يؤثر عادةً بـ:</strong></div>
+        <div><strong>17) مصدر جيّد لأحماض أوميغا-3:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">زيادة نفاذية الماء وتسريع العبور</div>
-          <div class="choice" data-correct="false">إيقاف مرور الماء</div>
-          <div class="choice" data-correct="false">تحويل الماء إلى أيونات</div>
-          <div class="choice" data-correct="false">استبدال الخشب باللحاء</div>
+          <div class="choice" data-correct="true">الأسماك الدهنية (سلمون/سردين)</div>
+          <div class="choice" data-correct="false">السكر البني</div>
+          <div class="choice" data-correct="false">المعكرونة البيضاء</div>
+          <div class="choice" data-correct="false">المشروبات الغازية</div>
         </div>
       </article>
 
       <article class="q" data-qid="q18">
-        <div><strong>18) التدرّج في الجهد المائي غالبًا يكون:</strong></div>
+        <div><strong>18) عدم تحمّل اللاكتوز يعني:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تربة ↘ جذر ↘ ساق/خشب ↘ ورقة ↘ هواء خارجي (الأدنى في الهواء)</div>
-          <div class="choice" data-correct="false">هواء ↘ ورقة ↘ تربة (الأدنى في التربة)</div>
-          <div class="choice" data-correct="false">متساويًا في كل الأنسجة</div>
-          <div class="choice" data-correct="false">معكوسًا دائمًا</div>
+          <div class="choice" data-correct="true">صعوبة هضم سكر الحليب لنقص إنزيم اللاكتاز</div>
+          <div class="choice" data-correct="false">حساسية سمكية</div>
+          <div class="choice" data-correct="false">عدم تحمل الغلوتين</div>
+          <div class="choice" data-correct="false">نقص الحديد</div>
         </div>
       </article>
 
       <article class="q" data-qid="q19">
-        <div><strong>19) عند حدوث فقاعات هواء تقطع عمود الماء في الخشب فإن النقل:</strong></div>
+        <div><strong>19) أي الوجبات التالية أقرب لوجبة متوازنة؟</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">يقلّ بسبب «التكهّف/التجويف»</div>
-          <div class="choice" data-correct="false">يزداد فورًا</div>
-          <div class="choice" data-correct="false">لا يتأثر إطلاقًا</div>
-          <div class="choice" data-correct="false">يتحوّل إلى لحاء</div>
+          <div class="choice" data-correct="true">أرز بني + دجاج مشوي + سلطة خضراء + لبن زبادي</div>
+          <div class="choice" data-correct="false">بطاطس مقلية فقط</div>
+          <div class="choice" data-correct="false">حلوى ومشروب غازي</div>
+          <div class="choice" data-correct="false">خبز أبيض فقط</div>
         </div>
       </article>
 
       <article class="q" data-qid="q20">
-        <div><strong>20) أيُّ المسارات أسرع عادةً عبر قشرة الجذر قبل الإندودرميس؟</strong></div>
+        <div><strong>20) أي مما يلي يُعد من «المغذّيات الصغرى»؟</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الأبُوبلاست (الجدران والفراغات)</div>
-          <div class="choice" data-correct="false">السيمبلاست فقط</div>
-          <div class="choice" data-correct="false">عبر اللحاء</div>
-          <div class="choice" data-correct="false">عبر البلاستيدات الخضراء</div>
+          <div class="choice" data-correct="true">الفيتامينات والمعادن</div>
+          <div class="choice" data-correct="false">الكربوهيدرات</div>
+          <div class="choice" data-correct="false">الدهون</div>
+          <div class="choice" data-correct="false">البروتين</div>
         </div>
       </article>
 
@@ -399,7 +392,7 @@
       // رسائل متنوعة حسب الأداء
       messages: {
         welcome: [
-          "أهلاً وسهلاً {name}! مرحبًا بك في 🪴 درس 2-2 — كيف تحصل النباتات على الماء؟ المثير! 🧬",
+          "أهلاً وسهلاً {name}! مرحبًا بك في درس 4-1 — النظام الغذائي المثير! 🧬",
           "مرحبًا {name}! أنت على وشك خوض مغامرة علمية رائعة! 🔬",
           "أهلاً {name}! دعنا نكتشف أسرار العلوم معًا! ✨"
         ],
@@ -843,3 +836,127 @@
   </script>
 </body>
 </html>
+
+// نظام الإجابة المحسن مع الذكاء الاصطناعي
+    document.addEventListener('click', (e)=>{
+      const choice = e.target.closest('.choice');
+      if(!choice) return;
+      
+      // تشغيل صوت النقر
+      SoundSystem.play('click');
+      
+      const container = choice.closest('.choices');
+      const wasAnswered = container.querySelector('.choice.correct, .choice.wrong');
+      
+      // منع إعادة الإجابة على نفس السؤال
+      if (wasAnswered) return;
+      
+      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      
+      totalAnswered++;
+      
+      if(choice.dataset.correct === "true"){
+        choice.classList.add('correct');
+        consecutiveCorrect++;
+        
+        SoundSystem.play('correct');
+        
+        // تأثير بصري للإجابة الصحيحة
+        gsap.fromTo(choice, 
+          {scale:1, backgroundColor: 'rgba(52,211,153,.10)'}, 
+          {scale:1.05, y:-4, duration:.3, yoyo:true, repeat:1, ease: "back.out(1.7)"}
+        );
+        
+        // رسائل تشجيع ذكية حسب الأداء
+        if (consecutiveCorrect >= 5) {
+          NotificationSystem.showSmart('encouragement', {
+            title: 'أداء استثنائي! 🔥',
+            icon: 'success',
+            timer: 2500
+          });
+          consecutiveCorrect = 0;
+        }
+        
+      } else {
+        choice.classList.add('wrong');
+        consecutiveCorrect = 0;
+        
+        SoundSystem.play('wrong');
+        
+        // تأثير بصري للإجابة الخاطئة
+        gsap.fromTo(choice, 
+          {x:0}, 
+          {x:-8, duration:.08, yoyo:true, repeat:6, ease: "power2.inOut"}
+        );
+        
+        // رسائل تحفيز ذكية
+        if (totalAnswered >= 3) {
+          setTimeout(() => {
+            NotificationSystem.showSmart('motivation', {
+              title: 'استمر في المحاولة! 💪',
+              icon: 'info',
+              timer: 2500
+            });
+          }, 1000);
+        }
+      }
+      
+      updateProgress();
+    });
+
+    // إضافة أصوات للأزرار وتأثيرات تفاعلية
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.choice').forEach(choice => {
+        choice.addEventListener('mouseenter', () => {
+          SoundSystem.play('select');
+        });
+      });
+    });
+el.submit.addEventListener('click', ()=>{
+      const s = getStudent();
+      const { correct, total, percent } = computeScore();
+      
+      celebrate();
+      
+      // رسالة نتائج ذكية مخصصة
+      const performanceLevel = NotificationSystem.getPerformanceLevel(percent);
+      const smartMessage = NotificationSystem.getRandomMessage('finalResults', percent);
+      
+      let resultIcon = 'success';
+      let resultColor = '#10b981';
+      
+      if (percent < 60) {
+        resultIcon = 'info';
+        resultColor = '#3b82f6';
+      }
+      
+      Swal.fire({
+        title: `${performanceLevel === 'excellent' ? '🏆' : performanceLevel === 'good' ? '⭐' : performanceLevel === 'average' ? '👍' : '💪'} النتائج النهائية`,
+        html: `
+          <div style="text-align:right;line-height:2.2;padding:10px">
+            <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);padding:15px;border-radius:12px;margin-bottom:15px">
+              <div><strong>👤 الاسم:</strong> ${s?.name || '-'}</div>
+              <div><strong>🏫 الصف:</strong> ${s?.klass || '-'}</div>
+            </div>
+            <div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);padding:15px;border-radius:12px;margin-bottom:15px">
+              <div><strong>📊 النتيجة:</strong> ${correct} من ${total} سؤال</div>
+              <div><strong>📈 النسبة المئوية:</strong> <span style="color:#059669;font-size:18px;font-weight:900">${percent}%</span></div>
+            </div>
+            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);padding:15px;border-radius:12px;font-weight:600;color:#92400e">
+              ${smartMessage}
+            </div>
+          </div>`,
+        icon: resultIcon,
+        confirmButtonText: '🔄 إعادة المحاولة',
+        confirmButtonColor: resultColor,
+        showDenyButton: true,
+        denyButtonText: '🏠 العودة للرئيسية',
+        denyButtonColor: '#d97706'
+      }).then(res=>{ 
+        if(res.isConfirmed) {
+          resetQuiz(); 
+        } else {
+          window.location.href='https://devapp099.github.io/bioclass9/'; 
+        }
+      });
+    });

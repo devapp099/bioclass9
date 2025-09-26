@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <title>💧 درس 2-1 — الانتشار والنقل السلبي</title>
+  <title>🧪 درس 6-3 — ثابتة ومتغيرة الحرارة</title>
   
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -60,7 +60,7 @@
       box-shadow: var(--card-shadow);
       transition: all 0.3s ease;
     }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1) }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1); }
     h1{font-size:clamp(28px,4vw,40px); margin:0 0 6px; font-weight:900;
        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;}
@@ -72,8 +72,7 @@
       all:unset; cursor:pointer; padding:14px 18px; border-radius:16px; font-weight:800;
       border:1px solid rgba(245,158,11,.3);
       background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
-      color:white;
-      box-shadow: 0 8px 24px rgba(245,158,11,.25);
+      color:white; box-shadow: 0 8px 24px rgba(245,158,11,.25);
       transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
     }
     .btn:hover{ transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 35px rgba(245,158,11,.35);
@@ -91,13 +90,16 @@
     .choice:hover{ transform: translateX(-2px); background:rgba(0,0,0,.06) }
     .choice.correct{ border-color: rgba(16,185,129,.55); background: rgba(16,185,129,.12) }
     .choice.wrong{ border-color: rgba(239,68,68,.55); background: rgba(239,68,68,.12) }
+
     /* شريط التقدّم */
     .progress{display:flex; align-items:center; gap:8px; font-weight:800; color:#7c2d12; margin-top:6px}
     .bar{flex:1; height:8px; background:rgba(0,0,0,.08); border-radius:999px; overflow:hidden}
     .bar>span{display:block; height:100%; width:0%; background:linear-gradient(90deg,#f59e0b,#d97706); transition:width .25s ease}
+
     footer{ margin-top:34px; padding:18px; border-top:1px solid rgba(0,0,0,.08);
       color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
     .credit{color:var(--text); font-weight:800}
+    a.card-link{ display:block; text-decoration:none; color:inherit }
   </style>
 
 </head>
@@ -107,7 +109,7 @@
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          <div class="title">🪴 درس 2-2 — كيف تحصل النباتات على الماء؟</div>
+          <div class="title">🧪 درس 6-3 — ثابتة ومتغيرة الحرارة</div>
           <div class="subtitle" id="studentMeta">مرحبًا! لنبدأ…</div>
           <!-- شريط التقدّم -->
           <div class="progress">
@@ -122,11 +124,11 @@
     <section class="card" style="margin-top:18px; position:relative" data-aos="zoom-in">
       <div class="pulse"></div>
       <h1>🎯 أهداف الدرس</h1>
-      <p class="lead">تفسير امتصاص الماء عبر الشعيرات الجذرية ونقله عبر الخشب بآليات الأسموزية والسحب بالنتح.</p>
+      <p class="lead">مقارنة الكائنات ثابتة الحرارة (Endotherms) ومتغيرة الحرارة (Ectotherms).</p>
       <ul>
-        <li>تعرّف تكيفات خلية الشعيرة الجذرية ومساري النقل: الأبُوبلاست/السيمبلاست وشريط كاسبار.</li>
-        <li>شرح نظرية التماسُك–الشد (Cohesion–Tension) ودور النتح والضغط الجذري.</li>
-        <li>تحليل العوامل المؤثرة في النتح ومسار الماء من التربة إلى الهواء.</li>
+        <li>قراءة منحنيات درجة حرارة الجسم/الأيض مقابل حرارة البيئة.</li>
+        <li>مزايا وعيوب كل نمط ووسائل التنظيم الحراري.</li>
+        <li>أمثلة على حيوانات واستراتيجيات سلوكية وفيسيولوجية.</li>
       </ul>
       <div style="display:flex; gap:10px; flex-wrap:wrap">
         <button id="btnStart" class="btn">ابدأ النشاط</button>
@@ -137,204 +139,204 @@
     <section id="quiz" class="card" style="margin-top:16px; display:none" data-aos="fade-up">
       <h2>الأسئلة التفاعلية</h2>
 
-      <!-- 20 سؤالًا -->
+      <!-- 20 سؤال -->
       <article class="q" data-qid="q1">
-        <div><strong>1) تكيف رئيس لخلية الشعيرة الجذرية يزيد الامتصاص:</strong></div>
+        <div><strong>1) الكائن الثابت الحرارة يحافظ على:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">مساحة سطح كبيرة واستطالة رفيعة</div>
-          <div class="choice" data-correct="false">جدار سميك جدًا يقلّل النفاذية</div>
-          <div class="choice" data-correct="false">غياب الفجوة العصارية</div>
-          <div class="choice" data-correct="false">قصر شديد في الطول</div>
+          <div class="choice" data-correct="true">درجة جسم ثابتة نسبيًا</div>
+          <div class="choice" data-correct="false">مطابقة تامة لحرارة البيئة</div>
+          <div class="choice" data-correct="false">انعدام التعرّق</div>
+          <div class="choice" data-correct="false">انخفاض أيض دائم</div>
         </div>
       </article>
 
       <article class="q" data-qid="q2">
-        <div><strong>2) يدخل الماء إلى خلية الشعيرة الجذرية أساسًا بفعل:</strong></div>
+        <div><strong>2) تمساح صحراوي يُعد:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الأسموزية عبر غشاء شبه منفذ</div>
-          <div class="choice" data-correct="false">النقل النشط للماء</div>
-          <div class="choice" data-correct="false">الانتشار البسيط للغلوكوز</div>
-          <div class="choice" data-correct="false">البلعمة</div>
+          <div class="choice" data-correct="false">ثابت الحرارة</div>
+          <div class="choice" data-correct="true">متغير الحرارة</div>
+          <div class="choice" data-correct="false">نباتي ثابت</div>
+          <div class="choice" data-correct="false">طيـر مهاجر</div>
         </div>
       </article>
 
       <article class="q" data-qid="q3">
-        <div><strong>3) ينتقل الماء صعودًا في النبات عبر:</strong></div>
+        <div><strong>3) ميزة للكائنات متغيرة الحرارة:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الخشب</div>
-          <div class="choice" data-correct="false">اللحاء</div>
-          <div class="choice" data-correct="false">النسيج العمادي فقط</div>
-          <div class="choice" data-correct="false">الفراغات بين الخلايا فقط</div>
+          <div class="choice" data-correct="true">استهلاك طاقة أقل</div>
+          <div class="choice" data-correct="false">نشاط عالٍ جدًا في البرد</div>
+          <div class="choice" data-correct="false">ثبات حرارة دائم</div>
+          <div class="choice" data-correct="false">عدم التأثر بالبيئة</div>
         </div>
       </article>
 
       <article class="q" data-qid="q4">
-        <div><strong>4) المسار الأبُوبلاستي (Apoplast) يعني انتقال الماء عبر:</strong></div>
+        <div><strong>4) آلية فعّالة لخفض حرارة الإنسان:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الجدران والفراغات بين الخلايا دون عبور غشاء</div>
-          <div class="choice" data-correct="false">السيتوبلازم عبر الروابط البلازمية فقط</div>
-          <div class="choice" data-correct="false">الأوعية الغربالية</div>
-          <div class="choice" data-correct="false">المريكزات</div>
+          <div class="choice" data-correct="false">الرعشة العضلية</div>
+          <div class="choice" data-correct="true">التعرّق وتوسّع الأوعية الجلدية</div>
+          <div class="choice" data-correct="false">زيادة الاستقلاب الحراري</div>
+          <div class="choice" data-correct="false">انقباض الأوعية</div>
         </div>
       </article>
 
       <article class="q" data-qid="q5">
-        <div><strong>5) شريط كاسبار في الإندودرميس يَحول دون استمرار المسار الأبُوبلاستي لأنه:</strong></div>
+        <div><strong>5) لرفع حرارة الجسم يلجأ الإنسان إلى:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">مشرّب بالسوبرين فيجبر الماء على عبور الغشاء (سيمبلاست)</div>
-          <div class="choice" data-correct="false">يفتح القنوات ممرًا مباشرًا</div>
-          <div class="choice" data-correct="false">يزيد سمك الخشب</div>
-          <div class="choice" data-correct="false">يمنع الأسموزية داخل الجذر</div>
+          <div class="choice" data-correct="true">الرعشة وانقباض الأوعية الطرفية</div>
+          <div class="choice" data-correct="false">التعرّق</div>
+          <div class="choice" data-correct="false">تبريد الجلد بالماء</div>
+          <div class="choice" data-correct="false">زيادة التعرّض للهواء البارد</div>
         </div>
       </article>
 
       <article class="q" data-qid="q6">
-        <div><strong>6) الآلية الأساسية لرفع الماء نهارًا في النباتات الطويلة هي:</strong></div>
+        <div><strong>6) مثال واضح للكائنات ثابتة الحرارة:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">السحب بالنتح (نظرية التماسُك–الشد)</div>
-          <div class="choice" data-correct="false">الضغط الجذري وحده</div>
-          <div class="choice" data-correct="false">النقل النشط للماء لأعلى</div>
-          <div class="choice" data-correct="false">الخاصية الشعرية وحدها</div>
+          <div class="choice" data-correct="true">الطيور</div>
+          <div class="choice" data-correct="false">الأسماك العظمية</div>
+          <div class="choice" data-correct="false">الضفادع</div>
+          <div class="choice" data-correct="false">السلاحف</div>
         </div>
       </article>
 
       <article class="q" data-qid="q7">
-        <div><strong>7) خاصية «التماسُك» في الماء تعني:</strong></div>
+        <div><strong>7) عندما تنخفض حرارة البيئة يميل معدّل أيض الثابتات الحرارة إلى:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">ترابط جزيئات الماء ببعضها بروابط هيدروجينية</div>
-          <div class="choice" data-correct="false">التصاق الماء بجدران الوعاء</div>
-          <div class="choice" data-correct="false">انجذاب الماء للأيونات فقط</div>
-          <div class="choice" data-correct="false">تفكك عمود الماء بسهولة</div>
+          <div class="choice" data-correct="true">الازدياد لتعويض الفقد الحراري</div>
+          <div class="choice" data-correct="false">الانخفاض دائمًا</div>
+          <div class="choice" data-correct="false">الثبات تمامًا</div>
+          <div class="choice" data-correct="false">التحوّل إلى تنفّس لا هوائي</div>
         </div>
       </article>
 
       <article class="q" data-qid="q8">
-        <div><strong>8) خاصية «الالتصاق» تساعد على:</strong></div>
+        <div><strong>8) من يفقد الحرارة أسرع عادةً؟</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تثبيت عمود الماء على جدران الخشب (شعرية)</div>
-          <div class="choice" data-correct="false">تقليل صعود الماء</div>
-          <div class="choice" data-correct="false">إغلاق الثغور</div>
-          <div class="choice" data-correct="false">تحليل السوبرين</div>
+          <div class="choice" data-correct="true">الحيوان الأصغر (نسبة مساحة/حجم أكبر)</div>
+          <div class="choice" data-correct="false">الحيوان الأكبر</div>
+          <div class="choice" data-correct="false">كلاهما بنفس المعدّل</div>
+          <div class="choice" data-correct="false">لا علاقة للحجم</div>
         </div>
       </article>
 
       <article class="q" data-qid="q9">
-        <div><strong>9) أي العوامل التالية يزيد معدل النتح عادةً؟</strong></div>
+        <div><strong>9) من وسائل العزل الحراري في الثابتات الحرارة:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">ارتفاع الحرارة + انخفاض الرطوبة + حركة الهواء</div>
-          <div class="choice" data-correct="false">ارتفاع الرطوبة + انعدام الهواء</div>
-          <div class="choice" data-correct="false">انخفاض الحرارة + رطوبة عالية</div>
-          <div class="choice" data-correct="false">ظلام دائم</div>
+          <div class="choice" data-correct="true">الفرو/الريش/طبقة الدهن تحت الجلد</div>
+          <div class="choice" data-correct="false">زيادة التعرّض للرياح</div>
+          <div class="choice" data-correct="false">ترقيق الجلد</div>
+          <div class="choice" data-correct="false">إزالة الريش شتاءً</div>
         </div>
       </article>
 
       <article class="q" data-qid="q10">
-        <div><strong>10) تفتح الثغور عندما:</strong></div>
+        <div><strong>10) تنظيم حراري سلوكي شائع في متغيرات الحرارة:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تمتلئ الخلايا الحارسة بالماء (انتفاخ/امتلاء)</div>
-          <div class="choice" data-correct="false">تفقد الخلايا الحارسة الماء (ترهّل)</div>
-          <div class="choice" data-correct="false">ينعدم الضوء دائمًا</div>
-          <div class="choice" data-correct="false">تغلق قنوات K⁺</div>
+          <div class="choice" data-correct="true">التشمّس في الصباح والظل ظهرًا</div>
+          <div class="choice" data-correct="false">إنتاج عرق غزير</div>
+          <div class="choice" data-correct="false">رعشة عضلية قوية</div>
+          <div class="choice" data-correct="false">زيادة طبقة الدهن</div>
         </div>
       </article>
 
       <article class="q" data-qid="q11">
-        <div><strong>11) في تربة مالحة جدًا قد:</strong></div>
+        <div><strong>11) عيب لمتغيرات الحرارة مقارنةً بثابتاتها:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تفقد الشعيرات الجذرية ماءها بالأسموزية فتذبل</div>
-          <div class="choice" data-correct="false">يزيد امتصاص الماء تلقائيًا</div>
-          <div class="choice" data-correct="false">يتحوّل الخشب إلى لحاء</div>
-          <div class="choice" data-correct="false">تنعدم الأيونات في التربة</div>
+          <div class="choice" data-correct="true">انخفاض النشاط عند البرودة</div>
+          <div class="choice" data-correct="false">حاجة عالية جدًا للطاقة</div>
+          <div class="choice" data-correct="false">لا تستطيع تنظيم حرارة الجسم مطلقًا</div>
+          <div class="choice" data-correct="false">لا تتكيّف سلوكيًا</div>
         </div>
       </article>
 
       <article class="q" data-qid="q12">
-        <div><strong>12) الضغط الجذري يظهر بوضوح عندما:</strong></div>
+        <div><strong>12) وظيفة «التبادل الحراري المعاكس الاتجاه» في الأطراف هي:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">ينخفض النتح (ليلًا) فتلاحظ «الإدماع/الندى الطرفي»</div>
-          <div class="choice" data-correct="false">يزداد النتح نهارًا</div>
-          <div class="choice" data-correct="false">تنعدم الأملاح في التربة</div>
-          <div class="choice" data-correct="false">تغلق جميع الثغور دائمًا</div>
+          <div class="choice" data-correct="true">تقليل فقدان الحرارة في الأقدام/الأجنحة</div>
+          <div class="choice" data-correct="false">زيادة التعرّق</div>
+          <div class="choice" data-correct="false">تسريع التنفّس</div>
+          <div class="choice" data-correct="false">إيقاف جريان الدم</div>
         </div>
       </article>
 
       <article class="q" data-qid="q13">
-        <div><strong>13) وظيفة شريط كاسبار الأساسية:</strong></div>
+        <div><strong>13) «المدى الحراري المريح/الحراري المتعادل» هو نطاق:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">ضمان الانتقاء؛ إجبار الماء على المرور عبر أغشية</div>
-          <div class="choice" data-correct="false">زيادة قطر أوعية الخشب</div>
-          <div class="choice" data-correct="false">منع انتقال الأملاح إلى الورقة كليًا</div>
-          <div class="choice" data-correct="false">فتح الثغور</div>
+          <div class="choice" data-correct="true">تحتاج فيه الثابتات الحرارة حدًّا أدنى من الطاقة للمحافظة على الدفء</div>
+          <div class="choice" data-correct="false">تتطابق فيه حرارة الجسم مع البيئة</div>
+          <div class="choice" data-correct="false">لا تعمل فيه الآليات الفيسيولوجية</div>
+          <div class="choice" data-correct="false">تتوقف فيه الدورة الدموية</div>
         </div>
       </article>
 
       <article class="q" data-qid="q14">
-        <div><strong>14) أوعية الخشب تتميّز بأنها:</strong></div>
+        <div><strong>14) أي الحيوانات التالية ثابتة الحرارة غالبًا؟</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">خلايا ميتة مجوّفة ذات جدران مُلجننة</div>
-          <div class="choice" data-correct="false">خلايا حية بلا جدران</div>
-          <div class="choice" data-correct="false">غنية بالكلوروفيل</div>
-          <div class="choice" data-correct="false">تنتج النشا</div>
+          <div class="choice" data-correct="true">الثدييات</div>
+          <div class="choice" data-correct="false">معظم الزواحف</div>
+          <div class="choice" data-correct="false">معظم الأسماك</div>
+          <div class="choice" data-correct="false">معظم البرمائيات</div>
         </div>
       </article>
 
       <article class="q" data-qid="q15">
-        <div><strong>15) زيادة رطوبة الهواء حول الورقة تؤدي إلى:</strong></div>
+        <div><strong>15) تبريد تبخيري يُستخدم عند الحر الشديد:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">انخفاض معدل النتح</div>
-          <div class="choice" data-correct="false">ارتفاع النتح</div>
-          <div class="choice" data-correct="false">ثبات المعدل دومًا</div>
-          <div class="choice" data-correct="false">إغلاق كاسبار</div>
+          <div class="choice" data-correct="true">اللهاث/التعرّق</div>
+          <div class="choice" data-correct="false">الرعشة</div>
+          <div class="choice" data-correct="false">التشمّس</div>
+          <div class="choice" data-correct="false">زيادة اللباس الصوفي</div>
         </div>
       </article>
 
       <article class="q" data-qid="q16">
-        <div><strong>16) إغلاق الثغور ظهر الظهيرة يقلّل الفقد المائي لكنه:</strong></div>
+        <div><strong>16) سلوك متوقع لسحلية صحراوية منتصف النهار:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">يقلّل دخول CO₂ فيهبط التمثيل الضوئي</div>
-          <div class="choice" data-correct="false">يزيد امتصاص CO₂</div>
-          <div class="choice" data-correct="false">لا يؤثر على التمثيل</div>
-          <div class="choice" data-correct="false">يحطم أوعية الخشب</div>
+          <div class="choice" data-correct="true">اللجوء للظل/الجحر لتقليل السخونة</div>
+          <div class="choice" data-correct="false">الركض تحت الشمس لساعات</div>
+          <div class="choice" data-correct="false">السباحة في ماء بارد دائمًا</div>
+          <div class="choice" data-correct="false">زيادة الأيض بالتعرّق</div>
         </div>
       </article>
 
       <article class="q" data-qid="q17">
-        <div><strong>17) وجود «الأكواپورينات» (قنوات ماء) في الأغشية يؤثر عادةً بـ:</strong></div>
+        <div><strong>17) منحنى «درجة حرارة الجسم مقابل حرارة البيئة» لثابتات الحرارة:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">زيادة نفاذية الماء وتسريع العبور</div>
-          <div class="choice" data-correct="false">إيقاف مرور الماء</div>
-          <div class="choice" data-correct="false">تحويل الماء إلى أيونات</div>
-          <div class="choice" data-correct="false">استبدال الخشب باللحاء</div>
+          <div class="choice" data-correct="true">يبقى شبه ثابت عبر مدى واسع</div>
+          <div class="choice" data-correct="false">يزداد خطيًا مع البيئة</div>
+          <div class="choice" data-correct="false">ينخفض دائمًا مع البيئة</div>
+          <div class="choice" data-correct="false">عشوائي بلا نمط</div>
         </div>
       </article>
 
       <article class="q" data-qid="q18">
-        <div><strong>18) التدرّج في الجهد المائي غالبًا يكون:</strong></div>
+        <div><strong>18) عند ارتفاع حرارة البيئة 10°م في متغيرات الحرارة فإن الأيض:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تربة ↘ جذر ↘ ساق/خشب ↘ ورقة ↘ هواء خارجي (الأدنى في الهواء)</div>
-          <div class="choice" data-correct="false">هواء ↘ ورقة ↘ تربة (الأدنى في التربة)</div>
-          <div class="choice" data-correct="false">متساويًا في كل الأنسجة</div>
-          <div class="choice" data-correct="false">معكوسًا دائمًا</div>
+          <div class="choice" data-correct="true">يزداد عادةً بوضوح (قد يقارب الضِّعف)</div>
+          <div class="choice" data-correct="false">ينخفض للنصف</div>
+          <div class="choice" data-correct="false">لا يتغير إطلاقًا</div>
+          <div class="choice" data-correct="false">يتوقف تمامًا</div>
         </div>
       </article>
 
       <article class="q" data-qid="q19">
-        <div><strong>19) عند حدوث فقاعات هواء تقطع عمود الماء في الخشب فإن النقل:</strong></div>
+        <div><strong>19) الاتزان الداخلي (Homeostasis) يعني:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">يقلّ بسبب «التكهّف/التجويف»</div>
-          <div class="choice" data-correct="false">يزداد فورًا</div>
-          <div class="choice" data-correct="false">لا يتأثر إطلاقًا</div>
-          <div class="choice" data-correct="false">يتحوّل إلى لحاء</div>
+          <div class="choice" data-correct="true">الحفاظ على بيئة داخلية مستقرة نسبيًا</div>
+          <div class="choice" data-correct="false">مطابقة دائمة للبيئة الخارجية</div>
+          <div class="choice" data-correct="false">تبدل حراري عشوائي</div>
+          <div class="choice" data-correct="false">غياب التنظيم</div>
         </div>
       </article>
 
       <article class="q" data-qid="q20">
-        <div><strong>20) أيُّ المسارات أسرع عادةً عبر قشرة الجذر قبل الإندودرميس؟</strong></div>
+        <div><strong>20) طائر بحري يقلّل فقدان الحرارة في الأرجل عبر:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الأبُوبلاست (الجدران والفراغات)</div>
-          <div class="choice" data-correct="false">السيمبلاست فقط</div>
-          <div class="choice" data-correct="false">عبر اللحاء</div>
-          <div class="choice" data-correct="false">عبر البلاستيدات الخضراء</div>
+          <div class="choice" data-correct="true">تبادل حراري معاكس في الأوعية + ريش عازل</div>
+          <div class="choice" data-correct="false">إزالة الريش</div>
+          <div class="choice" data-correct="false">زيادة التعرّض للرياح الباردة</div>
+          <div class="choice" data-correct="false">إيقاف جريان الدم تمامًا</div>
         </div>
       </article>
 
@@ -399,7 +401,7 @@
       // رسائل متنوعة حسب الأداء
       messages: {
         welcome: [
-          "أهلاً وسهلاً {name}! مرحبًا بك في 🪴 درس 2-2 — كيف تحصل النباتات على الماء؟ المثير! 🧬",
+          "أهلاً وسهلاً {name}! مرحبًا بك في درس 6-3 — ثابتة ومتغيرة الحرارة المثير! 🧬",
           "مرحبًا {name}! أنت على وشك خوض مغامرة علمية رائعة! 🔬",
           "أهلاً {name}! دعنا نكتشف أسرار العلوم معًا! ✨"
         ],
@@ -613,7 +615,7 @@
       el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
     }
 
-    // شريط التقدّم: أي اختيار (صحيح أو خاطئ) يُعدّ إجابة
+    // تحديث شريط التقدّم: يُحتسب السؤال مُجابًا عند اختيار أي خيار
     
 
     // نظام الإجابة المحسن مع الذكاء الاصطناعي
@@ -843,3 +845,127 @@
   </script>
 </body>
 </html>
+
+// نظام الإجابة المحسن مع الذكاء الاصطناعي
+    document.addEventListener('click', (e)=>{
+      const choice = e.target.closest('.choice');
+      if(!choice) return;
+      
+      // تشغيل صوت النقر
+      SoundSystem.play('click');
+      
+      const container = choice.closest('.choices');
+      const wasAnswered = container.querySelector('.choice.correct, .choice.wrong');
+      
+      // منع إعادة الإجابة على نفس السؤال
+      if (wasAnswered) return;
+      
+      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      
+      totalAnswered++;
+      
+      if(choice.dataset.correct === "true"){
+        choice.classList.add('correct');
+        consecutiveCorrect++;
+        
+        SoundSystem.play('correct');
+        
+        // تأثير بصري للإجابة الصحيحة
+        gsap.fromTo(choice, 
+          {scale:1, backgroundColor: 'rgba(52,211,153,.10)'}, 
+          {scale:1.05, y:-4, duration:.3, yoyo:true, repeat:1, ease: "back.out(1.7)"}
+        );
+        
+        // رسائل تشجيع ذكية حسب الأداء
+        if (consecutiveCorrect >= 5) {
+          NotificationSystem.showSmart('encouragement', {
+            title: 'أداء استثنائي! 🔥',
+            icon: 'success',
+            timer: 2500
+          });
+          consecutiveCorrect = 0;
+        }
+        
+      } else {
+        choice.classList.add('wrong');
+        consecutiveCorrect = 0;
+        
+        SoundSystem.play('wrong');
+        
+        // تأثير بصري للإجابة الخاطئة
+        gsap.fromTo(choice, 
+          {x:0}, 
+          {x:-8, duration:.08, yoyo:true, repeat:6, ease: "power2.inOut"}
+        );
+        
+        // رسائل تحفيز ذكية
+        if (totalAnswered >= 3) {
+          setTimeout(() => {
+            NotificationSystem.showSmart('motivation', {
+              title: 'استمر في المحاولة! 💪',
+              icon: 'info',
+              timer: 2500
+            });
+          }, 1000);
+        }
+      }
+      
+      updateProgress();
+    });
+
+    // إضافة أصوات للأزرار وتأثيرات تفاعلية
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.choice').forEach(choice => {
+        choice.addEventListener('mouseenter', () => {
+          SoundSystem.play('select');
+        });
+      });
+    });
+el.submit.addEventListener('click', ()=>{
+      const s = getStudent();
+      const { correct, total, percent } = computeScore();
+      
+      celebrate();
+      
+      // رسالة نتائج ذكية مخصصة
+      const performanceLevel = NotificationSystem.getPerformanceLevel(percent);
+      const smartMessage = NotificationSystem.getRandomMessage('finalResults', percent);
+      
+      let resultIcon = 'success';
+      let resultColor = '#10b981';
+      
+      if (percent < 60) {
+        resultIcon = 'info';
+        resultColor = '#3b82f6';
+      }
+      
+      Swal.fire({
+        title: `${performanceLevel === 'excellent' ? '🏆' : performanceLevel === 'good' ? '⭐' : performanceLevel === 'average' ? '👍' : '💪'} النتائج النهائية`,
+        html: `
+          <div style="text-align:right;line-height:2.2;padding:10px">
+            <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);padding:15px;border-radius:12px;margin-bottom:15px">
+              <div><strong>👤 الاسم:</strong> ${s?.name || '-'}</div>
+              <div><strong>🏫 الصف:</strong> ${s?.klass || '-'}</div>
+            </div>
+            <div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);padding:15px;border-radius:12px;margin-bottom:15px">
+              <div><strong>📊 النتيجة:</strong> ${correct} من ${total} سؤال</div>
+              <div><strong>📈 النسبة المئوية:</strong> <span style="color:#059669;font-size:18px;font-weight:900">${percent}%</span></div>
+            </div>
+            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);padding:15px;border-radius:12px;font-weight:600;color:#92400e">
+              ${smartMessage}
+            </div>
+          </div>`,
+        icon: resultIcon,
+        confirmButtonText: '🔄 إعادة المحاولة',
+        confirmButtonColor: resultColor,
+        showDenyButton: true,
+        denyButtonText: '🏠 العودة للرئيسية',
+        denyButtonColor: '#d97706'
+      }).then(res=>{ 
+        if(res.isConfirmed) {
+          resetQuiz(); 
+        } else {
+          window.location.href='https://devapp099.github.io/bioclass9/'; 
+        }
+      });
+    });
