@@ -547,6 +547,16 @@
       if(formValues){
         setStudent(formValues);
         updateMeta();
+    
+    // تهيئة AOS للأنيميشن
+    AOS.init({
+      duration: 700,
+      easing: 'ease',
+      once: true,
+      offset: 50
+    });
+    
+    console.log('✨ تم تهيئة AOS للأنيميشن');
         EnhancedNotificationSystem.initForStudent(formValues);
         
         setTimeout(() => {
@@ -840,6 +850,16 @@
     });
 
     updateMeta();
+    
+    // تهيئة AOS للأنيميشن
+    AOS.init({
+      duration: 700,
+      easing: 'ease',
+      once: true,
+      offset: 50
+    });
+    
+    console.log('✨ تم تهيئة AOS للأنيميشن');
     updateProgress();
   </script>
 </body>

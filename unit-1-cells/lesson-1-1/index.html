@@ -458,6 +458,16 @@
         setStudent(formValues);
         EnhancedNotificationSystem.student = formValues;
         updateMeta();
+    
+    // تهيئة AOS للأنيميشن
+    AOS.init({
+      duration: 700,
+      easing: 'ease',
+      once: true,
+      offset: 50
+    });
+    
+    console.log('✨ تم تهيئة AOS للأنيميشن');
         
         // تفعيل النظام الذكي مع الرسالة الترحيبية
         EnhancedNotificationSystem.initForStudent(formValues);
@@ -739,6 +749,16 @@
     // بدء
     renderQuestions();
     updateMeta();
+    
+    // تهيئة AOS للأنيميشن
+    AOS.init({
+      duration: 700,
+      easing: 'ease',
+      once: true,
+      offset: 50
+    });
+    
+    console.log('✨ تم تهيئة AOS للأنيميشن');
     updateProgress();
   </script>
 </body>

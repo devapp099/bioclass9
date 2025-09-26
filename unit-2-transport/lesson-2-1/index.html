@@ -540,6 +540,16 @@
       if(formValues){
         setStudent(formValues);
         updateMeta();
+    
+    // تهيئة AOS للأنيميشن
+    AOS.init({
+      duration: 700,
+      easing: 'ease',
+      once: true,
+      offset: 50
+    });
+    
+    console.log('✨ تم تهيئة AOS للأنيميشن');
         EnhancedNotificationSystem.initForStudent(formValues);
         
         setTimeout(() => {
@@ -850,6 +860,16 @@
 
     // تهيئة أولية
     updateMeta();
+    
+    // تهيئة AOS للأنيميشن
+    AOS.init({
+      duration: 700,
+      easing: 'ease',
+      once: true,
+      offset: 50
+    });
+    
+    console.log('✨ تم تهيئة AOS للأنيميشن');
     document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
   </script>
 </body>
