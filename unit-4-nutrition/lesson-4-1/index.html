@@ -482,6 +482,22 @@
       }
     };
 
+    const storageKey = "watyn_bio_student";
+    let consecutiveCorrect = 0; // متتبع الإجابات الصحيحة المتتالية
+    let totalAnswered = 0; // إجمالي الأسئلة المجابة
+
+    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
+    function setStudent(obj){ 
+      localStorage.setItem(storageKey, JSON.stringify(obj)); 
+      NotificationSystem.student = obj;
+    }
+
+    // 🎵 نظام صوتي ذكي متقدم
+    
+
+    // 🔔 نظام الإشعارات والرسائل التفاعلية الذكي
+    
+
 
     const el = {
       start: document.getElementById('btnStart'),
@@ -495,14 +511,10 @@
     };
 
     const storageKey = "watyn_bio_student";
-    let consecutiveCorrect = 0; // متتبع الإجابات الصحيحة المتتالية
-    let totalAnswered = 0; // إجمالي الأسئلة المجابة
+     // إجمالي الأسئلة المجابة
 
     function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
-    function setStudent(obj){ 
-      localStorage.setItem(storageKey, JSON.stringify(obj)); 
-      NotificationSystem.student = obj;
-    }
+    
 
     async function askStudent(){
       SoundSystem.play('start');
@@ -555,6 +567,28 @@
           return { name, klass };
         }
       });
+      
+      if(formValues){
+        setStudent(formValues);
+        updateMeta();
+        
+        // رسالة ترحيب ذكية
+        setTimeout(() => {
+          NotificationSystem.showSmart('welcome', {
+            title: 'أهلاً وسهلاً! 👋',
+            icon: 'success',
+            timer: 4000,
+            sound: 'select'
+          });
+        }, 500);
+        
+        el.quiz.style.display = "block";
+        gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6});
+      }
+    }
+          return { name, klass };
+        }
+      });
       if(formValues){
         setStudent(formValues);
         updateMeta();
@@ -573,53 +607,61 @@
     }
 
     // شريط التقدّم: أي اختيار (صحيح أو خاطئ) يُعدّ إجابة
-    function updateProgress(){
-      const total = document.querySelectorAll('.q[data-qid]').length;
-      const answered = Array.from(document.querySelectorAll('.q')).filter(q =>
-        q.querySelector('.choice.correct, .choice.wrong')
-      ).length;
-      el.total.textContent = total;
-      el.done.textContent = answered;
-      el.bar.style.width = Math.round((answered/total)*100) + '%';
-    }
+    
 
     // نظام الإجابة المحسن مع الذكاء الاصطناعي
-    document.addEventListener('click', (e)=>{
-      const choice = e.target.closest('.choice');
-      if(!choice) return;
+    function updateProgress(){
+      const total = document.querySelectorAll('.q[data-qid]').length;
+      const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
+        q.querySelector('.choice.correct, .choice.wrong')
+      ).length;
+      const oldProgress = parseInt(el.done.textContent) || 0;
       
-      // تشغيل صوت النقر
-      SoundSystem.play('click');
+      el.total.textContent = total;
+      el.done.textContent = answered;
+      const pc = Math.round((answered / total) * 100);
       
-      const container = choice.closest('.choices');
-      const wasAnswered = container.querySelector('.choice.correct, .choice.wrong');
+      // تأثير بصري لشريط التقدم مع صوت
+      gsap.to(el.bar, {
+        width: pc + "%",
+        duration: 0.5,
+        ease: "power2.out",
+        onComplete: () => {
+          if (answered > oldProgress) {
+            SoundSystem.play('progress');
+          }
+        }
+      });
       
-      // منع إعادة الإجابة على نفس السؤال
-      if (wasAnswered) return;
+      // إشعارات عند النقاط المهمة
+      if (answered > oldProgress) {
+        checkMilestones(pc, answered, total);
+      }
+    }
+    
+    // فحص النقاط المهمة في التقدم
+    function checkMilestones(percentage, questionCount, totalQuestions) {
+      const milestones = [25, 50, 75, 100];
+      const reached = milestones.find(m => percentage >= m && (percentage - 5) < m);
       
-      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
-      
-      totalAnswered++;
-      
-      if(choice.dataset.correct === "true"){
-        choice.classList.add('correct');
-        consecutiveCorrect++;
+      if (reached && questionCount === Math.ceil(totalQuestions * reached / 100)) {
+        SoundSystem.play('milestone');
+        NotificationSystem.showSmart('milestone', {
+          title: 'إنجاز رائع! 🎯',
+          icon: 'success',
+          timer: 4000,
+          percentage: reached,
+          sound: null
+        });
         
-        SoundSystem.play('correct');
-        
-        // تأثير بصري للإجابة الصحيحة
-        gsap.fromTo(choice, 
-          {scale:1, backgroundColor: 'rgba(52,211,153,.10)'}, 
-          {scale:1.05, y:-4, duration:.3, yoyo:true, repeat:1, ease: "back.out(1.7)"}
+        // تأثير بصري خاص للإنجازات
+        gsap.fromTo('.progress', 
+          { scale: 1 }, 
+          { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 }
         );
-        
-        // رسائل تشجيع ذكية حسب الأداء
-        if (consecutiveCorrect >= 5) {
-          NotificationSystem.showSmart('encouragement', {
-            title: 'أداء استثنائي! 🔥',
-            icon: 'success',
-            timer: 2500
-          });
+      }
+    }
+    
           consecutiveCorrect = 0; // إعادة تعيين العداد
         }
         
@@ -697,6 +739,24 @@
         {backgroundColor: 'transparent'}, 
         {backgroundColor: 'rgba(245,158,11,0.1)', duration: 0.5, yoyo: true, repeat: 1}
       );
+    },
+          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
+        });
+        confetti({ 
+          particleCount: 5, 
+          angle: 120, 
+          spread: 80, 
+          origin: { x: 1 },
+          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
+        });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+      
+      // تأثير بصري للشاشة كاملة
+      gsap.fromTo('body', 
+        {backgroundColor: 'transparent'}, 
+        {backgroundColor: 'rgba(245,158,11,0.1)', duration: 0.5, yoyo: true, repeat: 1}
+      );
     }
 
     el.start.addEventListener('click', askStudent);
@@ -723,8 +783,27 @@
     });
 
     function resetQuiz(){
+      SoundSystem.play('reset');
+      
+      // إعادة تعيين المتغيرات
+      consecutiveCorrect = 0;
+      totalAnswered = 0;
+      
       document.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
-      gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.45});
+      updateProgress();
+      
+      gsap.from("#quiz .q", {opacity:0, y:15, stagger:.06, duration:.5});
+      window.scrollTo({ top:0, behavior:'smooth' });
+      
+      // رسالة تحفيز لإعادة المحاولة
+      setTimeout(() => {
+        NotificationSystem.showSmart('encouragement', {
+          title: 'بداية جديدة! 🌟',
+          icon: 'info',
+          timer: 2000
+        });
+      }, 1000);
+    });
       window.scrollTo({ top:0, behavior:'smooth' });
       el.done.textContent = 0; el.bar.style.width = '0%';
     }
@@ -757,3 +836,127 @@
   </script>
 </body>
 </html>
+
+// نظام الإجابة المحسن مع الذكاء الاصطناعي
+    document.addEventListener('click', (e)=>{
+      const choice = e.target.closest('.choice');
+      if(!choice) return;
+      
+      // تشغيل صوت النقر
+      SoundSystem.play('click');
+      
+      const container = choice.closest('.choices');
+      const wasAnswered = container.querySelector('.choice.correct, .choice.wrong');
+      
+      // منع إعادة الإجابة على نفس السؤال
+      if (wasAnswered) return;
+      
+      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      
+      totalAnswered++;
+      
+      if(choice.dataset.correct === "true"){
+        choice.classList.add('correct');
+        consecutiveCorrect++;
+        
+        SoundSystem.play('correct');
+        
+        // تأثير بصري للإجابة الصحيحة
+        gsap.fromTo(choice, 
+          {scale:1, backgroundColor: 'rgba(52,211,153,.10)'}, 
+          {scale:1.05, y:-4, duration:.3, yoyo:true, repeat:1, ease: "back.out(1.7)"}
+        );
+        
+        // رسائل تشجيع ذكية حسب الأداء
+        if (consecutiveCorrect >= 5) {
+          NotificationSystem.showSmart('encouragement', {
+            title: 'أداء استثنائي! 🔥',
+            icon: 'success',
+            timer: 2500
+          });
+          consecutiveCorrect = 0;
+        }
+        
+      } else {
+        choice.classList.add('wrong');
+        consecutiveCorrect = 0;
+        
+        SoundSystem.play('wrong');
+        
+        // تأثير بصري للإجابة الخاطئة
+        gsap.fromTo(choice, 
+          {x:0}, 
+          {x:-8, duration:.08, yoyo:true, repeat:6, ease: "power2.inOut"}
+        );
+        
+        // رسائل تحفيز ذكية
+        if (totalAnswered >= 3) {
+          setTimeout(() => {
+            NotificationSystem.showSmart('motivation', {
+              title: 'استمر في المحاولة! 💪',
+              icon: 'info',
+              timer: 2500
+            });
+          }, 1000);
+        }
+      }
+      
+      updateProgress();
+    });
+
+    // إضافة أصوات للأزرار وتأثيرات تفاعلية
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.choice').forEach(choice => {
+        choice.addEventListener('mouseenter', () => {
+          SoundSystem.play('select');
+        });
+      });
+    });
+el.submit.addEventListener('click', ()=>{
+      const s = getStudent();
+      const { correct, total, percent } = computeScore();
+      
+      celebrate();
+      
+      // رسالة نتائج ذكية مخصصة
+      const performanceLevel = NotificationSystem.getPerformanceLevel(percent);
+      const smartMessage = NotificationSystem.getRandomMessage('finalResults', percent);
+      
+      let resultIcon = 'success';
+      let resultColor = '#10b981';
+      
+      if (percent < 60) {
+        resultIcon = 'info';
+        resultColor = '#3b82f6';
+      }
+      
+      Swal.fire({
+        title: `${performanceLevel === 'excellent' ? '🏆' : performanceLevel === 'good' ? '⭐' : performanceLevel === 'average' ? '👍' : '💪'} النتائج النهائية`,
+        html: `
+          <div style="text-align:right;line-height:2.2;padding:10px">
+            <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);padding:15px;border-radius:12px;margin-bottom:15px">
+              <div><strong>👤 الاسم:</strong> ${s?.name || '-'}</div>
+              <div><strong>🏫 الصف:</strong> ${s?.klass || '-'}</div>
+            </div>
+            <div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);padding:15px;border-radius:12px;margin-bottom:15px">
+              <div><strong>📊 النتيجة:</strong> ${correct} من ${total} سؤال</div>
+              <div><strong>📈 النسبة المئوية:</strong> <span style="color:#059669;font-size:18px;font-weight:900">${percent}%</span></div>
+            </div>
+            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);padding:15px;border-radius:12px;font-weight:600;color:#92400e">
+              ${smartMessage}
+            </div>
+          </div>`,
+        icon: resultIcon,
+        confirmButtonText: '🔄 إعادة المحاولة',
+        confirmButtonColor: resultColor,
+        showDenyButton: true,
+        denyButtonText: '🏠 العودة للرئيسية',
+        denyButtonColor: '#d97706'
+      }).then(res=>{ 
+        if(res.isConfirmed) {
+          resetQuiz(); 
+        } else {
+          window.location.href='https://devapp099.github.io/bioclass9/'; 
+        }
+      });
+    });
