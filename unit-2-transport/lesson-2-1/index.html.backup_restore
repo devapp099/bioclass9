@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <title>💧 درس 2-1 — الانتشار والنقل السلبي</title>
+  <title>🧪 درس 2-1 — الانتشار</title>
   
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,7 +11,6 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
   <style>
     :root{
       --bg:linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); --card:#ffffff; --muted:#6b7280; --text:#1f2937;
@@ -29,12 +28,17 @@
     }
     body::before {
       content: '';
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: 
         radial-gradient(circle at 20% 80%, rgba(255,165,0,.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(255,69,0,.12) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(255,20,147,.1) 0%, transparent 50%);
-      z-index: -1; pointer-events: none;
+      z-index: -1;
+      pointer-events: none;
     }
     .wrap{max-width:1100px; margin-inline:auto; padding:24px}
     header{
@@ -98,6 +102,7 @@
     footer{ margin-top:34px; padding:18px; border-top:1px solid rgba(0,0,0,.08);
       color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
     .credit{color:var(--text); font-weight:800}
+    a.card-link{ display:block; text-decoration:none; color:inherit }
   </style>
 
 </head>
@@ -107,7 +112,7 @@
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          <div class="title">🪴 درس 2-2 — كيف تحصل النباتات على الماء؟</div>
+          <div class="title">🧪 درس 2-1 — الانتشار</div>
           <div class="subtitle" id="studentMeta">مرحبًا! لنبدأ…</div>
           <!-- شريط التقدّم -->
           <div class="progress">
@@ -122,11 +127,11 @@
     <section class="card" style="margin-top:18px; position:relative" data-aos="zoom-in">
       <div class="pulse"></div>
       <h1>🎯 أهداف الدرس</h1>
-      <p class="lead">تفسير امتصاص الماء عبر الشعيرات الجذرية ونقله عبر الخشب بآليات الأسموزية والسحب بالنتح.</p>
+      <p class="lead">فهم الانتشار كحركة صافية للجزيئات من تركيز أعلى إلى أقل والعوامل المؤثرة.</p>
       <ul>
-        <li>تعرّف تكيفات خلية الشعيرة الجذرية ومساري النقل: الأبُوبلاست/السيمبلاست وشريط كاسبار.</li>
-        <li>شرح نظرية التماسُك–الشد (Cohesion–Tension) ودور النتح والضغط الجذري.</li>
-        <li>تحليل العوامل المؤثرة في النتح ومسار الماء من التربة إلى الهواء.</li>
+        <li>تعريف الانتشار وأمثلة حياتية.</li>
+        <li>تأثير درجة الحرارة ومساحة السطح وفارق التركيز وحجم الجزيء والسماكة واللزوجة.</li>
+        <li>تمييز الانتشار البسيط عن الميسّر وتفسير نتائج تجارب الهلام.</li>
       </ul>
       <div style="display:flex; gap:10px; flex-wrap:wrap">
         <button id="btnStart" class="btn">ابدأ النشاط</button>
@@ -139,202 +144,202 @@
 
       <!-- 20 سؤالًا -->
       <article class="q" data-qid="q1">
-        <div><strong>1) تكيف رئيس لخلية الشعيرة الجذرية يزيد الامتصاص:</strong></div>
+        <div><strong>1) الانتشار هو:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">مساحة سطح كبيرة واستطالة رفيعة</div>
-          <div class="choice" data-correct="false">جدار سميك جدًا يقلّل النفاذية</div>
-          <div class="choice" data-correct="false">غياب الفجوة العصارية</div>
-          <div class="choice" data-correct="false">قصر شديد في الطول</div>
+          <div class="choice" data-correct="false">انتقال الماء عبر غشاء شبه منفذ</div>
+          <div class="choice" data-correct="true">الحركة الصافية من تركيز أعلى إلى أقل</div>
+          <div class="choice" data-correct="false">حركة الجزيئات عكس فرق التركيز</div>
+          <div class="choice" data-correct="false">عملية تحتاج طاقة مباشرة دائمًا</div>
         </div>
       </article>
 
       <article class="q" data-qid="q2">
-        <div><strong>2) يدخل الماء إلى خلية الشعيرة الجذرية أساسًا بفعل:</strong></div>
+        <div><strong>2) يزداد معدل الانتشار عادةً عند:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الأسموزية عبر غشاء شبه منفذ</div>
-          <div class="choice" data-correct="false">النقل النشط للماء</div>
-          <div class="choice" data-correct="false">الانتشار البسيط للغلوكوز</div>
-          <div class="choice" data-correct="false">البلعمة</div>
+          <div class="choice" data-correct="false">خفض درجة الحرارة</div>
+          <div class="choice" data-correct="true">زيادة مساحة السطح</div>
+          <div class="choice" data-correct="false">انعدام فرق التركيز</div>
+          <div class="choice" data-correct="false">زيادة السماكة بين الجهتين</div>
         </div>
       </article>
 
       <article class="q" data-qid="q3">
-        <div><strong>3) ينتقل الماء صعودًا في النبات عبر:</strong></div>
+        <div><strong>3) في هلام الأجار، اتسع قطر صبغة عند 35°C مقارنة بـ 20°C؛ هذا يدل على أن:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الخشب</div>
-          <div class="choice" data-correct="false">اللحاء</div>
-          <div class="choice" data-correct="false">النسيج العمادي فقط</div>
-          <div class="choice" data-correct="false">الفراغات بين الخلايا فقط</div>
+          <div class="choice" data-correct="false">الحرارة تُبطئ الانتشار</div>
+          <div class="choice" data-correct="false">لا أثر للحرارة</div>
+          <div class="choice" data-correct="true">الحرارة تُسرّع الانتشار</div>
+          <div class="choice" data-correct="false">الصبغة تحترق</div>
         </div>
       </article>
 
       <article class="q" data-qid="q4">
-        <div><strong>4) المسار الأبُوبلاستي (Apoplast) يعني انتقال الماء عبر:</strong></div>
+        <div><strong>4) عندما يتساوى التركيزان بين جهتين يحدث:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الجدران والفراغات بين الخلايا دون عبور غشاء</div>
-          <div class="choice" data-correct="false">السيتوبلازم عبر الروابط البلازمية فقط</div>
-          <div class="choice" data-correct="false">الأوعية الغربالية</div>
-          <div class="choice" data-correct="false">المريكزات</div>
+          <div class="choice" data-correct="false">توقّف الحركة تمامًا</div>
+          <div class="choice" data-correct="true">حركة عشوائية مستمرة بلا صافي انتقال</div>
+          <div class="choice" data-correct="false">انتقال من الأقل إلى الأعلى</div>
+          <div class="choice" data-correct="false">انتقال من الأعلى إلى الأقل فقط</div>
         </div>
       </article>
 
       <article class="q" data-qid="q5">
-        <div><strong>5) شريط كاسبار في الإندودرميس يَحول دون استمرار المسار الأبُوبلاستي لأنه:</strong></div>
+        <div><strong>5) كلما كان فرق التركيز أكبر بين جهتين فإن معدل الانتشار:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">مشرّب بالسوبرين فيجبر الماء على عبور الغشاء (سيمبلاست)</div>
-          <div class="choice" data-correct="false">يفتح القنوات ممرًا مباشرًا</div>
-          <div class="choice" data-correct="false">يزيد سمك الخشب</div>
-          <div class="choice" data-correct="false">يمنع الأسموزية داخل الجذر</div>
+          <div class="choice" data-correct="true">يزداد</div>
+          <div class="choice" data-correct="false">ينقص</div>
+          <div class="choice" data-correct="false">لا يتغيّر</div>
+          <div class="choice" data-correct="false">ينعكس</div>
         </div>
       </article>
 
       <article class="q" data-qid="q6">
-        <div><strong>6) الآلية الأساسية لرفع الماء نهارًا في النباتات الطويلة هي:</strong></div>
+        <div><strong>6) يبطئ الانتشار عبر غشاء عندما:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">السحب بالنتح (نظرية التماسُك–الشد)</div>
-          <div class="choice" data-correct="false">الضغط الجذري وحده</div>
-          <div class="choice" data-correct="false">النقل النشط للماء لأعلى</div>
-          <div class="choice" data-correct="false">الخاصية الشعرية وحدها</div>
+          <div class="choice" data-correct="true">تزداد سماكة/المسافة الواجب قطعها</div>
+          <div class="choice" data-correct="false">تزداد مساحة السطح</div>
+          <div class="choice" data-correct="false">ترتفع الحرارة</div>
+          <div class="choice" data-correct="false">يزداد فرق التركيز</div>
         </div>
       </article>
 
       <article class="q" data-qid="q7">
-        <div><strong>7) خاصية «التماسُك» في الماء تعني:</strong></div>
+        <div><strong>7) أي الجزيئات ينتشر أسرع (بقية الظروف ثابتة)؟</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">ترابط جزيئات الماء ببعضها بروابط هيدروجينية</div>
-          <div class="choice" data-correct="false">التصاق الماء بجدران الوعاء</div>
-          <div class="choice" data-correct="false">انجذاب الماء للأيونات فقط</div>
-          <div class="choice" data-correct="false">تفكك عمود الماء بسهولة</div>
+          <div class="choice" data-correct="true">الصغير غير المشحون</div>
+          <div class="choice" data-correct="false">الكبير غير المشحون</div>
+          <div class="choice" data-correct="false">الصغير المشحون</div>
+          <div class="choice" data-correct="false">الكبير المشحون</div>
         </div>
       </article>
 
       <article class="q" data-qid="q8">
-        <div><strong>8) خاصية «الالتصاق» تساعد على:</strong></div>
+        <div><strong>8) تحريك/تقليب الوسط المحيط عادةً:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تثبيت عمود الماء على جدران الخشب (شعرية)</div>
-          <div class="choice" data-correct="false">تقليل صعود الماء</div>
-          <div class="choice" data-correct="false">إغلاق الثغور</div>
-          <div class="choice" data-correct="false">تحليل السوبرين</div>
+          <div class="choice" data-correct="true">يزيد معدل الانتشار</div>
+          <div class="choice" data-correct="false">يُوقف الانتشار تمامًا</div>
+          <div class="choice" data-correct="false">لا تأثير له إطلاقًا</div>
+          <div class="choice" data-correct="false">يقلّل فرق التركيز دائمًا للصفر</div>
         </div>
       </article>
 
       <article class="q" data-qid="q9">
-        <div><strong>9) أي العوامل التالية يزيد معدل النتح عادةً؟</strong></div>
+        <div><strong>9) الانتشار عملية:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">ارتفاع الحرارة + انخفاض الرطوبة + حركة الهواء</div>
-          <div class="choice" data-correct="false">ارتفاع الرطوبة + انعدام الهواء</div>
-          <div class="choice" data-correct="false">انخفاض الحرارة + رطوبة عالية</div>
-          <div class="choice" data-correct="false">ظلام دائم</div>
+          <div class="choice" data-correct="true">سلبية لا تحتاج ATP مباشرة</div>
+          <div class="choice" data-correct="false">نشطة تحتاج ATP دائمًا</div>
+          <div class="choice" data-correct="false">تعتمد على مضخات الأيونات دومًا</div>
+          <div class="choice" data-correct="false">تتوقف في غياب البروتينات الناقلة</div>
         </div>
       </article>
 
       <article class="q" data-qid="q10">
-        <div><strong>10) تفتح الثغور عندما:</strong></div>
+        <div><strong>10) الانتشار الميسّر يختلف عن البسيط بأنه:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تمتلئ الخلايا الحارسة بالماء (انتفاخ/امتلاء)</div>
-          <div class="choice" data-correct="false">تفقد الخلايا الحارسة الماء (ترهّل)</div>
-          <div class="choice" data-correct="false">ينعدم الضوء دائمًا</div>
-          <div class="choice" data-correct="false">تغلق قنوات K⁺</div>
+          <div class="choice" data-correct="true">يحتاج بروتينات قنوات/حاملات عبر الغشاء</div>
+          <div class="choice" data-correct="false">يحتاج ATP</div>
+          <div class="choice" data-correct="false">يتحرك عكس فرق التركيز</div>
+          <div class="choice" data-correct="false">يحدث خارج الأغشية فقط</div>
         </div>
       </article>
 
       <article class="q" data-qid="q11">
-        <div><strong>11) في تربة مالحة جدًا قد:</strong></div>
+        <div><strong>11) أيٌّ مما يلي يعبر الغشاء بالانتشار البسيط بسهولة أكبر؟</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تفقد الشعيرات الجذرية ماءها بالأسموزية فتذبل</div>
-          <div class="choice" data-correct="false">يزيد امتصاص الماء تلقائيًا</div>
-          <div class="choice" data-correct="false">يتحوّل الخشب إلى لحاء</div>
-          <div class="choice" data-correct="false">تنعدم الأيونات في التربة</div>
+          <div class="choice" data-correct="true">O₂ و CO₂ (صغيران غير قطبيين)</div>
+          <div class="choice" data-correct="false">Na⁺</div>
+          <div class="choice" data-correct="false">Cl⁻</div>
+          <div class="choice" data-correct="false">جلوكوز</div>
         </div>
       </article>
 
       <article class="q" data-qid="q12">
-        <div><strong>12) الضغط الجذري يظهر بوضوح عندما:</strong></div>
+        <div><strong>12) الأيونات غالبًا تحتاج إلى:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">ينخفض النتح (ليلًا) فتلاحظ «الإدماع/الندى الطرفي»</div>
-          <div class="choice" data-correct="false">يزداد النتح نهارًا</div>
-          <div class="choice" data-correct="false">تنعدم الأملاح في التربة</div>
-          <div class="choice" data-correct="false">تغلق جميع الثغور دائمًا</div>
+          <div class="choice" data-correct="true">قنوات/ناقلات غشائية للمرور</div>
+          <div class="choice" data-correct="false">ATP دائمًا</div>
+          <div class="choice" data-correct="false">تكسير الغشاء</div>
+          <div class="choice" data-correct="false">لا شيء؛ تعبر بسهولة عبر الليبيدات</div>
         </div>
       </article>
 
       <article class="q" data-qid="q13">
-        <div><strong>13) وظيفة شريط كاسبار الأساسية:</strong></div>
+        <div><strong>13) كفاءة تبادل الغازات في الحويصلات الهوائية تعود إلى:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">ضمان الانتقاء؛ إجبار الماء على المرور عبر أغشية</div>
-          <div class="choice" data-correct="false">زيادة قطر أوعية الخشب</div>
-          <div class="choice" data-correct="false">منع انتقال الأملاح إلى الورقة كليًا</div>
-          <div class="choice" data-correct="false">فتح الثغور</div>
+          <div class="choice" data-correct="true">غشاء رقيق + مساحة سطح كبيرة + فرق تركيز</div>
+          <div class="choice" data-correct="false">غشاء سميك</div>
+          <div class="choice" data-correct="false">انعدام فرق التركيز</div>
+          <div class="choice" data-correct="false">انخفاض مساحة السطح</div>
         </div>
       </article>
 
       <article class="q" data-qid="q14">
-        <div><strong>14) أوعية الخشب تتميّز بأنها:</strong></div>
+        <div><strong>14) في هلام الأجار: تنتشر الجزيئات الأصغر مقارنة بالأكبر:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">خلايا ميتة مجوّفة ذات جدران مُلجننة</div>
-          <div class="choice" data-correct="false">خلايا حية بلا جدران</div>
-          <div class="choice" data-correct="false">غنية بالكلوروفيل</div>
-          <div class="choice" data-correct="false">تنتج النشا</div>
+          <div class="choice" data-correct="true">بسرعة وأبعد</div>
+          <div class="choice" data-correct="false">ببطء وأقصر</div>
+          <div class="choice" data-correct="false">بنفس السرعة</div>
+          <div class="choice" data-correct="false">لا تنتشر إطلاقًا</div>
         </div>
       </article>
 
       <article class="q" data-qid="q15">
-        <div><strong>15) زيادة رطوبة الهواء حول الورقة تؤدي إلى:</strong></div>
+        <div><strong>15) ارتفاع لزوجة الوسط (مثل المحاليل الكثيفة) يؤدي عادةً إلى:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">انخفاض معدل النتح</div>
-          <div class="choice" data-correct="false">ارتفاع النتح</div>
-          <div class="choice" data-correct="false">ثبات المعدل دومًا</div>
-          <div class="choice" data-correct="false">إغلاق كاسبار</div>
+          <div class="choice" data-correct="true">انخفاض معدل الانتشار</div>
+          <div class="choice" data-correct="false">ارتفاع معدل الانتشار</div>
+          <div class="choice" data-correct="false">عدم تغيّر المعدل</div>
+          <div class="choice" data-correct="false">انعكاس الاتجاه</div>
         </div>
       </article>
 
       <article class="q" data-qid="q16">
-        <div><strong>16) إغلاق الثغور ظهر الظهيرة يقلّل الفقد المائي لكنه:</strong></div>
+        <div><strong>16) الأُسموزية تُعرَّف بأنها:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">يقلّل دخول CO₂ فيهبط التمثيل الضوئي</div>
-          <div class="choice" data-correct="false">يزيد امتصاص CO₂</div>
-          <div class="choice" data-correct="false">لا يؤثر على التمثيل</div>
-          <div class="choice" data-correct="false">يحطم أوعية الخشب</div>
+          <div class="choice" data-correct="true">انتشار الماء عبر غشاء شبه منفذ من تركيز ماء أعلى إلى أقل</div>
+          <div class="choice" data-correct="false">انتشار الأيونات عبر القنوات</div>
+          <div class="choice" data-correct="false">نقل نشط للماء</div>
+          <div class="choice" data-correct="false">انتشار الجلوكوز عبر الليبيدات</div>
         </div>
       </article>
 
       <article class="q" data-qid="q17">
-        <div><strong>17) وجود «الأكواپورينات» (قنوات ماء) في الأغشية يؤثر عادةً بـ:</strong></div>
+        <div><strong>17) ينتشر O₂ من الحويصلات إلى الدم لأن:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">زيادة نفاذية الماء وتسريع العبور</div>
-          <div class="choice" data-correct="false">إيقاف مرور الماء</div>
-          <div class="choice" data-correct="false">تحويل الماء إلى أيونات</div>
-          <div class="choice" data-correct="false">استبدال الخشب باللحاء</div>
+          <div class="choice" data-correct="true">ضغطه الجزئي أعلى في الحويصلات من الدم الوريدي</div>
+          <div class="choice" data-correct="false">الدم أكثر برودة دائمًا</div>
+          <div class="choice" data-correct="false">الحويصلات تستهلك ATP لدفعه</div>
+          <div class="choice" data-correct="false">لا يوجد فرق تركيز</div>
         </div>
       </article>
 
       <article class="q" data-qid="q18">
-        <div><strong>18) التدرّج في الجهد المائي غالبًا يكون:</strong></div>
+        <div><strong>18) سلوك الانتشار الميسّر عند زيادة التركيز العالي يُظهر غالبًا:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">تربة ↘ جذر ↘ ساق/خشب ↘ ورقة ↘ هواء خارجي (الأدنى في الهواء)</div>
-          <div class="choice" data-correct="false">هواء ↘ ورقة ↘ تربة (الأدنى في التربة)</div>
-          <div class="choice" data-correct="false">متساويًا في كل الأنسجة</div>
-          <div class="choice" data-correct="false">معكوسًا دائمًا</div>
+          <div class="choice" data-correct="true">تشبّعًا بسبب محدودية عدد الناقلات</div>
+          <div class="choice" data-correct="false">زيادة لا نهائية في المعدل</div>
+          <div class="choice" data-correct="false">توقفًا فوريًا</div>
+          <div class="choice" data-correct="false">حاجة لـ ATP</div>
         </div>
       </article>
 
       <article class="q" data-qid="q19">
-        <div><strong>19) عند حدوث فقاعات هواء تقطع عمود الماء في الخشب فإن النقل:</strong></div>
+        <div><strong>19) رفع درجة الحرارة يزيد معدل الانتشار لأنه:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">يقلّ بسبب «التكهّف/التجويف»</div>
-          <div class="choice" data-correct="false">يزداد فورًا</div>
-          <div class="choice" data-correct="false">لا يتأثر إطلاقًا</div>
-          <div class="choice" data-correct="false">يتحوّل إلى لحاء</div>
+          <div class="choice" data-correct="true">يزيد طاقة حركة الجزيئات (براونية)</div>
+          <div class="choice" data-correct="false">يقلّل حركة الجزيئات</div>
+          <div class="choice" data-correct="false">يغيّر تركيب الغشاء دائمًا</div>
+          <div class="choice" data-correct="false">يشبع جميع القنوات</div>
         </div>
       </article>
 
       <article class="q" data-qid="q20">
-        <div><strong>20) أيُّ المسارات أسرع عادةً عبر قشرة الجذر قبل الإندودرميس؟</strong></div>
+        <div><strong>20) وفقًا لفكرة قانون فيك، معدل الانتشار يتناسب:</strong></div>
         <div class="choices">
-          <div class="choice" data-correct="true">الأبُوبلاست (الجدران والفراغات)</div>
-          <div class="choice" data-correct="false">السيمبلاست فقط</div>
-          <div class="choice" data-correct="false">عبر اللحاء</div>
-          <div class="choice" data-correct="false">عبر البلاستيدات الخضراء</div>
+          <div class="choice" data-correct="true">طرديًا مع مساحة السطح وفرق التركيز، وعكسيًا مع السماكة</div>
+          <div class="choice" data-correct="false">عكسيًا مع مساحة السطح وطرديًا مع السماكة</div>
+          <div class="choice" data-correct="false">فقط مع درجة الحرارة</div>
+          <div class="choice" data-correct="false">مع وجود ATP</div>
         </div>
       </article>
 
@@ -352,159 +357,6 @@
 
   <script>
     AOS.init({ duration: 700, once: true });
-    // 🎵 نظام صوتي ذكي متقدم
-    const SoundSystem = {
-      sounds: {
-        // أصوات الإجابات
-        correct: new Howl({ src: ['../../assets/audio/clap.mp3'], volume: 0.6 }),
-        wrong: new Howl({ src: ['../../assets/audio/wrong_answer.mp3'], volume: 0.5 }),
-        
-        // أصوات التفاعل
-        click: new Howl({ src: ['../../assets/audio/Click.mp3'], volume: 0.4 }),
-        select: new Howl({ src: ['../../assets/audio/select.mp3'], volume: 0.4 }),
-        
-        // أصوات التقدم والإنجاز
-        progress: new Howl({ src: ['../../assets/audio/Notification.mp3'], volume: 0.3 }),
-        milestone: new Howl({ src: ['../../assets/audio/long-beep.mp3'], volume: 0.4 }),
-        
-        // أصوات الاحتفال
-        celebration: new Howl({ src: ['../../assets/audio/win.mp3'], volume: 0.7 }),
-        firework: new Howl({ src: ['../../assets/audio/win-Blockbusters.mp3'], volume: 0.5 }),
-        
-        // أصوات التطبيق
-        start: new Howl({ src: ['../../assets/audio/startapp.mp3'], volume: 0.5 }),
-        reset: new Howl({ src: ['../../assets/audio/reveal.mp3'], volume: 0.4 })
-      },
-      
-      // تشغيل صوت مع تأثيرات بصرية
-      play(soundName, visualEffect = null) {
-        if (this.sounds[soundName]) {
-          this.sounds[soundName].play();
-          if (visualEffect) visualEffect();
-        }
-      },
-      
-      // تشغيل سلسلة أصوات
-      playSequence(soundNames, delay = 300) {
-        soundNames.forEach((name, index) => {
-          setTimeout(() => this.play(name), index * delay);
-        });
-      }
-    };
-
-    // 🔔 نظام الإشعارات والرسائل التفاعلية الذكي
-    const NotificationSystem = {
-      student: null,
-      
-      // رسائل متنوعة حسب الأداء
-      messages: {
-        welcome: [
-          "أهلاً وسهلاً {name}! مرحبًا بك في 🪴 درس 2-2 — كيف تحصل النباتات على الماء؟ المثير! 🧬",
-          "مرحبًا {name}! أنت على وشك خوض مغامرة علمية رائعة! 🔬",
-          "أهلاً {name}! دعنا نكتشف أسرار العلوم معًا! ✨"
-        ],
-        
-        encouragement: [
-          "ممتاز {name}! أنت تتقدم بشكل رائع! 🌟",
-          "أحسنت {name}! استمر على هذا الأداء المميز! 💪",
-          "رائع {name}! أنت تبهرني بذكائك! 🧠",
-          "عظيم {name}! كل إجابة تقربك من النجاح! 🎯"
-        ],
-        
-        motivation: [
-          "لا تستسلم {name}! المحاولة جزء من التعلم! 💚",
-          "فكر مرة أخرى {name}، أنت أقرب للإجابة الصحيحة! 🤔",
-          "المحاولة الجيدة {name}! التعلم من الأخطاء يجعلنا أقوى! 💎",
-          "تركيزك يتحسن {name}! المحاولة القادمة ستكون أفضل! ⚡"
-        ],
-        
-        milestone: [
-          "🎉 ممتاز {name}! لقد أكملت 25% من الأسئلة!",
-          "🚀 رائع {name}! وصلت لمنتصف الطريق - 50%!",
-          "⭐ مذهل {name}! 75% مكتملة - أنت بطل/ة!",
-          "🏆 تهانينا {name}! أكملت جميع الأسئلة بنجاح!"
-        ],
-        
-        finalResults: {
-          excellent: [
-            "🏆 مذهل {name}! أداء استثنائي - أنت عالم/ة حقيقي/ة!",
-            "⭐ رائع جداً {name}! إتقان كامل للموضوع!"
-          ],
-          good: [
-            "👏 أحسنت {name}! أداء جيد جداً - استمر في التفوق!",
-            "💪 عمل ممتاز {name}! أنت على الطريق الصحيح!"
-          ],
-          average: [
-            "📚 أداء جيد {name}! مراجعة بسيطة وستكون في القمة!",
-            "🎯 استمر {name}! أنت تتحسن مع كل محاولة!"
-          ],
-          needsWork: [
-            "💚 لا بأس {name}! التعلم رحلة - استمر في المحاولة!",
-            "🌱 كل خطأ فرصة للتعلم {name}! أنت في الطريق الصحيح!"
-          ]
-        }
-      },
-      
-      // تحديد مستوى الأداء
-      getPerformanceLevel(percentage) {
-        if (percentage >= 90) return 'excellent';
-        if (percentage >= 75) return 'good';
-        if (percentage >= 60) return 'average';
-        return 'needsWork';
-      },
-      
-      // اختيار رسالة عشوائية
-      getRandomMessage(category, percentage = null) {
-        let messages = this.messages[category];
-        if (percentage !== null && this.messages[category][this.getPerformanceLevel(percentage)]) {
-          messages = this.messages[category][this.getPerformanceLevel(percentage)];
-        }
-        
-        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-        return randomMsg.replace('{name}', this.student?.name || 'البطل/ة');
-      },
-      
-      // عرض إشعار ذكي
-      showSmart(category, options = {}) {
-        const message = this.getRandomMessage(category, options.percentage);
-        
-        Swal.fire({
-          title: options.title || 'رسالة ذكية 🤖',
-          text: message,
-          icon: options.icon || 'info',
-          timer: options.timer || 3000,
-          timerProgressBar: true,
-          showConfirmButton: false,
-          toast: options.toast || true,
-          position: options.position || 'top-end',
-          customClass: {
-            popup: 'animated-notification'
-          }
-        });
-        
-        // تشغيل صوت مناسب
-        if (options.sound) {
-          SoundSystem.play(options.sound);
-        }
-      }
-    };
-
-    const storageKey = "watyn_bio_student";
-    let consecutiveCorrect = 0; // متتبع الإجابات الصحيحة المتتالية
-    let totalAnswered = 0; // إجمالي الأسئلة المجابة
-
-    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
-    function setStudent(obj){ 
-      localStorage.setItem(storageKey, JSON.stringify(obj)); 
-      NotificationSystem.student = obj;
-    }
-
-    // 🎵 نظام صوتي ذكي متقدم
-    
-
-    // 🔔 نظام الإشعارات والرسائل التفاعلية الذكي
-    
-
 
     const el = {
       start: document.getElementById('btnStart'),
@@ -518,27 +370,20 @@
     };
 
     const storageKey = "watyn_bio_student";
-     // إجمالي الأسئلة المجابة
-
     function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
-    
+    function setStudent(obj){ localStorage.setItem(storageKey, JSON.stringify(obj)); }
 
     async function askStudent(){
-      SoundSystem.play('start');
-      
       const { value: formValues } = await Swal.fire({
-        title: 'مرحبًا في عالم العلوم! 🧬',
+        title: 'مرحبًا 👋',
         html:
           `<div style="text-align:right">
-            <div style="margin-bottom:12px;font-weight:700;color:#d97706">أدخل بياناتك لتبدأ رحلتك العلمية:</div>
-            <input id="swal-name" class="swal2-input" placeholder="اسم الطالب/ـة" style="text-align:right">
-            <input id="swal-class" class="swal2-input" placeholder="الصف (مثال: التاسع/1)" style="text-align:right">
-            <div style="font-size:13px;color:#6b7280;margin-top:8px">
-              💡 سيتم استخدام اسمك لإرسال رسائل تشجيعية مخصصة!
-            </div>
+            <div style="margin-bottom:8px;font-weight:700">أدخل بياناتك لبدء النشاط:</div>
+            <input id="swal-name" class="swal2-input" placeholder="اسم الطالب/ـة">
+            <input id="swal-class" class="swal2-input" placeholder="الصف (مثال: التاسع/1)">
           </div>`,
         focusConfirm: false,
-        confirmButtonText: '🚀 ابدأ المغامرة',
+        confirmButtonText: 'ابدأ',
         confirmButtonColor: '#d97706',
         showCancelButton: true,
         cancelButtonText: 'إلغاء',
@@ -549,50 +394,6 @@
             Swal.showValidationMessage('يرجى إدخال الاسم والصف');
             return false;
           }
-          return { name, klass };
-        }
-      });
-      
-      if(formValues){
-        setStudent(formValues);
-        updateMeta();
-        
-        // رسالة ترحيب ذكية
-        setTimeout(() => {
-          NotificationSystem.showSmart('welcome', {
-            title: 'أهلاً وسهلاً! 👋',
-            icon: 'success',
-            timer: 4000,
-            sound: 'select'
-          });
-        }, 500);
-        
-        el.quiz.style.display = "block";
-        gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6});
-      }
-    }
-          return { name, klass };
-        }
-      });
-      
-      if(formValues){
-        setStudent(formValues);
-        updateMeta();
-        
-        // رسالة ترحيب ذكية
-        setTimeout(() => {
-          NotificationSystem.showSmart('welcome', {
-            title: 'أهلاً وسهلاً! 👋',
-            icon: 'success',
-            timer: 4000,
-            sound: 'select'
-          });
-        }, 500);
-        
-        el.quiz.style.display = "block";
-        gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6});
-      }
-    }
           return { name, klass };
         }
       });
@@ -614,98 +415,29 @@
     }
 
     // شريط التقدّم: أي اختيار (صحيح أو خاطئ) يُعدّ إجابة
-    
-
-    // نظام الإجابة المحسن مع الذكاء الاصطناعي
     function updateProgress(){
       const total = document.querySelectorAll('.q[data-qid]').length;
-      const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
+      const answered = Array.from(document.querySelectorAll('.q')).filter(q =>
         q.querySelector('.choice.correct, .choice.wrong')
       ).length;
-      const oldProgress = parseInt(el.done.textContent) || 0;
-      
       el.total.textContent = total;
       el.done.textContent = answered;
-      const pc = Math.round((answered / total) * 100);
-      
-      // تأثير بصري لشريط التقدم مع صوت
-      gsap.to(el.bar, {
-        width: pc + "%",
-        duration: 0.5,
-        ease: "power2.out",
-        onComplete: () => {
-          if (answered > oldProgress) {
-            SoundSystem.play('progress');
-          }
-        }
-      });
-      
-      // إشعارات عند النقاط المهمة
-      if (answered > oldProgress) {
-        checkMilestones(pc, answered, total);
-      }
+      el.bar.style.width = Math.round((answered/total)*100) + '%';
     }
-    
-    // فحص النقاط المهمة في التقدم
-    function checkMilestones(percentage, questionCount, totalQuestions) {
-      const milestones = [25, 50, 75, 100];
-      const reached = milestones.find(m => percentage >= m && (percentage - 5) < m);
-      
-      if (reached && questionCount === Math.ceil(totalQuestions * reached / 100)) {
-        SoundSystem.play('milestone');
-        NotificationSystem.showSmart('milestone', {
-          title: 'إنجاز رائع! 🎯',
-          icon: 'success',
-          timer: 4000,
-          percentage: reached,
-          sound: null
-        });
-        
-        // تأثير بصري خاص للإنجازات
-        gsap.fromTo('.progress', 
-          { scale: 1 }, 
-          { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 }
-        );
-      }
-    }
-    
-          consecutiveCorrect = 0; // إعادة تعيين العداد
-        }
-        
-      } else {
-        choice.classList.add('wrong');
-        consecutiveCorrect = 0; // إعادة تعيين العداد للإجابات الصحيحة
-        
-        SoundSystem.play('wrong');
-        
-        // تأثير بصري للإجابة الخاطئة
-        gsap.fromTo(choice, 
-          {x:0}, 
-          {x:-8, duration:.08, yoyo:true, repeat:6, ease: "power2.inOut"}
-        );
-        
-        // رسائل تحفيز ذكية
-        if (totalAnswered >= 3) {
-          setTimeout(() => {
-            NotificationSystem.showSmart('motivation', {
-              title: 'استمر في المحاولة! 💪',
-              icon: 'info',
-              timer: 2500
-            });
-          }, 1000);
-        }
-      }
-      
-      updateProgress();
-    });
 
-    // إضافة أصوات للأزرار وتأثيرات تفاعلية
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.choice').forEach(choice => {
-        choice.addEventListener('mouseenter', () => {
-          SoundSystem.play('select');
-        });
-      });
+    document.addEventListener('click', (e)=>{
+      const choice = e.target.closest('.choice');
+      if(!choice) return;
+      const container = choice.closest('.choices');
+      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      if(choice.dataset.correct === "true"){
+        choice.classList.add('correct');
+        gsap.fromTo(choice, {scale:1}, {scale:1.03, y:-2, duration:.18, yoyo:true, repeat:1});
+      }else{
+        choice.classList.add('wrong');
+        gsap.fromTo(choice, {x:0}, {x:-6, duration:.06, yoyo:true, repeat:5});
+      }
+      updateProgress();
     });
 
     function computeScore(){
@@ -716,60 +448,65 @@
     }
 
     function celebrate(){
-      // احتفال متقدم مع أصوات متعددة
-      SoundSystem.playSequence(['celebration', 'firework'], 500);
-      
-      const duration = 2500; 
-      const end = Date.now() + duration;
-      
-      // تأثيرات الكونفيتي المحسنة
+      const duration = 1500; const end = Date.now() + duration;
       (function frame(){
-        confetti({ 
-          particleCount: 5, 
-          angle: 60, 
-          spread: 80, 
-          origin: { x: 0 },
-          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
-        });
-        confetti({ 
-          particleCount: 5, 
-          angle: 120, 
-          spread: 80, 
-          origin: { x: 1 },
-          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
-        });
+        confetti({ particleCount: 3, angle: 60, spread: 70, origin: { x: 0 } });
+        confetti({ particleCount: 3, angle: 120, spread: 70, origin: { x: 1 } });
         if (Date.now() < end) requestAnimationFrame(frame);
       })();
-      
-      // تأثير بصري للشاشة كاملة
-      gsap.fromTo('body', 
-        {backgroundColor: 'transparent'}, 
-        {backgroundColor: 'rgba(245,158,11,0.1)', duration: 0.5, yoyo: true, repeat: 1}
-      );
-    },
-          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
-        });
-        confetti({ 
-          particleCount: 5, 
-          angle: 120, 
-          spread: 80, 
-          origin: { x: 1 },
-          colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
-        });
-        if (Date.now() < end) requestAnimationFrame(frame);
-      })();
-      
-      // تأثير بصري للشاشة كاملة
-      gsap.fromTo('body', 
-        {backgroundColor: 'transparent'}, 
-        {backgroundColor: 'rgba(245,158,11,0.1)', duration: 0.5, yoyo: true, repeat: 1}
-      );
     }
 
     el.start.addEventListener('click', askStudent);
 
     el.submit.addEventListener('click', ()=>{
       const s = getStudent();
+      const { correct, total, percent } = computeScore();
+      celebrate();
+      
+      // رسالة نتائج ذكية مخصصة
+      const performanceLevel = getPerformanceLevel(percent);
+      const smartMessage = getFinalResultMessage(percent, s?.name);
+      
+      let resultIcon = 'success';
+      let resultColor = '#10b981';
+      
+      if (percent < 60) {
+        resultIcon = 'info';
+        resultColor = '#3b82f6';
+      }
+      
+      SoundSystem.play('complete');
+      
+      Swal.fire({
+        title: `${performanceLevel === 'excellent' ? '🏆' : performanceLevel === 'good' ? '⭐' : performanceLevel === 'average' ? '👍' : '💪'} النتائج النهائية`,
+        html: `
+          <div style="text-align:right;line-height:1.9;font-size:16px">
+            <div style="margin-bottom:10px"><strong>👤 الاسم:</strong> ${s?.name || 'غير محدد'}</div>
+            <div style="margin-bottom:10px"><strong>🏫 الصف:</strong> ${s?.klass || 'غير محدد'}</div>
+            <div style="margin-bottom:10px"><strong>📊 النتيجة:</strong> ${correct} من ${total} سؤال</div>
+            <div style="margin-bottom:15px"><strong>📈 النسبة المئوية:</strong> ${percent}%</div>
+            <hr style="margin: 15px 0; border: none; height: 1px; background: linear-gradient(to right, transparent, #ddd, transparent);">
+            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);padding:15px;border-radius:12px;font-weight:600;color:#92400e;text-align:center">
+              ${smartMessage}
+            </div>
+          </div>`,
+        icon: resultIcon,
+        width: '500px',
+        confirmButtonText: '🔄 إعادة المحاولة',
+        confirmButtonColor: resultColor,
+        showDenyButton: true,
+        denyButtonText: '🏠 العودة للرئيسية',
+        denyButtonColor: '#d97706',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+      }).then(res=>{
+        if(res.isConfirmed) {
+          resetQuiz();
+        } else if (res.isDenied) {
+          window.location.href='../../index.html';
+        }
+      });
+    });
       const { correct, total, percent } = computeScore();
       celebrate();
       Swal.fire({
@@ -790,56 +527,15 @@
     });
 
     function resetQuiz(){
-      SoundSystem.play('reset');
-      
-      // إعادة تعيين المتغيرات
-      consecutiveCorrect = 0;
-      totalAnswered = 0;
-      
       document.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
-      updateProgress();
-      
-      gsap.from("#quiz .q", {opacity:0, y:15, stagger:.06, duration:.5});
-      window.scrollTo({ top:0, behavior:'smooth' });
-      
-      // رسالة تحفيز لإعادة المحاولة
-      setTimeout(() => {
-        NotificationSystem.showSmart('encouragement', {
-          title: 'بداية جديدة! 🌟',
-          icon: 'info',
-          timer: 2000
-        });
-      }, 1000);
-    });
+      gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.45});
       window.scrollTo({ top:0, behavior:'smooth' });
       el.done.textContent = 0; el.bar.style.width = '0%';
     }
 
     // تهيئة أولية
     updateMeta();
-    updateProgress();
-    el.reset.addEventListener('click', resetQuiz);
-
-    // إضافة أصوات للأزرار
-    [el.start, el.submit, el.reset].forEach(btn => {
-      if (btn) {
-        btn.addEventListener('mouseenter', () => SoundSystem.play('select'));
-        btn.addEventListener('click', () => SoundSystem.play('click'));
-      }
-    });
-
-    // رسالة ترحيب عامة عند تحميل الصفحة
-    setTimeout(() => {
-      const student = getStudent();
-      if (student) {
-        NotificationSystem.student = student;
-        NotificationSystem.showSmart('welcome', {
-          title: 'مرحباً بعودتك! 👋',
-          timer: 3000,
-          sound: 'select'
-        });
-      }
-    }, 1000);
+    document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
   </script>
 </body>
 </html>
