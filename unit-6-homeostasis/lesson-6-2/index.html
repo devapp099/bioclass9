@@ -138,7 +138,7 @@
       </div>
     </section>
 
-    <section id="quiz" class="card" style="margin-top:16px; display:none" data-aos="fade-up">
+    <section id="quiz" class="card" style="margin-top:16px; display:block" data-aos="fade-up">
       <h2>الأسئلة التفاعلية</h2>
 
       <!-- 20 سؤال -->
@@ -841,5 +841,26 @@
       console.log('✅ تم تحميل جميع الأنظمة الذكية');
     });
   </script>
+<script>
+    // ضمان إظهار المحتوى
+    document.addEventListener('DOMContentLoaded', function() {
+        const quizSection = document.getElementById('quiz');
+        if (quizSection) {
+            quizSection.style.display = 'block';
+        }
+    });
+    
+    // إصلاح إضافي في حالة عدم عمل الكود السابق
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            const quiz = document.getElementById('quiz');
+            if (quiz) {
+                quiz.style.display = 'block';
+                quiz.style.visibility = 'visible';
+                quiz.style.opacity = '1';
+            }
+        }, 100);
+    });
+</script>
 </body>
 </html>

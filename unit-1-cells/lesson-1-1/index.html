@@ -141,7 +141,7 @@
     </section>
 
     <!-- الأسئلة (يتم توليدها من بنك الأسئلة) -->
-    <section id="quiz" class="card" style="margin-top:16px; display:none" data-aos="fade-up">
+    <section id="quiz" class="card" style="margin-top:16px; display:block" data-aos="fade-up">
       <h2>الأسئلة التفاعلية</h2>
       <div id="quizList" class="grid" style="gap:14px"></div>
       <div style="display:flex; gap:10px; margin-top:8px">
@@ -443,6 +443,27 @@
     updateMeta();
     updateProgress();
   </script>
+<script>
+    // ضمان إظهار المحتوى
+    document.addEventListener('DOMContentLoaded', function() {
+        const quizSection = document.getElementById('quiz');
+        if (quizSection) {
+            quizSection.style.display = 'block';
+        }
+    });
+    
+    // إصلاح إضافي في حالة عدم عمل الكود السابق
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            const quiz = document.getElementById('quiz');
+            if (quiz) {
+                quiz.style.display = 'block';
+                quiz.style.visibility = 'visible';
+                quiz.style.opacity = '1';
+            }
+        }, 100);
+    });
+</script>
 </body>
 </html>
 
