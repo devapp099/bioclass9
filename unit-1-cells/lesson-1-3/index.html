@@ -426,12 +426,17 @@
     // شريط التقدّم: أي اختيار (صحيح أو خاطئ) يُعدّ إجابة
     function updateProgress(){
       const total = document.querySelectorAll('.q[data-qid]').length;
-      const answered = Array.from(document.querySelectorAll('.q')).filter(q =>
+      const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
         q.querySelector('.choice.correct, .choice.wrong')
       ).length;
-      el.total.textContent = total;
-      el.done.textContent = answered;
-      el.bar.style.width = Math.round((answered/total)*100) + '%';
+      
+      const barFill = document.getElementById('barFill');
+      const countDone = document.getElementById('countDone');
+      const countTotal = document.getElementById('countTotal');
+      
+      if (countTotal) countTotal.textContent = total;
+      if (countDone) countDone.textContent = answered;
+      if (barFill) barFill.style.width = Math.round((answered/total)*100) + '%';
     }
 
     document.addEventListener('click', (e)=>{
