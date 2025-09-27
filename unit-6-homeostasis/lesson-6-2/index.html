@@ -227,10 +227,11 @@
     </header>
 
     <!-- أهداف الدرس -->
+    <!-- أهداف الدرس -->
     <section class="card" style="margin-top:18px; position:relative" data-aos="zoom-in">
       <div class="pulse"></div>
-      <h1>🧠 الجهاز العصبي في الإنسان</h1>
-      <p class="lead">تركيب ووظائف الجهاز العصبي وآلية نقل السيالات العصبية والاستجابات الانعكاسية</p>
+      <h1>🎯 أهداف الدرس</h1>
+      <p class="lead">بنهاية هذا الدرس يتوقع من الطالب أن يكون قادرًا على:</p>
       <ul>
         <li>وصف مكونات الجهاز العصبي في الإنسان (<strong>الجهاز العصبي المركزي</strong> + <strong>الجهاز العصبي الطرفي</strong>).</li>
         <li>تحديد وظائف <strong>الدماغ</strong> و<strong>الحبل الشوكي</strong>.</li>
@@ -243,6 +244,12 @@
         <button id="btnStart" class="btn">ابدأ النشاط</button>
         <a class="btn-ghost" href="https://devapp099.github.io/watyn-bio-activities-/index.html">← العودة</a>
       </div>
+    </section>
+
+    <!-- محتوى الدرس -->
+    <section class="card" style="margin-top:16px; position:relative" data-aos="fade-up">
+      <h1>🧠 الجهاز العصبي في الإنسان</h1>
+      <p class="lead">تركيب ووظائف الجهاز العصبي وآلية نقل السيالات العصبية والاستجابات الانعكاسية</p>
     </section>
 
     <!-- الأسئلة (يتم توليدها من بنك الأسئلة) -->
@@ -569,34 +576,6 @@
         }, 100);
     });
 
-        // 🎵 نظام الصوت المحسن
-        const SoundSystem = {
-            sounds: {},
-            
-            preload() {
-                const soundFiles = {
-                    correct: '../../assets/audio/win.mp3',
-                    wrong: '../../assets/audio/wrong_answer.mp3',
-                    click: '../../assets/audio/Click.mp3',
-                    start: '../../assets/audio/start-timer.mp3',
-                    end: '../../assets/audio/end-timer.mp3',
-                    notification: '../../assets/audio/Notification.mp3'
-                };
-                
-                Object.keys(soundFiles).forEach(key => {
-                    this.sounds[key] = new Audio(soundFiles[key]);
-                    this.sounds[key].preload = 'auto';
-                });
-            },
-            
-            play(soundName) {
-                if (this.sounds[soundName]) {
-                    this.sounds[soundName].currentTime = 0;
-                    return this.sounds[soundName].play().catch(e => console.log('تعذر تشغيل الصوت:', e));
-                }
-            }
-        };
-
         // 🔔 نظام الإشعارات المحسن
         const EnhancedNotificationSystem = {
             show(message, type = 'info', duration = 3000) {
@@ -691,14 +670,6 @@
                 btn.addEventListener('click', () => SoundSystem.play('click'));
             });
         });
-
-</script>
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
