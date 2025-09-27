@@ -608,68 +608,6 @@
             }
         };
 
-        // 🧠 نظام الإشعارات الذكية
-        const SmartNotifications = {
-            show(message, options = {}) {
-                const defaults = {
-                    type: 'info',
-                    duration: 3000,
-                    position: 'top-right',
-                    sound: true,
-                    animation: 'slide'
-                };
-                
-                const config = { ...defaults, ...options };
-                
-                if (config.sound) {
-                    SoundSystem.play('notification');
-                }
-                
-                EnhancedNotificationSystem.show(message, config.type, config.duration);
-            }
-        };
-
-        // 📊 نظام تتبع التقدم المحسن
-        function updateProgress() {
-            const studentData = JSON.parse(localStorage.getItem('biology_progress') || '{}');
-            const lessonKey = window.location.pathname;
-            
-            if (!studentData[lessonKey]) {
-                studentData[lessonKey] = {
-                    completed: false,
-                    score: 0,
-                    attempts: 0,
-                    lastVisit: new Date().toISOString()
-                };
-            }
-            
-            studentData[lessonKey].attempts += 1;
-            studentData[lessonKey].lastVisit = new Date().toISOString();
-            
-            localStorage.setItem('biology_progress', JSON.stringify(studentData));
-            
-            // تحديث شريط التقدم
-            const progressBar = document.querySelector('.progress-bar');
-            if (progressBar) {
-                const completedLessons = Object.values(studentData).filter(lesson => lesson.completed).length;
-                const totalLessons = 16;
-                const progressPercent = (completedLessons / totalLessons) * 100;
-                
-                progressBar.style.width = `${progressPercent}%`;
-                progressBar.setAttribute('data-progress', `${Math.round(progressPercent)}%`);
-            }
-        }
-
-        // تهيئة الأنظمة عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            SoundSystem.preload();
-            updateProgress();
-            
-            // تحسين أداء الأزرار
-            document.querySelectorAll('button').forEach(btn => {
-                btn.addEventListener('click', () => SoundSystem.play('click'));
-            });
-        });
     </script>
 </body>
 </html>
