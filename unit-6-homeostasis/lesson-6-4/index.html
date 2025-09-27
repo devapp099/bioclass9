@@ -121,6 +121,13 @@
         <div>
           <div class="title">🧪 درس 6-4 — مرض السكري</div>
           <div class="subtitle" id="studentMeta">مرحبًا! لنبدأ…</div>
+          <div class="progress-top">
+            <div>التقدّم:</div>
+            <div><span id="countDone">0</span>/<span id="countTotal">0</span></div>
+          </div>
+          <div class="progress">
+            <div class="bar" id="barFill"></div>
+          </div>
         </div>
       </div>
     </header>
@@ -796,6 +803,17 @@
 
     // تهيئة الأحداث
     document.addEventListener('DOMContentLoaded', function() {
+      // تهيئة شريط التقدم
+      const totalQuestions = document.querySelectorAll('.q[data-qid]').length;
+      const countTotal = document.getElementById('countTotal');
+      const countDone = document.getElementById('countDone');
+      const barFill = document.getElementById('barFill');
+      
+      if (countTotal) countTotal.textContent = totalQuestions;
+      if (countDone) countDone.textContent = 0;
+      if (barFill) barFill.style.width = '0%';
+      
+
       // تهيئة النظام الصوتي
       if (typeof Howl !== 'undefined') {
         SoundSystem.init();

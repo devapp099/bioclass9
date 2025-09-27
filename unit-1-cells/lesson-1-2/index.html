@@ -800,6 +800,28 @@
 
     // تهيئة الأحداث
     document.addEventListener('DOMContentLoaded', function() {
+      // تهيئة شريط التقدم
+      const totalQuestions = document.querySelectorAll('.q[data-qid]').length;
+      const countTotal = document.getElementById('countTotal');
+      const countDone = document.getElementById('countDone');
+      const barFill = document.getElementById('barFill');
+      
+      if (countTotal) countTotal.textContent = totalQuestions;
+      if (countDone) countDone.textContent = 0;
+      if (barFill) barFill.style.width = '0%';
+      
+
+      // تهيئة شريط التقدم
+      const totalQuestions = document.querySelectorAll('.q[data-qid]').length;
+      const countTotal = document.getElementById('countTotal');
+      const countDone = document.getElementById('countDone');
+      const barFill = document.getElementById('barFill');
+      
+      if (countTotal) countTotal.textContent = totalQuestions;
+      if (countDone) countDone.textContent = 0;
+      if (barFill) barFill.style.width = '0%';
+      
+
       // تهيئة النظام الصوتي
       if (typeof Howl !== 'undefined') {
         SoundSystem.init();
