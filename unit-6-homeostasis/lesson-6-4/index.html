@@ -291,12 +291,176 @@
         
         // تحديث التقدم
         updateProgress();
+        
+        // إشعارات ذكية
+        const answered = answeredCount();
+        const total = bank.length;
+        SmartNotifications.progress(answered, total);
+        
+        // إذا تم الانتهاء من جميع الأسئلة
+        if (answered === total) {
+          SmartNotifications.completed();
+        }
+      }
+    });
+        
+        // إضافة الحالة الجديدة
+        e.target.classList.add(isCorrect ? 'correct' : 'wrong');
+        
+        // تشغيل الصوت
+        SoundSystem.play(isCorrect ? 'correct' : 'wrong');
+        
+        // تحديث التقدم
+        updateProgress();
       }
     });
 
     // بدء التطبيق
     SoundSystem.init();
+    // نظام الرسائل التفاعلية الذكية
+    async function askStudent(){
+      SoundSystem.play('start');
+      
+      const { value: formValues } = await Swal.fire({
+        title: '🎓 مرحباً بك!',
+        html:
+          `<div style="text-align:right">
+            <div style="margin-bottom:12px;font-weight:700;color:#d97706">أدخل بياناتك لتبدأ رحلتك العلمية:</div>
+            <input id="swal-name" class="swal2-input" placeholder="اسم الطالب/ـة" style="text-align:right">
+            <input id="swal-class" class="swal2-input" placeholder="الصف (مثال: التاسع/1)" style="text-align:right">
+          </div>`,
+        focusConfirm: false,
+        confirmButtonText: '🚀 لنبدأ التعلم!',
+        confirmButtonColor: '#d97706',
+        showCancelButton: true,
+        cancelButtonText: 'إلغاء',
+        preConfirm: () => {
+          const name = document.getElementById('swal-name').value?.trim();
+          const klass = document.getElementById('swal-class').value?.trim();
+          if(!name || !klass){
+            Swal.showValidationMessage('يرجى ملء جميع البيانات');
+            return false;
+          }
+          return { name, klass };
+        }
+      });
+      
+      if (formValues) {
+        setStudent(formValues);
+        SoundSystem.play('welcome');
+        
+        Swal.fire({
+          title: `🌟 أهلاً ${formValues.name}!`,
+          html: `
+            <div style="text-align:center; font-size:18px">
+              <p>🎯 استعد لرحلة تعليمية ممتعة!</p>
+              <p style="color:#10b981">📚 ${bank.length} سؤال تفاعلي في انتظارك</p>
+            </div>`,
+          icon: 'success',
+          confirmButtonText: 'ابدأ الآن! 🚀',
+          confirmButtonColor: '#10b981',
+          timer: 3000,
+          timerProgressBar: true
+        });
+      }
+    }
+
+    // نظام عرض النتائج الذكي
+    function showResults(){
+      const answered = answeredCount();
+      const total = bank.length;
+      const score = computeScore();
+      const percentage = Math.round((score/total)*100);
+      
+      let message = '';
+      let icon = 'info';
+      let color = '#3b82f6';
+      
+      if (percentage >= 90) {
+        message = '🌟 ممتاز! أداء رائع!';
+        icon = 'success';
+        color = '#10b981';
+        SoundSystem.play('celebration');
+      } else if (percentage >= 80) {
+        message = '👍 جيد جداً! واصل التقدم!';
+        icon = 'success';  
+        color = '#10b981';
+        SoundSystem.play('correct');
+      } else if (percentage >= 70) {
+        message = '👌 جيد! يمكنك تحسين أدائك';
+        icon = 'warning';
+        color = '#f59e0b';
+        SoundSystem.play('progress');
+      } else {
+        message = '💪 لا تستسلم! حاول مرة أخرى';
+        icon = 'error';
+        color = '#ef4444';
+        SoundSystem.play('wrong');
+      }
+      
+      const student = getStudent();
+      const name = student ? student.name : 'عزيزي الطالب';
+      
+      Swal.fire({
+        title: `📊 نتيجتك يا ${name}`,
+        html: `
+          <div style="text-align:center; font-size:18px">
+            <p style="color:${color}; font-weight:bold; font-size:24px">${percentage}%</p>
+            <p>${message}</p>
+            <div style="background:#f8fafc; padding:16px; border-radius:12px; margin:16px 0">
+              <p>✅ الإجابات الصحيحة: <strong style="color:#10b981">${score}</strong></p>
+              <p>❌ الإجابات الخاطئة: <strong style="color:#ef4444">${total-score}</strong></p>
+              <p>📝 إجمالي الأسئلة: <strong>${total}</strong></p>
+            </div>
+          </div>`,
+        icon: icon,
+        confirmButtonText: 'إعادة المحاولة 🔄',
+        confirmButtonColor: color,
+        showCancelButton: true,
+        cancelButtonText: 'الانتهاء ✨'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          location.reload();
+        }
+      });
+    }
+
+    // دالة حساب النقاط
+    function computeScore(){
+      let score = 0;
+      document.querySelectorAll('.q').forEach(q => {
+        const correct = q.querySelector('.choice.correct');
+        if (correct) score++;
+      });
+      return score;
+    }
+
+    // نظام الإشعارات الذكية
+    const SmartNotifications = {
+      progress: (answered, total) => {
+        if (answered === Math.floor(total/2)) {
+          Swal.fire({
+            title: '⚡ نصف الطريق!',
+            text: 'أنت تتقدم بشكل رائع! 🌟',
+            icon: 'info',
+            timer: 2000,
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false
+          });
+          SoundSystem.play('milestone');
+        }
+      },
+      
+      completed: () => {
+        SoundSystem.play('complete');
+        setTimeout(() => {
+          showResults();
+        }, 1000);
+      }
+    };
     renderQuestions();
+    askStudent();
     updateProgress();
   </script>
 <script>
