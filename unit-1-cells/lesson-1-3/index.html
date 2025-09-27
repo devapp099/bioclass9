@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <title>🧪 درس 1-3 — العُضيّات ووظائفها</title>
@@ -6,6 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet" />
+
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -14,14 +15,14 @@
   <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
 
   <script>
-    
+
     const SoundSystem = {
       enabled: true,
       currentVolume: 0.7,
       sounds: {},
       
-      // تهيئة جميع الأصوات مع مسارات محلية صحيحة
       init() {
+        const soundTypes = ['correct', 'wrong', 'click', 'select', 'milestone', 'celebration', 'complete', 'start', 'welcome', 'progress'];
         const soundMappings = {
           'correct': 'win.mp3',
           'wrong': 'wrong_answer.mp3', 
@@ -35,48 +36,33 @@
           'progress': 'Notification.mp3'
         };
         
-        Object.keys(soundMappings).forEach(type => {
+        soundTypes.forEach(type => {
           this.sounds[type] = new Howl({
             src: [`../../assets/audio/${soundMappings[type]}`],
             volume: this.getContextualVolume(type),
             preload: true,
-            onloaderror: (id, error) => {
-              console.warn(`⚠️ فشل تحميل الصوت ${type}: ${error}`);
-            },
-            onload: () => {
-              console.log(`✅ تم تحميل الصوت: ${type}`);
+            onloaderror: () => {
+              console.warn(`فشل تحميل الصوت: ${type}`);
             }
           });
         });
         
-        console.log('🎵 تم تهيئة النظام الصوتي المحسّن بنجاح');
+        console.log('🎵 تم تهيئة النظام الصوتي المحسّن');
       },
       
-      // تشغيل صوت مع معالجة الأخطاء
       play(soundType) {
-        if (!this.enabled) {
-          console.log('🔇 النظام الصوتي معطل');
-          return;
-        }
-        
-        if (!this.sounds[soundType]) {
-          console.warn(`⚠️ الصوت غير موجود: ${soundType}`);
-          return;
-        }
+        if (!this.enabled || !this.sounds[soundType]) return;
         
         try {
           const contextualVolume = this.getContextualVolume(soundType);
           this.sounds[soundType].volume(contextualVolume);
           this.sounds[soundType].play();
-          
-          console.log(`🔊 تم تشغيل الصوت: ${soundType} بمستوى ${contextualVolume}`);
           this.trackSoundUsage(soundType);
         } catch (error) {
-          console.error(`❌ خطأ في تشغيل الصوت ${soundType}:`, error);
+          console.warn(`خطأ في تشغيل الصوت ${soundType}:`, error);
         }
       },
       
-      // تحديد مستوى الصوت حسب السياق
       getContextualVolume(soundType) {
         const contextMap = {
           'celebration': 0.9,
@@ -91,59 +77,185 @@
         return contextMap[soundType] || this.currentVolume;
       },
       
-      // تتبع استخدام الأصوات
       trackSoundUsage(soundType) {
         if (!window.soundStats) window.soundStats = {};
         window.soundStats[soundType] = (window.soundStats[soundType] || 0) + 1;
       },
       
-      // تشغيل متسلسل
       sequence(sounds, delay = 500) {
         sounds.forEach((sound, index) => {
-          setTimeout(() => this.play(sound), index * delay);
+          setTimeout(() => {
+            this.play(sound);
+            if (sound === 'celebration' && typeof confetti !== 'undefined') {
+              confetti({
+                particleCount: 50,
+                spread: 60,
+                origin: { y: 0.8 }
+              });
+            }
+          }, index * delay);
         });
       },
       
-      // تفعيل/إلغاء تفعيل النظام
       toggle() {
         this.enabled = !this.enabled;
-        console.log(`🎵 النظام الصوتي: ${this.enabled ? 'مُفعل' : 'معطل'}`);
         return this.enabled;
-      },
-      
-      // اختبار جميع الأصوات
-      testAll() {
-        console.log('🧪 اختبار جميع الأصوات...');
-        const sounds = Object.keys(this.sounds);
-        sounds.forEach((sound, index) => {
-          setTimeout(() => {
-            console.log(`🎵 اختبار: ${sound}`);
-            this.play(sound);
-          }, index * 1000);
-        });
       }
     };
 
-    // تهيئة النظام عند تحميل الصفحة
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('🚀 بدء تهيئة النظام الصوتي...');
+
+    const EnhancedNotificationSystem = {
+      student: null,
       
-      // تأخير قصير للتأكد من تحميل Howler
-      setTimeout(() => {
-        if (typeof Howl !== 'undefined') {
-          SoundSystem.init();
-          
-          // اختبار سريع للتأكد من العمل
-          setTimeout(() => {
-            console.log('🧪 اختبار النظام الصوتي...');
-            // يمكن إلغاء التعليق للاختبار: SoundSystem.play('welcome');
-          }, 1000);
-        } else {
-          console.error('❌ مكتبة Howler غير محملة');
-        }
-      }, 500);
+      lessonInfo: {
+        title: "العُضيّات ووظائفها",
+        description: "استكشف العضيات المختلفة ووظائفها المتخصصة",
+        keyConcepts: ['العضيات', 'الوظائف', 'التخصص'],
+        topic: "organelles"
+      },
+      interactionStats: {
+        clicks: 0,
+        correctAnswers: 0,
+        wrongAnswers: 0,
+        timeSpent: 0
+      },
+      
+      showWelcomeMessage() {
+        const welcomeMessages = [
+          "🎓 أهلاً وسهلاً {name}! مرحبًا بك في هذا الدرس المثير!",
+          "🌟 مرحبًا {name}! أنت على وشك تعلم شيء رائع!",
+          "✨ أهلاً {name}! دعنا نتعلم العلوم معًا!"
+        ];
+        
+        const randomWelcome = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+        const personalizedWelcome = randomWelcome.replace('{name}', this.student?.name || 'البطل/ة');
+        const lessonIntro = `📚 ستتعلم اليوم: ${this.lessonInfo.description}`;
+        
+        Swal.fire({
+          title: '🎓 مرحباً بك في رحلة التعلم!',
+          html: `
+            <div style="text-align:right;line-height:1.8;font-size:16px">
+              <div style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;padding:15px;border-radius:12px;margin-bottom:15px">
+                ${personalizedWelcome}
+              </div>
+              <div style="background:#f8f9ff;padding:15px;border-radius:10px;border-right:4px solid #667eea">
+                ${lessonIntro}
+              </div>
+            </div>`,
+          icon: 'info',
+          confirmButtonText: '🚀 لنبدأ التعلم!',
+          confirmButtonColor: '#667eea',
+          timer: 8000,
+          timerProgressBar: true
+        }).then(() => {
+          SoundSystem.play('start');
+          this.startSessionTimer();
+        });
+      },
+      
+      startSessionTimer() {
+        this.sessionStartTime = Date.now();
+        this.timerInterval = setInterval(() => {
+          this.interactionStats.timeSpent = Math.floor((Date.now() - this.sessionStartTime) / 1000);
+        }, 1000);
+      },
+      
+      initForStudent(studentData) {
+        this.student = studentData;
+        this.showWelcomeMessage();
+        console.log(`🤖 تم تفعيل النظام الذكي للطالب: ${studentData.name}`);
+      }
+    };
+
+
+    function getPerformanceLevel(percentage) {
+      if (percentage >= 90) return 'excellent';
+      if (percentage >= 75) return 'good';
+      if (percentage >= 60) return 'average';
+      return 'needsWork';
+    }
+
+    function getFinalResultMessage(percentage, studentName) {
+      const name = studentName || 'البطل/ة';
+      const messages = {
+        excellent: [
+          `🏆 مبروك ${name}! أداء استثنائي - أنت عالم/ة حقيقي/ة!`,
+          `⭐ رائع جداً ${name}! إتقان كامل للموضوع - فخور بك!`,
+          `🌟 مذهل ${name}! نتيجة تستحق التقدير والاحترام!`
+        ],
+        good: [
+          `👏 أحسنت ${name}! أداء جيد جداً - على الطريق الصحيح!`,
+          `💪 عمل ممتاز ${name}! تحسن واضح وأداء مميز!`,
+          `🎯 رائع ${name}! يظهر فهماً جيداً للموضوع`
+        ],
+        average: [
+          `📚 أداء جيد ${name}! مراجعة بسيطة وستكون في القمة!`,
+          `🎯 استمر ${name}! بداية جيدة للإتقان`,
+          `💡 جيد ${name}! مع قليل من المراجعة ستصل للتميز`
+        ],
+        needsWork: [
+          `💚 لا بأس ${name}! بداية التعلم - لا تستسلم!`,
+          `🌱 استمر في المحاولة ${name}! كل عالم عظيم بدأ من هنا`,
+          `🤝 معاً سنصل للهدف ${name}! المثابرة هي سر النجاح`
+        ]
+      };
+      
+      const level = getPerformanceLevel(percentage);
+      const levelMessages = messages[level];
+      return levelMessages[Math.floor(Math.random() * levelMessages.length)];
+    }
+
+    function showEncouragementMessage(type) {
+      const s = getStudent();
+      const name = s?.name || 'البطل/ة';
+      
+      const messages = {
+        correct: [
+          `ممتاز ${name}! إجابة صحيحة رائعة! 🌟`,
+          `أحسنت ${name}! أنت تتقدم بشكل ممتاز! 👏`,
+          `رائع ${name}! استمر على هذا الأداء المميز! 🚀`
+        ],
+        wrong: [
+          `لا بأس ${name}، المحاولة جزء من التعلم! 💪`,
+          `فكر مرة أخرى ${name}، أنت قريب من الإجابة الصحيحة! 🤔`,
+          `استمر في المحاولة ${name}، كل خطأ فرصة للتعلم! 🌱`
+        ]
+      };
+      
+      const messageList = messages[type] || messages['correct'];
+      const randomMessage = messageList[Math.floor(Math.random() * messageList.length)];
+      
+      Swal.fire({
+        title: type === 'correct' ? '🎉 أحسنت!' : '💪 استمر!',
+        text: randomMessage,
+        icon: type === 'correct' ? 'success' : 'info',
+        timer: 3000,
+        timerProgressBar: true,
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false
+      });
+    }
+
+    function celebrate(){
+      const duration = 1500; 
+      const end = Date.now() + duration;
+      (function frame(){
+        confetti({ particleCount: 3, angle: 60, spread: 70, origin: { x: 0 } });
+        confetti({ particleCount: 3, angle: 120, spread: 70, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
+
+
+    // تهيئة الأنظمة عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      SoundSystem.init();
+      console.log('🎵 تم تهيئة النظام الصوتي المحسّن');
+      console.log('🤖 تم تهيئة نظام الرسائل التفاعلية الذكية');
     });
   </script>
+
   <style>
     :root{
       --bg:linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); --card:#ffffff; --muted:#6b7280; --text:#1f2937;
@@ -198,56 +310,113 @@
       transition: all 0.3s ease;
     }
     .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1);
+      transform: translateY(-2px);
+      box-shadow: 0 25px 50px rgba(0,0,0,.12), 0 12px 20px rgba(0,0,0,.1);
     }
-    h1{font-size:clamp(28px,4vw,40px); margin:0 0 6px; font-weight:900;
-       background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
-       -webkit-background-clip: text;
-       -webkit-text-fill-color: transparent;
-       background-clip: text;}
-    h2{font-size:clamp(18px,3vw,22px); margin:10px 0 14px; font-weight:800; color:var(--primary)}
-    p.lead{color:var(--muted); font-size:clamp(15px,2.4vw,18px); margin-top:0}
-    .grid{display:grid; gap:16px}
-    @media (min-width: 840px){ .grid-2{grid-template-columns:1fr 1fr} .grid-3{grid-template-columns:repeat(3,1fr)} }
+    h1{
+      font-size: clamp(28px,4vw,40px);
+      margin: 0 0 6px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    h2{font-size:clamp(24px,3.5vw,32px); margin:0 0 12px; font-weight:800; color:var(--text)}
+    .lead{font-size:clamp(16px,2.2vw,20px); color:var(--muted); margin-bottom:16px; line-height:1.6}
+    ul{padding-right:20px}
+    li{margin-bottom:8px; line-height:1.6}
     .btn{
-      all:unset; cursor:pointer; padding:14px 18px; border-radius:16px; font-weight:800;
-      border:1px solid rgba(245,158,11,.3);
-      background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
-      color:white;
-      box-shadow: 0 8px 24px rgba(245,158,11,.25);
-      transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+      color: white; border: none; padding: 12px 24px; border-radius: 12px;
+      font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s ease;
+      font-family: inherit; text-decoration: none; display: inline-block;
+      box-shadow: 0 4px 12px rgba(245,158,11,.3);
     }
-    .btn:hover{ 
-      transform: translateY(-3px) scale(1.02); 
-      box-shadow: 0 15px 35px rgba(245,158,11,.35);
-      background:linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+    .btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(245,158,11,.4);
     }
-    .btn-ghost{ all:unset; cursor:pointer; padding:12px 14px; border-radius:14px; font-weight:800; color:var(--muted);
-      border:1px dashed rgba(0,0,0,.2); }
-    .pulse{ position:absolute; inset:0; border-radius:inherit; pointer-events:none;
-      background: radial-gradient(600px 200px at 70% 0%, rgba(245,158,11,.12), transparent 60%); filter: blur(10px); }
-    .q{ display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:16px; background:rgba(0,0,0,.03);
-      border:1px solid rgba(0,0,0,.06) }
-    .choices{display:grid; gap:10px}
-    .choice{ display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid rgba(0,0,0,.08);
-      border-radius:14px; background:rgba(0,0,0,.04); cursor:pointer; user-select:none;
-      transition:transform .1s ease, background .2s ease, border .2s ease; }
-    .choice:hover{ transform: translateX(-2px); background:rgba(0,0,0,.06) }
-    .choice.correct{ border-color: rgba(16,185,129,.55); background: rgba(16,185,129,.12) }
-    .choice.wrong{ border-color: rgba(239,68,68,.55); background: rgba(239,68,68,.12) }
-    /* شريط التقدّم */
-    .progress{display:flex; align-items:center; gap:8px; font-weight:800; color:#7c2d12; margin-top:6px}
-    .bar{flex:1; height:8px; background:rgba(0,0,0,.08); border-radius:999px; overflow:hidden}
-    .bar>span{display:block; height:100%; width:0%; background:linear-gradient(90deg,#f59e0b,#d97706); transition:width .25s ease}
-    footer{ margin-top:34px; padding:18px; border-top:1px solid rgba(0,0,0,.08);
-      color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
-    .credit{color:var(--text); font-weight:800}
-    a.card-link{ display:block; text-decoration:none; color:inherit }
+    .btn-ghost{
+      background: transparent; color: var(--muted);
+      border: 2px solid rgba(107,114,128,.3); padding: 10px 22px;
+      border-radius: 12px; font-size: 16px; font-weight: 600;
+      cursor: pointer; transition: all 0.3s ease;
+      font-family: inherit; text-decoration: none; display: inline-block;
+    }
+    .btn-ghost:hover{
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+    .q{
+      background: rgba(255,255,255,.6);
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 16px; padding: 20px; margin: 16px 0;
+      transition: all 0.3s ease;
+    }
+    .q:hover{
+      background: rgba(255,255,255,.8);
+      transform: translateY(-1px);
+    }
+    .choices{display:flex; flex-direction:column; gap:12px; margin-top:16px}
+    .choice{
+      background: rgba(255,255,255,.8);
+      border: 2px solid rgba(255,255,255,.6);
+      border-radius: 12px; padding: 14px 18px;
+      cursor: pointer; transition: all 0.3s ease;
+      font-weight: 600;
+    }
+    .choice:hover{
+      background: rgba(245,158,11,.1);
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
+    .choice.correct{
+      background: linear-gradient(135deg, rgba(16,185,129,.15) 0%, rgba(16,185,129,.05) 100%);
+      border-color: var(--success);
+      color: var(--success);
+    }
+    .choice.wrong{
+      background: linear-gradient(135deg, rgba(239,68,68,.15) 0%, rgba(239,68,68,.05) 100%);
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+    .progress{display:flex; align-items:center; gap:12px; margin-top:12px}
+    .bar{
+      flex:1; height:8px; background:rgba(255,255,255,.6);
+      border-radius:4px; overflow:hidden;
+    }
+    .bar span{
+      display:block; height:100%; width:0%;
+      background:linear-gradient(90deg, var(--primary) 0%, var(--success) 100%);
+      transition: width 0.6s ease;
+    }
+    .pulse{
+      position: absolute; top: -20px; right: -20px;
+      width: 60px; height: 60px;
+      background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      opacity: 0.7;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.8); opacity: 0.7; }
+      50% { transform: scale(1.2); opacity: 0.3; }
+      100% { transform: scale(0.8); opacity: 0.7; }
+    }
+    
+    @media (max-width: 768px) {
+      .wrap { padding: 16px; }
+      header { flex-direction: column; text-align: center; }
+      .brand { flex-direction: column; }
+      .choices { gap: 8px; }
+      .choice { padding: 12px 16px; }
+    }
   </style>
-
 </head>
 <body>
+
   <div class="wrap">
     <header class="card" data-aos="fade-down">
       <div class="brand">
@@ -498,7 +667,6 @@
 
   <script>
     AOS.init({ duration: 700, once: true });
-    // 🎵 النظام الصوتي الذكي المتقدم
 
     const el = {
       start: document.getElementById('btnStart'),
@@ -512,10 +680,6 @@
     };
 
     const storageKey = "watyn_bio_student";
-    // متغيرات الأداء والتفاعل الذكي
-    let totalAnswered = 0;
-    let consecutiveCorrect = 0;
-    let startTime = Date.now();
     function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
     function setStudent(obj){ localStorage.setItem(storageKey, JSON.stringify(obj)); }
 
@@ -546,67 +710,104 @@
       if(formValues){
         setStudent(formValues);
         updateMeta();
+        el.quiz.style.display = "block";
+        gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.5});
+        // إعداد القيم الأولية
+        el.total.textContent = document.querySelectorAll('.q[data-qid]').length;
+        el.done.textContent = 0;
+        el.bar.style.width = '0%';
+      }
+    }
 
+    function updateMeta(){
+      const s = getStudent();
+      el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
+    }
+
+    // شريط التقدّم: أي اختيار (صحيح أو خاطئ) يُعدّ إجابة
+    function updateProgress(){
+      const total = document.querySelectorAll('.q[data-qid]').length;
+      const answered = Array.from(document.querySelectorAll('.q')).filter(q =>
+        q.querySelector('.choice.correct, .choice.wrong')
+      ).length;
+      el.total.textContent = total;
+      el.done.textContent = answered;
+      el.bar.style.width = Math.round((answered/total)*100) + '%';
+    }
+
+    document.addEventListener('click', (e)=>{
+      const choice = e.target.closest('.choice');
+      if(!choice) return;
+      const container = choice.closest('.choices');
+      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      if(choice.dataset.correct === "true"){
+        choice.classList.add('correct');
+        gsap.fromTo(choice, {scale:1}, {scale:1.03, y:-2, duration:.18, yoyo:true, repeat:1});
+      }else{
+        choice.classList.add('wrong');
+        gsap.fromTo(choice, {x:0}, {x:-6, duration:.06, yoyo:true, repeat:5});
+      }
+      updateProgress();
+    });
+
+    function computeScore(){
+      const blocks = Array.from(document.querySelectorAll('.q[data-qid]'));
+      let correct = 0;
+      blocks.forEach(b=>{ const sel = b.querySelector('.choice.correct'); if(sel) correct++; });
+      return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
+    }
+
+    function celebrate(){
+      const duration = 1500; const end = Date.now() + duration;
+      (function frame(){
+        confetti({ particleCount: 3, angle: 60, spread: 70, origin: { x: 0 } });
+        confetti({ particleCount: 3, angle: 120, spread: 70, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
+
+    el.start.addEventListener('click', askStudent);
+
+    el.submit.addEventListener('click', ()=>{
+      const s = getStudent();
+      const { correct, total, percent } = computeScore();
+      celebrate();
+      Swal.fire({
+        title: 'أحسنت يا بطل/ة! 🎉',
+        html: `
+          <div style="text-align:right;line-height:1.9">
+            <div><strong>الاسم:</strong> ${s?.name || '-'} </div>
+            <div><strong>الصف:</strong> ${s?.klass || '-'} </div>
+            <div><strong>درجتك:</strong> ${correct} / ${total} — <strong>${percent}%</strong></div>
+          </div>`,
+        icon: 'success',
+        confirmButtonText: 'إعادة المحاولة',
+        confirmButtonColor: '#10b981',
+        showDenyButton: true,
+        denyButtonText: 'العودة',
+        denyButtonColor: '#d97706'
+      }).then(res=>{ if(res.isConfirmed) resetQuiz(); });
+    });
+
+    function resetQuiz(){
+      document.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.45});
+      window.scrollTo({ top:0, behavior:'smooth' });
+      el.done.textContent = 0; el.bar.style.width = '0%';
+    }
+
+    // تهيئة بسيطة عند التحميل
+    updateMeta();
     document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
   </script>
 
+
   <script>
-    const SoundSystem = {
-      enabled: true,
-      currentVolume: 0.7,
-      sounds: {},
-      
-      init() {
-        const soundMappings = {
-          'correct': 'win.mp3',
-          'wrong': 'wrong_answer.mp3', 
-          'click': 'Click.mp3',
-          'select': 'select.mp3',
-          'milestone': 'g.mp3',
-          'celebration': 'win-Blockbusters.mp3',
-          'complete': 'end-timer.mp3',
-          'start': 'start-timer.mp3',
-          'welcome': 'name-start.mp3',
-          'progress': 'Notification.mp3'
-        };
-        
-        Object.keys(soundMappings).forEach(type => {
-          this.sounds[type] = new Howl({
-            src: [`../../assets/audio/${soundMappings[type]}`],
-            volume: this.getContextualVolume(type),
-            preload: true,
-            onloaderror: (id, error) => {
-              console.warn(`⚠️ فشل تحميل الصوت ${type}: ${error}`);
-            }
-          });
-        });
-        
-        console.log('🎵 تم تهيئة النظام الصوتي');
-      },
-      
-      play(soundType) {
-        if (!this.enabled || !this.sounds[soundType]) return;
-        try {
-          this.sounds[soundType].play();
-        } catch (error) {
-          console.error(`خطأ في تشغيل الصوت ${soundType}:`, error);
-        }
-      },
-      
-      getContextualVolume(soundType) {
-        const contextMap = {
-          'celebration': 0.9,
-          'milestone': 0.8,
-          'correct': 0.7,
-          'welcome': 0.6,
-          'wrong': 0.5,
-          'progress': 0.4,
-          'click': 0.4,
-          'select': 0.3
-        };
-        return contextMap[soundType] || this.currentVolume;
-      }
-    };
+    // إضافة الأنظمة الذكية للدرس
+    const storageKey = "watyn_bio_student";
+    let totalAnswered = 0;
+    let consecutiveCorrect = 0;
+    let startTime = Date.now();
 
     const el = {
       start: document.getElementById('btnStart'),
@@ -619,11 +820,6 @@
       total: document.getElementById('countTotal')
     };
 
-    const storageKey = "watyn_bio_student";
-    let totalAnswered = 0;
-    let consecutiveCorrect = 0;
-    let startTime = Date.now();
-    
     function getStudent(){ 
       try{ 
         return JSON.parse(localStorage.getItem(storageKey)) || null;
@@ -636,49 +832,39 @@
       localStorage.setItem(storageKey, JSON.stringify(obj)); 
     }
 
-    function getPerformanceLevel(percentage) {
-      if (percentage >= 90) return 'excellent';
-      if (percentage >= 75) return 'good';
-      if (percentage >= 60) return 'average';
-      return 'needsWork';
-    }
-
-    function getFinalResultMessage(percentage, studentName) {
-      const name = studentName || 'البطل/ة';
-      const messages = {
-        excellent: [`🏆 مبروك ${name}! أداء استثنائي!`],
-        good: [`👏 أحسنت ${name}! أداء جيد جداً!`],
-        average: [`📚 أداء جيد ${name}! مراجعة بسيطة وستكون في القمة!`],
-        needsWork: [`💚 لا بأس ${name}! استمر في المحاولة!`]
-      };
-      
-      const level = getPerformanceLevel(percentage);
-      const levelMessages = messages[level];
-      return levelMessages[Math.floor(Math.random() * levelMessages.length)];
-    }
-
-    function showEncouragementMessage(type) {
+    function updateMeta(){
       const s = getStudent();
-      const name = s?.name || 'البطل/ة';
+      if (el.meta) {
+        el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
+      }
+    }
+
+    function updateProgress(){
+      const total = document.querySelectorAll('.q[data-qid]').length;
+      const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
+        q.querySelector('.choice.correct, .choice.wrong')
+      ).length;
       
-      const messages = {
-        correct: [`ممتاز ${name}! إجابة صحيحة رائعة! 🌟`],
-        wrong: [`لا بأس ${name}، المحاولة جزء من التعلم! 💪`]
-      };
+      if (el.total) el.total.textContent = total;
+      if (el.done) el.done.textContent = answered;
+      if (el.bar) {
+        const percentage = Math.round((answered/total)*100);
+        el.bar.style.width = percentage + '%';
+      }
       
-      const messageList = messages[type] || messages['correct'];
-      const randomMessage = messageList[Math.floor(Math.random() * messageList.length)];
-      
-      Swal.fire({
-        title: type === 'correct' ? 'رائع! 🌟' : 'لا بأس! 💪',
-        text: randomMessage,
-        icon: type === 'correct' ? 'success' : 'info',
-        timer: 3000,
-        timerProgressBar: true,
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false
+      if (answered > 0) {
+        SoundSystem.play('progress');
+      }
+    }
+
+    function computeScore(){
+      const blocks = Array.from(document.querySelectorAll('.q[data-qid]'));
+      let correct = 0;
+      blocks.forEach(b => { 
+        const sel = b.querySelector('.choice.correct'); 
+        if(sel) correct++; 
       });
+      return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
     }
 
     async function askStudent(){
@@ -708,10 +894,12 @@
       if(formValues){
         setStudent(formValues);
         updateMeta();
-        SoundSystem.play('start');
+        EnhancedNotificationSystem.initForStudent(formValues);
         
-        el.quiz.style.display = "block";
-        gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.5});
+        if (el.quiz) {
+          el.quiz.style.display = "block";
+          gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.5});
+        }
         
         totalAnswered = 0;
         consecutiveCorrect = 0;
@@ -719,58 +907,17 @@
       }
     }
 
-    function updateMeta(){
-      const s = getStudent();
-      el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
-    }
-
-    function updateProgress(){
-      const total = document.querySelectorAll('.q[data-qid]').length;
-      const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
-        q.querySelector('.choice.correct, .choice.wrong')
-      ).length;
-      
-      el.total.textContent = total;
-      el.done.textContent = answered;
-      const percentage = Math.round((answered/total)*100);
-      el.bar.style.width = percentage + '%';
-      
-      if (answered > 0) {
-        SoundSystem.play('progress');
-      }
-    }
-
-    function computeScore(){
-      const blocks = Array.from(document.querySelectorAll('.q[data-qid]'));
-      let correct = 0;
-      blocks.forEach(b => { 
-        const sel = b.querySelector('.choice.correct'); 
-        if(sel) correct++; 
-      });
-      return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
-    }
-
-    function celebrate(){
-      const duration = 1500; 
-      const end = Date.now() + duration;
-      (function frame(){
-        confetti({ particleCount: 3, angle: 60, spread: 70, origin: { x: 0 } });
-        confetti({ particleCount: 3, angle: 120, spread: 70, origin: { x: 1 } });
-        if (Date.now() < end) requestAnimationFrame(frame);
-      })();
-    }
-
     function resetQuiz(){
       document.querySelectorAll('.choice').forEach(c => c.classList.remove('correct','wrong'));
       totalAnswered = 0;
       consecutiveCorrect = 0;
       startTime = Date.now();
-      gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.45});
-      window.scrollTo({ top:0, behavior:'smooth' });
       updateProgress();
+      gsap.from("#quiz .q", {opacity:0, y:10, stagger:.05, duration:.45});
+      window.scrollTo({ top:0, behavior:'smooth' });
     }
 
-    // نظام الأحداث
+    // نظام الأحداث الذكي
     document.addEventListener('click', (e) => {
       const choice = e.target.closest('.choice');
       if(!choice) return;
@@ -815,59 +962,62 @@
     });
 
     // تهيئة الأحداث
-    el.start.addEventListener('click', askStudent);
+    if (el.start) el.start.addEventListener('click', askStudent);
 
-    el.submit.addEventListener('click', () => {
-      const s = getStudent();
-      const { correct, total, percent } = computeScore();
-      celebrate();
-      
-      const performanceLevel = getPerformanceLevel(percent);
-      const smartMessage = getFinalResultMessage(percent, s?.name);
-      
-      let resultIcon = 'success';
-      let resultColor = '#10b981';
-      
-      if (percent < 60) {
-        resultIcon = 'info';
-        resultColor = '#3b82f6';
-      }
-      
-      SoundSystem.play('complete');
-      
-      Swal.fire({
-        title: `${performanceLevel === 'excellent' ? '🏆' : performanceLevel === 'good' ? '⭐' : performanceLevel === 'average' ? '👍' : '💪'} النتائج النهائية`,
-        html: `
-          <div style="text-align:right;line-height:1.9;font-size:16px">
-            <div style="margin-bottom:10px"><strong>👤 الاسم:</strong> ${s?.name || 'غير محدد'}</div>
-            <div style="margin-bottom:10px"><strong>🏫 الصف:</strong> ${s?.klass || 'غير محدد'}</div>
-            <div style="margin-bottom:10px"><strong>📊 النتيجة:</strong> ${correct} من ${total} سؤال</div>
-            <div style="margin-bottom:15px"><strong>📈 النسبة المئوية:</strong> ${percent}%</div>
-            <hr style="margin: 15px 0; border: none; height: 1px; background: linear-gradient(to right, transparent, #ddd, transparent);">
-            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);padding:15px;border-radius:12px;font-weight:600;color:#92400e;text-align:center">
-              ${smartMessage}
-            </div>
-          </div>`,
-        icon: resultIcon,
-        width: '500px',
-        confirmButtonText: '🔄 إعادة المحاولة',
-        confirmButtonColor: resultColor,
-        showDenyButton: true,
-        denyButtonText: '🏠 العودة للرئيسية',
-        denyButtonColor: '#d97706',
-        allowOutsideClick: false,
-        allowEscapeKey: false
-      }).then(res => {
-        if(res.isConfirmed) {
-          resetQuiz();
-        } else if (res.isDenied) {
-          window.location.href='../../index.html';
+    if (el.submit) {
+      el.submit.addEventListener('click', () => {
+        const s = getStudent();
+        const { correct, total, percent } = computeScore();
+        celebrate();
+        
+        const performanceLevel = getPerformanceLevel(percent);
+        const smartMessage = getFinalResultMessage(percent, s?.name);
+        
+        let resultIcon = 'success';
+        let resultColor = '#10b981';
+        
+        if (percent < 60) {
+          resultIcon = 'info';
+          resultColor = '#3b82f6';
         }
+        
+        SoundSystem.play('complete');
+        
+        Swal.fire({
+          title: `${performanceLevel === 'excellent' ? '🏆' : performanceLevel === 'good' ? '⭐' : performanceLevel === 'average' ? '👍' : '💪'} النتائج النهائية`,
+          html: `
+            <div style="text-align:right;line-height:1.9;font-size:16px">
+              <div style="margin-bottom:10px"><strong>👤 الاسم:</strong> ${s?.name || 'غير محدد'}</div>
+              <div style="margin-bottom:10px"><strong>🏫 الصف:</strong> ${s?.klass || 'غير محدد'}</div>
+              <div style="margin-bottom:10px"><strong>📊 النتيجة:</strong> ${correct} من ${total} سؤال</div>
+              <div style="margin-bottom:15px"><strong>📈 النسبة المئوية:</strong> ${percent}%</div>
+              <hr style="margin: 15px 0; border: none; height: 1px; background: linear-gradient(to right, transparent, #ddd, transparent);">
+              <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);padding:15px;border-radius:12px;font-weight:600;color:#92400e;text-align:center">
+                ${smartMessage}
+              </div>
+            </div>`,
+          icon: resultIcon,
+          width: '500px',
+          confirmButtonText: '🔄 إعادة المحاولة',
+          confirmButtonColor: resultColor,
+          showDenyButton: true,
+          denyButtonText: '🏠 العودة للرئيسية',
+          denyButtonColor: '#d97706',
+          allowOutsideClick: false,
+          allowEscapeKey: false
+        }).then(res => {
+          if(res.isConfirmed) {
+            resetQuiz();
+          } else if (res.isDenied) {
+            window.location.href='../../index.html';
+          }
+        });
       });
-    });
+    }
+
+    if (el.reset) el.reset.addEventListener('click', resetQuiz);
 
     // تهيئة الصفحة
-    SoundSystem.init();
     updateMeta();
     
     AOS.init({
@@ -877,9 +1027,13 @@
       offset: 50
     });
     
-    document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
+    if (document.getElementById('countTotal')) {
+      document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
+    }
     
-    console.log('✅ تم تحميل الصفحة بنجاح');
+    updateProgress();
+    
+    console.log('✅ تم تحميل الصفحة مع جميع الأنظمة الذكية');
   </script>
 </body>
 </html>
