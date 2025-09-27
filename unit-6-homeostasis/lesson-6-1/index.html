@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <title>🧪 درس 6-1 — الكافيين وزمن الاستجابة</title>
+  <title>⚖️ درس 6-1 — التوازن المائي</title>
   
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -107,6 +107,98 @@
     a.card-link{ display:block; text-decoration:none; color:inherit }
   </style>
 
+
+        <style>
+        /* 🎨 أنماط الإشعارات المحسنة */
+        .enhanced-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 10000;
+            max-width: 350px;
+        }
+        
+        .enhanced-notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .enhanced-notification.success {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+        }
+        
+        .enhanced-notification.error {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+        }
+        
+        .enhanced-notification.warning {
+            background: linear-gradient(135deg, #ffa726 0%, #ffcc02 100%);
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .notification-content i {
+            font-size: 1.2em;
+        }
+        
+        /* 📊 تحسين شريط التقدم */
+        .progress-container {
+            background: rgba(255,255,255,0.1);
+            border-radius: 25px;
+            padding: 3px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .progress-bar {
+            height: 25px;
+            background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+            border-radius: 25px;
+            transition: width 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar::before {
+            content: attr(data-progress);
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        </style>
+
 </head>
 <body>
   <div class="wrap">
@@ -142,23 +234,6 @@
     </section>
 
     <!-- الأسئلة (يتم توليدها من بنك الأسئلة) -->
-        <!-- أهداف الدرس -->
-    <section class="card" style="margin-top:18px; position:relative" data-aos="zoom-in">
-      <div class="pulse"></div>
-      <h1>🎯 أهداف الدرس</h1>
-      <p class="lead">دراسة تأثير الكافيين على زمن الاستجابة والجهاز العصبي.</p>
-      <ul>
-                <li>فهم مفهوم زمن الاستجابة ومكوناته.</li>
-        <li>تحليل تأثير الكافيين على الجهاز العصبي.</li>
-        <li>قياس وتسجيل أزمنة الاستجابة.</li>
-        <li>ربط الكافيين بالتغيرات الفسيولوجية.</li>
-      </ul>
-      <div style="display:flex; gap:10px; flex-wrap:wrap">
-        <button id="btnStart" class="btn">ابدأ النشاط</button>
-        <a class="btn-ghost" href="../../../index.html">← العودة للرئيسية</a>
-      </div>
-    </section>
-
     <section id="quiz" class="card" style="margin-top:16px; display:block" data-aos="fade-up">
       <h2>الأسئلة التفاعلية</h2>
       <div id="quizList" class="grid" style="gap:14px"></div>
@@ -177,7 +252,7 @@
   <script>
     AOS.init({ duration: 700, once: true });
 
-// النظام الصوتي المتقدم
+    // النظام الصوتي المتقدم
     const SoundSystem = {
       enabled: true,
       sounds: {},
@@ -198,41 +273,48 @@
         
         Object.keys(soundMappings).forEach(type => {
           this.sounds[type] = new Howl({
-            src: [`assets/audio/${soundMappings[type]}`],
-            volume: 0.3,
-            html5: true
+            src: [`../../assets/audio/${soundMappings[type]}`],
+            volume: 0.7,
+            preload: true,
+            onloaderror: () => console.warn(`فشل تحميل ${type}`)
           });
         });
+        
+        console.log('🎵 تم تهيئة النظام الصوتي');
       },
       
-      play(type) {
-        if (this.enabled && this.sounds[type]) {
-          this.sounds[type].play();
+      play(soundType) {
+        if (this.enabled && this.sounds[soundType]) {
+          this.sounds[soundType].play();
         }
       }
     };
 
+    // تهيئة النظام الصوتي
+    SoundSystem.init();
+
+    // بنك الأسئلة — 20 سؤال (يمكنك الزيادة بإضافة عناصر جديدة لنهاية المصفوفة)
     const bank = [
-            {q:"زمن الاستجابة يُقاس عادةً بوحدة:", c:["المللي ثانية/الثواني", "المتر", "الكيلوغرام", "الدرجة المئوية"], a:0},
-      {q:"في تجربة تأثير الكافيين، المتغيّر المستقل غالبًا هو:", c:["وجود/جرعة الكافيين", "اسم الطالب", "لون الكوب", "درجة حرارة الفصل"], a:0},
-      {q:"انخفاض زمن الاستجابة يعني أن الأداء أصبح:", c:["أسرع", "أبطأ", "غير مرتبط", "أسوأ دائمًا"], a:0},
-      {q:"لضمان «اختبار عادل» يجب:", c:["تثبيت العوامل الأخرى (الوقت/الجهاز/البيئة)", "تغيير أكثر من عامل معًا", "عدم استخدام شاهد", "قياس قراءة واحدة فقط"], a:0},
-      {q:"وجود مجموعة «دواء وهمي» (Placebo) يفيد لأنّه:", c:["يكشف تأثير التوقع بعيدًا عن تأثير الكافيين الحقيقي", "يزيد جرعة الكافيين", "يقلّل حجم العينة", "يلغي الحاجة للعشوائية"], a:0},
-      {q:"«تمويه مزدوج» (Double-blind) يعني أن:", c:["لا المشارك ولا القائم بالاختبار يعرف من تناول الكافيين", "المشارك يعرف فقط", "القائم بالاختبار يعرف فقط", "الجميع يعرف"], a:0},
-      {q:"لزيادة الدقة ينبغي:", c:["أخذ 3–5 قياسات وحساب المتوسط", "الاكتفاء بقياس واحد", "تبديل الأداة كل مرة", "تغيير الإعدادات أثناء القياس"], a:0},
-      {q:"إذا حسّن الكافيين الأداء فنتوقع زمن الاستجابة بعد تناوله أن:", c:["يقلّ مقارنةً بخط الأساس", "يزداد كثيرًا", "لا يتغيّر أبدًا", "يختفي"], a:0},
-      {q:"عامل مربك (Confounder) محتمل في هذه التجربة هو:", c:["اختلاف عدد ساعات النوم بين المشاركين", "استخدام نفس الجهاز للجميع", "تسجيل الزمن بالمللي ثانية", "وجود مجموعة شاهد"], a:0},
-      {q:"أفضل تمثيل لجرعة كافيين (ملغم) مقابل زمن الاستجابة هو:", c:["مخطط مبعثر (Scatter) ويُضاف خط اتجاه", "مخطط دائري", "جدول بلا محاور", "خريطة حرارية للفصل"], a:0},
-      {q:"في بيانات بها قيَم شاذة قليلة، مقياس النزعة الأفضل غالبًا هو:", c:["الوسيط (Median)", "الوضع فقط", "المدى وحده", "لا حاجة لأي ملخص"], a:0},
-      {q:"عند استخدام «اختبار المسطرة» (سقوط المسطرة بين الأصابع)، المتغير التابع هو:", c:["الزمن/المسافة المُحوّلة إلى زمن إمساك", "طول المسطرة", "لون المسطرة", "اسم الشركة المصنعة"], a:0},
-      {q:"لضبط تأثير الأجهزة المختلفة على التأخير (Latency) يُفضّل:", c:["استخدام نفس الجهاز/المتصفح لجميع المشاركين", "مزج كل الأجهزة عشوائيًا", "تغيير الجهاز أثناء القياس", "عدم تسجيل نوع الجهاز"], a:0},
-      {q:"لتقليل تحيز الاختيار ينبغي:", c:["التوزيع العشوائي على المجموعات", "اختيار أصدقاء الباحث فقط", "السماح للمشارك باختيار مجموعته", "استبعاد البيانات المخالفة"], a:0},
-      {q:"قبل «القياس الأساسي» يُفضّل أن يكون المشارك:", c:["متجنبًا للكافيين لفترة متفق عليها", "متناولًا جرعات متعددة", "غير نائم ليلًا", "صائمًا عن الماء"], a:0},
-      {q:"جرعة الكافيين المعبَّر عنها بالملغم تُعد متغيرًا:", c:["كمّيًا مستمرًا/منفصلًا (عددي)", "اسميًا (فئويًا بلا ترتيب)", "زمنيًا دوريًا فقط", "ثنائيًا دائمًا"], a:0},
-      {q:"عند ظهور قيمة شاذة واحدة كبيرة، الإجراء الأفضل أولًا هو:", c:["التحقق من الخطأ وإعادة القياس ثم التوثيق", "حذفها فورًا دون سبب", "تغيير الفرضية", "إيقاف التجربة نهائيًا"], a:0},
-      {q:"صياغة فرضية مناسبة للتجربة هي:", c:["إذا تناول المشاركون كافيينًا فسينخفض متوسط زمن الاستجابة", "الكافيين مفيد دائمًا لكل شيء", "لا يمكن قياس الاستجابة", "سيزداد الزمن بلا سبب"], a:0},
-      {q:"اعتبار أخلاقي مهم في المدرسة هو أن:", c:["لا تُعطى أي مشروبات منبِّهة إلا بموافقة ولي الأمر/الإدارة", "لا حاجة لأي موافقات", "يجب إعطاء جرعات عالية للجميع", "تجاهل الحالات الصحية الخاصة"], a:0},
-      {q:"إذا اعتقد بعض الطلاب أنهم تناولوا كافيينًا رغم أنهم لم يتناولوه، فقد يتحسن أداؤهم بسبب:", c:["تأثير الدواء الوهمي (Placebo)", "الخطأ الصفري للأداة فقط", "انعدام العشوائية دائمًا", "الضوضاء البيضاء"], a:0},
+      {q:"أي تركيب يوجد في الخلايا النباتية فقط؟", c:["الميتوكندريا","الجدار الخلوي","الغشاء الخلوي","السيتوبلازم"], a:1},
+      {q:"وظيفة البلاستيدات الخضراء:", c:["التنفس الخلوي","التمثيل الضوئي","تخزين الماء","إفراز الهرمونات"], a:1},
+      {q:"تركيب يوجد في كلٍّ من الخلايا النباتية والحيوانية:", c:["جدار خلوي","بلاستيدات","نواة","كلوروفيل"], a:2},
+      {q:"العُضيّة المسؤولة عن إنتاج معظم طاقة الخلية:", c:["الميتوكندريا","الليسوسومات","جهاز جولجي","الفجوة"], a:0},
+      {q:"الفجوة العصارية الكبيرة في الخلايا النباتية تساعد على:", c:["التنفس","ثبات الخلية بتوليد ضغط الامتلاء وتخزين الماء","بناء البروتين","تكسير السموم"], a:1},
+      {q:"الغشاء الخلوي يُوصف بأنه:", c:["غير نافذ تمامًا","منفذ كليًا بلا اختيار","شبه منفذ (اختياري النفاذية)","جدار صلب"], a:2},
+      {q:"الجدار الخلوي في النبات يتكوّن أساسًا من:", c:["السليلوز","الليبيدات","الكيتين فقط","الهيموغلوبين"], a:0},
+      {q:"الريبوسومات تقوم بـ:", c:["تفكيك الدهون","بناء البروتين","إنتاج ATP مباشرة","نقل الماء"], a:1},
+      {q:"وظيفة جهاز جولجي:", c:["تعديل وتغليف ونقل البروتينات","تصنيع DNA","التنفس اللاهوائي","تصنيع الكلوروفيل"], a:0},
+      {q:"الليسوسومات تحتوي:", c:["صبغات ضوئية","إنزيمات محلِّلة","أحماض نووية فقط","غازات"], a:1},
+      {q:"أفضل وصف للسيتوبلازم:", c:["جدار صلب","وسط هلامي تحدث فيه تفاعلات خلوية","نسيج وعائي","هواء"], a:1},
+      {q:"الشكل الشائع للخلية النباتية مقارنة بالحيوانية:", c:["الحيوانية أكثر زاوية","النباتية أكثر انتظامًا/مستطيلة بسبب الجدار","لا فرق","النباتية دائرية دائمًا"], a:1},
+      {q:"تركيب غائب عن الخلايا الحيوانية:", c:["الميتوكندريا","الشبكة الإندوبلازمية","الكلوروبلاست (البلاستيدة الخضراء)","جهاز جولجي"], a:2},
+      {q:"المادة الوراثية توجد أساسًا في:", c:["الفجوة","النواة","الغشاء الخلوي","الجدار"], a:1},
+      {q:"الفجوات في الخلايا الحيوانية عادة:", c:["كبيرة ومركزية","صغيرة/مؤقتة ومتعددة","بدون غشاء","مثل البلاستيدات"], a:1},
+      {q:"البنية التي تمنح الدعامة والصلابة للنبات:", c:["الغشاء الخلوي","الجدار الخلوي","السيتوبلازم","المريكزات"], a:1},
+      {q:"عضيّة توجد في الخلايا النباتية والحيوانية معًا:", c:["الكلوروبلاست","الميتوكندريا","الجدار الخلوي","فجوة مركزية ضخمة"], a:1},
+      {q:"التمثيل الضوئي يتطلب صبغة:", c:["الهيموغلوبين","الميلانين","الكلوروفيل داخل البلاستيدات","الكاروتين فقط"], a:2},
+      {q:"الغشاء الخلوي يتكوّن غالبًا من:", c:["طبقة واحدة بروتينية فقط","ثنائي طبقة فوسفوليبيدية مع بروتينات","سليلوز","نشا"], a:1},
+      {q:"نقل البروتينات داخل الخلية يبدأ غالبًا عبر:", c:["الشبكة الإندوبلازمية الخشنة ثم جولجي","الفجوة ثم الجدار","النواة مباشرة إلى الخارج","الليسوسومات إلى البلاستيدات"], a:0}
     ];
 
     const el = {
@@ -241,12 +323,13 @@
       list: document.getElementById('quizList'),
       submit: document.getElementById('btnSubmit'),
       reset: document.getElementById('btnReset'),
-      progress: document.getElementById('progressBar'),
-      total: document.getElementById('countTotal'),
-      done: document.getElementById('countDone')
+      meta: document.getElementById('studentMeta'),
+      bar: document.getElementById('barFill'),
+      done: document.getElementById('countDone'),
+      total: document.getElementById('countTotal')
     };
 
-    const storageKey = 'quizProgress_' + window.location.pathname;
+    const storageKey = "watyn_bio_student";
 
     function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
     function setStudent(obj){ localStorage.setItem(storageKey, JSON.stringify(obj)); }
@@ -274,7 +357,6 @@
       });
       return n;
     }
-
     function updateProgress(){
       const total = document.querySelectorAll('.q[data-qid]').length;
       const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
@@ -290,51 +372,6 @@
       if (barFill) barFill.style.width = Math.round((answered/total)*100) + '%';
     }
 
-    // النشاط الرئيسي
-    document.addEventListener('click', e => {
-      if (e.target.matches('.choice')) {
-        const isCorrect = e.target.dataset.correct === 'true';
-        
-        // إزالة الحالات السابقة من هذا السؤال
-        e.target.parentNode.querySelectorAll('.choice').forEach(ch => {
-          ch.classList.remove('correct', 'wrong');
-        });
-        
-        // إضافة الحالة الجديدة
-        e.target.classList.add(isCorrect ? 'correct' : 'wrong');
-        
-        // تشغيل الصوت
-        SoundSystem.play(isCorrect ? 'correct' : 'wrong');
-        
-        // تحديث التقدم
-        updateProgress();
-        
-        // إشعارات ذكية
-        const answered = answeredCount();
-        const total = bank.length;
-        SmartNotifications.progress(answered, total);
-        
-        // إذا تم الانتهاء من جميع الأسئلة
-        if (answered === total) {
-          SmartNotifications.completed();
-        }
-      }
-    });
-        
-        // إضافة الحالة الجديدة
-        e.target.classList.add(isCorrect ? 'correct' : 'wrong');
-        
-        // تشغيل الصوت
-        SoundSystem.play(isCorrect ? 'correct' : 'wrong');
-        
-        // تحديث التقدم
-        updateProgress();
-      }
-    });
-
-    // بدء التطبيق
-    SoundSystem.init();
-    // نظام الرسائل التفاعلية الذكية
     async function askStudent(){
       SoundSystem.play('start');
       
@@ -355,129 +392,148 @@
           const name = document.getElementById('swal-name').value?.trim();
           const klass = document.getElementById('swal-class').value?.trim();
           if(!name || !klass){
-            Swal.showValidationMessage('يرجى ملء جميع البيانات');
+            Swal.showValidationMessage('يرجى إدخال الاسم والصف');
             return false;
           }
           return { name, klass };
         }
       });
       
-      if (formValues) {
+      if(formValues){
         setStudent(formValues);
-        SoundSystem.play('welcome');
+        updateMeta();
+        
+        // رسالة ترحيب شخصية
+        const welcomeMessages = [
+          `🔬 أهلاً ${formValues.name}! مرحبًا بك في عالم الخلايا المثير!`,
+          `🧬 مرحبًا ${formValues.name}! ستكتشف اليوم أسرار الخلية وعجائبها`,
+          `✨ أهلاً ${formValues.name}! رحلة مثيرة في عالم الخلايا المجهرية تنتظرك`
+        ];
+        const randomWelcome = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
         
         Swal.fire({
-          title: `🌟 أهلاً ${formValues.name}!`,
-          html: `
-            <div style="text-align:center; font-size:18px">
-              <p>🎯 استعد لرحلة تعليمية ممتعة!</p>
-              <p style="color:#10b981">📚 ${bank.length} سؤال تفاعلي في انتظارك</p>
-            </div>`,
+          title: '🎓 أهلاً وسهلاً!',
+          text: randomWelcome,
           icon: 'success',
-          confirmButtonText: 'ابدأ الآن! 🚀',
-          confirmButtonColor: '#10b981',
-          timer: 3000,
+          confirmButtonText: '🔬 لننطلق!',
+          timer: 4000,
           timerProgressBar: true
+        }).then(() => {
+          SoundSystem.play('welcome');
         });
+        
+        el.quiz.style.display = "block";
+        gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6});
       }
     }
 
-    // نظام عرض النتائج الذكي
-    function showResults(){
-      const answered = answeredCount();
-      const total = bank.length;
-      const score = computeScore();
-      const percentage = Math.round((score/total)*100);
+    function updateMeta(){
+      const s = getStudent();
+      el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
+    }
+
+    document.addEventListener('click', (e)=>{
+      const choice = e.target.closest('.choice');
+      if(!choice) return;
       
-      let message = '';
-      let icon = 'info';
-      let color = '#3b82f6';
+      const container = choice.closest('.choices');
+      const wasAnswered = container.querySelector('.choice.correct, .choice.wrong');
+      if (wasAnswered) return;
+
+      SoundSystem.play('click');
       
-      if (percentage >= 90) {
-        message = '🌟 ممتاز! أداء رائع!';
-        icon = 'success';
-        color = '#10b981';
-        SoundSystem.play('celebration');
-      } else if (percentage >= 80) {
-        message = '👍 جيد جداً! واصل التقدم!';
-        icon = 'success';  
-        color = '#10b981';
+      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      
+      if(choice.dataset.correct === "true"){
+        choice.classList.add('correct'); 
         SoundSystem.play('correct');
-      } else if (percentage >= 70) {
-        message = '👌 جيد! يمكنك تحسين أدائك';
-        icon = 'warning';
-        color = '#f59e0b';
-        SoundSystem.play('progress');
-      } else {
-        message = '💪 لا تستسلم! حاول مرة أخرى';
-        icon = 'error';
-        color = '#ef4444';
+        gsap.fromTo(choice, {scale:1}, {scale:1.05, duration:.3, yoyo:true, repeat:1});
+      }else{
+        choice.classList.add('wrong'); 
         SoundSystem.play('wrong');
+        gsap.fromTo(choice, {x:0}, {x:-10, duration:.1, yoyo:true, repeat:3});
+      }
+      updateProgress();
+    });
+
+    function computeScore(){
+      const blocks = Array.from(document.querySelectorAll('.q[data-qid]'));
+      let correct = 0;
+      blocks.forEach(b=>{ const sel = b.querySelector('.choice.correct'); if(sel) correct++; });
+      return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
+    }
+
+    function celebrate(){
+      const duration = 2000; const end = Date.now() + duration;
+      (function frame(){
+        confetti({ particleCount: 5, angle: 60, spread: 70, origin: { x: 0 } });
+        confetti({ particleCount: 5, angle: 120, spread: 70, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+      SoundSystem.play('celebration');
+    }
+
+    el.start.addEventListener('click', askStudent);
+
+    el.submit.addEventListener('click', ()=>{
+      const s = getStudent();
+      const { correct, total, percent } = computeScore();
+      
+      celebrate();
+      
+      // رسائل ذكية حسب الأداء
+      let message, icon, soundType;
+      if (percent >= 90) {
+        message = `🏆 ممتاز ${s?.name}! أداء رائع - ${percent}%`;
+        icon = 'success';
+        soundType = 'celebration';
+      } else if (percent >= 70) {
+        message = `👏 أحسنت ${s?.name}! أداء جيد - ${percent}%`;
+        icon = 'success';
+        soundType = 'correct';
+      } else {
+        message = `💪 استمر ${s?.name}! يمكنك التحسن - ${percent}%`;
+        icon = 'info';
+        soundType = 'complete';
       }
       
-      const student = getStudent();
-      const name = student ? student.name : 'عزيزي الطالب';
-      
       Swal.fire({
-        title: `📊 نتيجتك يا ${name}`,
+        title: 'النتيجة النهائية �',
         html: `
-          <div style="text-align:center; font-size:18px">
-            <p style="color:${color}; font-weight:bold; font-size:24px">${percentage}%</p>
-            <p>${message}</p>
-            <div style="background:#f8fafc; padding:16px; border-radius:12px; margin:16px 0">
-              <p>✅ الإجابات الصحيحة: <strong style="color:#10b981">${score}</strong></p>
-              <p>❌ الإجابات الخاطئة: <strong style="color:#ef4444">${total-score}</strong></p>
-              <p>📝 إجمالي الأسئلة: <strong>${total}</strong></p>
+          <div style="text-align:right;line-height:2.2;font-size:16px">
+            <div style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;padding:15px;border-radius:12px;margin-bottom:15px">
+              ${message}
+            </div>
+            <div style="background:#f8f9ff;padding:15px;border-radius:10px;border-right:4px solid #667eea">
+              <div><strong>👤 الطالب:</strong> ${s?.name || '-'}</div>
+              <div><strong>🏫 الصف:</strong> ${s?.klass || '-'}</div>
+              <div><strong>📊 النتيجة:</strong> ${correct}/${total} سؤال (${percent}%)</div>
             </div>
           </div>`,
         icon: icon,
-        confirmButtonText: 'إعادة المحاولة 🔄',
-        confirmButtonColor: color,
-        showCancelButton: true,
-        cancelButtonText: 'الانتهاء ✨'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          location.reload();
-        }
+        confirmButtonText: '🔄 إعادة المحاولة',
+        confirmButtonColor: '#10b981',
+        showDenyButton: true,
+        denyButtonText: '🏠 العودة للرئيسية',
+        denyButtonColor: '#d97706'
+      }).then(res=>{ 
+        if(res.isConfirmed) resetQuiz(); 
+        else window.location.href='../../index.html'; 
       });
+    });
+
+    function resetQuiz(){
+      document.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      updateProgress();
+      gsap.from("#quiz .q", {opacity:0, y:10, stagger:.05, duration:.45});
+      window.scrollTo({ top:0, behavior:'smooth' });
     }
 
-    // دالة حساب النقاط
-    function computeScore(){
-      let score = 0;
-      document.querySelectorAll('.q').forEach(q => {
-        const correct = q.querySelector('.choice.correct');
-        if (correct) score++;
-      });
-      return score;
-    }
+    el.reset.addEventListener('click', resetQuiz);
 
-    // نظام الإشعارات الذكية
-    const SmartNotifications = {
-      progress: (answered, total) => {
-        if (answered === Math.floor(total/2)) {
-          Swal.fire({
-            title: '⚡ نصف الطريق!',
-            text: 'أنت تتقدم بشكل رائع! 🌟',
-            icon: 'info',
-            timer: 2000,
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false
-          });
-          SoundSystem.play('milestone');
-        }
-      },
-      
-      completed: () => {
-        SoundSystem.play('complete');
-        setTimeout(() => {
-          showResults();
-        }, 1000);
-      }
-    };
+    // بدء
     renderQuestions();
-    askStudent();
+    updateMeta();
     updateProgress();
   </script>
 <script>
@@ -500,6 +556,130 @@
             }
         }, 100);
     });
+
+        // 🎵 نظام الصوت المحسن
+        const SoundSystem = {
+            sounds: {},
+            
+            preload() {
+                const soundFiles = {
+                    correct: '../../assets/audio/win.mp3',
+                    wrong: '../../assets/audio/wrong_answer.mp3',
+                    click: '../../assets/audio/Click.mp3',
+                    start: '../../assets/audio/start-timer.mp3',
+                    end: '../../assets/audio/end-timer.mp3',
+                    notification: '../../assets/audio/Notification.mp3'
+                };
+                
+                Object.keys(soundFiles).forEach(key => {
+                    this.sounds[key] = new Audio(soundFiles[key]);
+                    this.sounds[key].preload = 'auto';
+                });
+            },
+            
+            play(soundName) {
+                if (this.sounds[soundName]) {
+                    this.sounds[soundName].currentTime = 0;
+                    return this.sounds[soundName].play().catch(e => console.log('تعذر تشغيل الصوت:', e));
+                }
+            }
+        };
+
+        // 🔔 نظام الإشعارات المحسن
+        const EnhancedNotificationSystem = {
+            show(message, type = 'info', duration = 3000) {
+                const notification = document.createElement('div');
+                notification.className = `enhanced-notification ${type}`;
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <i class="fas fa-${this.getIcon(type)}"></i>
+                        <span>${message}</span>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => notification.classList.add('show'), 100);
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => document.body.removeChild(notification), 300);
+                }, duration);
+            },
+            
+            getIcon(type) {
+                const icons = {
+                    success: 'check-circle',
+                    error: 'exclamation-circle',
+                    warning: 'exclamation-triangle',
+                    info: 'info-circle'
+                };
+                return icons[type] || 'info-circle';
+            }
+        };
+
+        // 🧠 نظام الإشعارات الذكية
+        const SmartNotifications = {
+            show(message, options = {}) {
+                const defaults = {
+                    type: 'info',
+                    duration: 3000,
+                    position: 'top-right',
+                    sound: true,
+                    animation: 'slide'
+                };
+                
+                const config = { ...defaults, ...options };
+                
+                if (config.sound) {
+                    SoundSystem.play('notification');
+                }
+                
+                EnhancedNotificationSystem.show(message, config.type, config.duration);
+            }
+        };
+
+        // 📊 نظام تتبع التقدم المحسن
+        function updateProgress() {
+            const studentData = JSON.parse(localStorage.getItem('biology_progress') || '{}');
+            const lessonKey = window.location.pathname;
+            
+            if (!studentData[lessonKey]) {
+                studentData[lessonKey] = {
+                    completed: false,
+                    score: 0,
+                    attempts: 0,
+                    lastVisit: new Date().toISOString()
+                };
+            }
+            
+            studentData[lessonKey].attempts += 1;
+            studentData[lessonKey].lastVisit = new Date().toISOString();
+            
+            localStorage.setItem('biology_progress', JSON.stringify(studentData));
+            
+            // تحديث شريط التقدم
+            const progressBar = document.querySelector('.progress-bar');
+            if (progressBar) {
+                const completedLessons = Object.values(studentData).filter(lesson => lesson.completed).length;
+                const totalLessons = 16;
+                const progressPercent = (completedLessons / totalLessons) * 100;
+                
+                progressBar.style.width = `${progressPercent}%`;
+                progressBar.setAttribute('data-progress', `${Math.round(progressPercent)}%`);
+            }
+        }
+
+        // تهيئة الأنظمة عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            SoundSystem.preload();
+            updateProgress();
+            
+            // تحسين أداء الأزرار
+            document.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', () => SoundSystem.play('click'));
+            });
+        });
+
 </script>
 </body>
 </html>
