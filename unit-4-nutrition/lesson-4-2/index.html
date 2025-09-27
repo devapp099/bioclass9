@@ -10,6 +10,8 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
   <style>
     :root{
       --bg:linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); --card:#ffffff; --muted:#6b7280; --text:#1f2937;
@@ -70,15 +72,15 @@
       background:linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%); }
     .btn-ghost{ all:unset; cursor:pointer; padding:12px 14px; border-radius:14px; font-weight:800; color:var(--muted);
       border:1px dashed rgba(0,0,0,.2) }
-    .q{ display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:16px; background:rgba(0,0,0,.03);
+    .q{ display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:16px; background:rgba(255,255,255,.03);
       border:1px solid rgba(0,0,0,.06) }
     .choices{display:grid; gap:10px}
-    .choice{ display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid rgba(0,0,0,.08);
+    .choice{ display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid rgba(255,255,255,.08);
       border-radius:14px; background:rgba(0,0,0,.04); cursor:pointer; user-select:none;
       transition:transform .1s ease, background .2s ease, border .2s ease; }
-    .choice:hover{ transform: translateX(-2px); background:rgba(0,0,0,.06) }
-    .choice.correct{ border-color: rgba(16,185,129,.55); background: rgba(16,185,129,.12) }
-    .choice.wrong{ border-color: rgba(239,68,68,.55); background: rgba(239,68,68,.12) }
+    .choice:hover{ transform: translateX(-2px); background:rgba(255,255,255,.10) }
+    .choice.correct{ border-color: rgba(52,211,153,.7); background: rgba(52,211,153,.10) }
+    .choice.wrong{ border-color: rgba(251,113,133,.7); background: rgba(251,113,133,.10) }
     /* شريط التقدّم */
     .progress{display:flex; align-items:center; gap:8px; font-weight:800; color:#7c2d12; margin-top:6px}
     .bar{flex:1; height:8px; background:rgba(0,0,0,.08); border-radius:999px; overflow:hidden}
@@ -87,8 +89,7 @@
       color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
     .credit{color:var(--text); font-weight:800}
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
-</head>
+  </head>
 <body>
   <div class="wrap">
     <header class="card" data-aos="fade-down">

@@ -12,6 +12,8 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
 
   <style>
     :root{
@@ -86,14 +88,14 @@
       background: radial-gradient(600px 200px at 70% 0%, rgba(245,158,11,.12), transparent 60%); filter: blur(10px); }
 
     .q{ display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:16px;
-      background:rgba(0,0,0,.03); border:1px solid rgba(0,0,0,.06) }
+      background:rgba(255,255,255,.03); border:1px solid rgba(0,0,0,.06) }
     .choices{display:grid; gap:10px}
-    .choice{ display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid rgba(0,0,0,.08);
+    .choice{ display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid rgba(255,255,255,.08);
       border-radius:14px; background:rgba(0,0,0,.04); cursor:pointer; user-select:none;
       transition:transform .1s ease, background .2s ease, border .2s ease; }
-    .choice:hover{ transform: translateX(-2px); background:rgba(0,0,0,.06) }
-    .choice.correct{ border-color: rgba(16,185,129,.55); background: rgba(16,185,129,.12) }
-    .choice.wrong{ border-color: rgba(239,68,68,.55); background: rgba(239,68,68,.12) }
+    .choice:hover{ transform: translateX(-2px); background:rgba(255,255,255,.10) }
+    .choice.correct{ border-color: rgba(52,211,153,.7); background: rgba(52,211,153,.10) }
+    .choice.wrong{ border-color: rgba(251,113,133,.7); background: rgba(251,113,133,.10) }
 
     /* شريط التقدم */
     .progress-wrap{margin:10px 0 14px}
@@ -111,8 +113,7 @@
     .credit{color:var(--text); font-weight:800}
     a.card-link{ display:block; text-decoration:none; color:inherit }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
-</head>
+  </head>
 <body>
   <div class="wrap">
     <header class="card" data-aos="fade-down">
