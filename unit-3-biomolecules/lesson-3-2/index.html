@@ -160,7 +160,7 @@
   <script>
     AOS.init({ duration: 700, once: true });
 
-    // النظام الصوتي المتقدم
+// النظام الصوتي المتقدم
     const SoundSystem = {
       enabled: true,
       sounds: {},
@@ -180,8 +180,23 @@
         };
         
         Object.keys(soundMappings).forEach(type => {
-          this.sounds    [
-      {q:"يعطي اختبار البيوريت لونًا إيجابيًا:", c:["بنفسجي/أرجواني", "أحمر قرمزي", "أصفر ليموني", "أسود"], a:0},
+          this.sounds[type] = new Howl({
+            src: [`assets/audio/${soundMappings[type]}`],
+            volume: 0.3,
+            html5: true
+          });
+        });
+      },
+      
+      play(type) {
+        if (this.enabled && this.sounds[type]) {
+          this.sounds[type].play();
+        }
+      }
+    };
+
+    const bank = [
+            {q:"يعطي اختبار البيوريت لونًا إيجابيًا:", c:["بنفسجي/أرجواني", "أحمر قرمزي", "أصفر ليموني", "أسود"], a:0},
       {q:"مبدأ اختبار البيوريت يعتمد على اتحاد:", c:["Cu²⁺ القاعدي مع الروابط الببتيدية", "Na⁺ مع الغلوكوز", "I₂ مع الأحماض الأمينية", "H⁺ مع الفيتامينات"], a:0},
       {q:"في تجربة تأثير التسخين على نتيجة البيوريت؛ المتغير المستقل هو:", c:["درجة الحرارة/التسخين", "لون المحلول", "حجم الأنبوب", "زمن القراءة فقط"], a:0},
       {q:"المتغير التابع المناسب قياسه في التجربة هو:", c:["شدة اللون/الامتصاص الضوئي أو الوصف اللوني", "نوع الميزان", "سُمك الأنبوب", "درجة pH للماء المقطر فقط"], a:0},
@@ -200,7 +215,7 @@
       {q:"لماذا يعمل اختبار البيوريت في وسط قلوي؟", c:["لتكوين معقّد النحاس مع الروابط الببتيدية وإظهار اللون", "لتحويل البروتين إلى سكر", "لتحليل البروتين حراريًا", "لإحداث تعقيم"], a:0},
       {q:"عند تخفيف عينة بروتين إلى النصف، نتوقع أن يكون اللون:", c:["أفتح/أقل امتصاصًا تقريبًا", "أغمق مرتين", "أسودًا", "دون أي تغير"], a:0},
       {q:"ما التركيبات الصحيحة لتمييز النشا والبروتين؟", c:["يود → للنشا (أزرق/أسود) • بيوريت → للبروتين (بنفسجي)", "يود للبروتين • بيوريت للنشا", "بينيدكت للنشا", "سودان للبروتين"], a:0},
-      {q:"الهدف من وجود «شاهد» في التجربة هو:", c:["إثبات أن التغيّر راجع للمتغير المستقل فقط", "زيادة عدد الأنابيب دون داعٍ", "تغيير لون الكاشف", "تسهيل التصوير فقط"], a:0}
+      {q:"الهدف من وجود «شاهد» في التجربة هو:", c:["إثبات أن التغيّر راجع للمتغير المستقل فقط", "زيادة عدد الأنابيب دون داعٍ", "تغيير لون الكاشف", "تسهيل التصوير فقط"], a:0},
     ];
 
     const el = {
@@ -209,13 +224,12 @@
       list: document.getElementById('quizList'),
       submit: document.getElementById('btnSubmit'),
       reset: document.getElementById('btnReset'),
-      meta: document.getElementById('studentMeta'),
-      bar: document.getElementById('barFill'),
-      done: document.getElementById('countDone'),
-      total: document.getElementById('countTotal')
+      progress: document.getElementById('progressBar'),
+      total: document.getElementById('countTotal'),
+      done: document.getElementById('countDone')
     };
 
-    const storageKey = "watyn_bio_student";
+    const storageKey = 'quizProgress_' + window.location.pathname;
 
     function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
     function setStudent(obj){ localStorage.setItem(storageKey, JSON.stringify(obj)); }
@@ -243,6 +257,7 @@
       });
       return n;
     }
+
     function updateProgress(){
       const total = document.querySelectorAll('.q[data-qid]').length;
       const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
@@ -258,168 +273,30 @@
       if (barFill) barFill.style.width = Math.round((answered/total)*100) + '%';
     }
 
-    async function askStudent(){
-      SoundSystem.play('start');
-      
-      const { value: formValues } = await Swal.fire({
-        title: '🎓 مرحباً بك!',
-        html:
-          `<div style="text-align:right">
-            <div style="margin-bottom:12px;font-weight:700;color:#d97706">أدخل بياناتك لتبدأ رحلتك العلمية:</div>
-            <input id="swal-name" class="swal2-input" placeholder="اسم الطالب/ـة" style="text-align:right">
-            <input id="swal-class" class="swal2-input" placeholder="الصف (مثال: التاسع/1)" style="text-align:right">
-          </div>`,
-        focusConfirm: false,
-        confirmButtonText: '🚀 لنبدأ التعلم!',
-        confirmButtonColor: '#d97706',
-        showCancelButton: true,
-        cancelButtonText: 'إلغاء',
-        preConfirm: () => {
-          const name = document.getElementById('swal-name').value?.trim();
-          const klass = document.getElementById('swal-class').value?.trim();
-          if(!name || !klass){
-            Swal.showValidationMessage('يرجى إدخال الاسم والصف');
-            return false;
-          }
-          return { name, klass };
-        }
-      });
-      
-      if(formValues){
-        setStudent(formValues);
-        updateMeta();
+    // النشاط الرئيسي
+    document.addEventListener('click', e => {
+      if (e.target.matches('.choice')) {
+        const isCorrect = e.target.dataset.correct === 'true';
         
-        // رسالة ترحيب شخصية
-        const welcomeMessages = [
-          `🔬 أهلاً ${formValues.name}! مرحبًا بك في عالم الخلايا المثير!`,
-          `🧬 مرحبًا ${formValues.name}! ستكتشف اليوم أسرار الخلية وعجائبها`,
-          `✨ أهلاً ${formValues.name}! رحلة مثيرة في عالم الخلايا المجهرية تنتظرك`
-        ];
-        const randomWelcome = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
-        
-        Swal.fire({
-          title: '🎓 أهلاً وسهلاً!',
-          text: randomWelcome,
-          icon: 'success',
-          confirmButtonText: '🔬 لننطلق!',
-          timer: 4000,
-          timerProgressBar: true
-        }).then(() => {
-          SoundSystem.play('welcome');
+        // إزالة الحالات السابقة من هذا السؤال
+        e.target.parentNode.querySelectorAll('.choice').forEach(ch => {
+          ch.classList.remove('correct', 'wrong');
         });
         
-        el.quiz.style.display = "block";
-        gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6});
+        // إضافة الحالة الجديدة
+        e.target.classList.add(isCorrect ? 'correct' : 'wrong');
+        
+        // تشغيل الصوت
+        SoundSystem.play(isCorrect ? 'correct' : 'wrong');
+        
+        // تحديث التقدم
+        updateProgress();
       }
-    }
-
-    function updateMeta(){
-      const s = getStudent();
-      el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
-    }
-
-    document.addEventListener('click', (e)=>{
-      const choice = e.target.closest('.choice');
-      if(!choice) return;
-      
-      const container = choice.closest('.choices');
-      const wasAnswered = container.querySelector('.choice.correct, .choice.wrong');
-      if (wasAnswered) return;
-
-      SoundSystem.play('click');
-      
-      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
-      
-      if(choice.dataset.correct === "true"){
-        choice.classList.add('correct'); 
-        SoundSystem.play('correct');
-        gsap.fromTo(choice, {scale:1}, {scale:1.05, duration:.3, yoyo:true, repeat:1});
-      }else{
-        choice.classList.add('wrong'); 
-        SoundSystem.play('wrong');
-        gsap.fromTo(choice, {x:0}, {x:-10, duration:.1, yoyo:true, repeat:3});
-      }
-      updateProgress();
     });
 
-    function computeScore(){
-      const blocks = Array.from(document.querySelectorAll('.q[data-qid]'));
-      let correct = 0;
-      blocks.forEach(b=>{ const sel = b.querySelector('.choice.correct'); if(sel) correct++; });
-      return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
-    }
-
-    function celebrate(){
-      const duration = 2000; const end = Date.now() + duration;
-      (function frame(){
-        confetti({ particleCount: 5, angle: 60, spread: 70, origin: { x: 0 } });
-        confetti({ particleCount: 5, angle: 120, spread: 70, origin: { x: 1 } });
-        if (Date.now() < end) requestAnimationFrame(frame);
-      })();
-      SoundSystem.play('celebration');
-    }
-
-    el.start.addEventListener('click', askStudent);
-
-    el.submit.addEventListener('click', ()=>{
-      const s = getStudent();
-      const { correct, total, percent } = computeScore();
-      
-      celebrate();
-      
-      // رسائل ذكية حسب الأداء
-      let message, icon, soundType;
-      if (percent >= 90) {
-        message = `🏆 ممتاز ${s?.name}! أداء رائع - ${percent}%`;
-        icon = 'success';
-        soundType = 'celebration';
-      } else if (percent >= 70) {
-        message = `👏 أحسنت ${s?.name}! أداء جيد - ${percent}%`;
-        icon = 'success';
-        soundType = 'correct';
-      } else {
-        message = `💪 استمر ${s?.name}! يمكنك التحسن - ${percent}%`;
-        icon = 'info';
-        soundType = 'complete';
-      }
-      
-      Swal.fire({
-        title: 'النتيجة النهائية �',
-        html: `
-          <div style="text-align:right;line-height:2.2;font-size:16px">
-            <div style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;padding:15px;border-radius:12px;margin-bottom:15px">
-              ${message}
-            </div>
-            <div style="background:#f8f9ff;padding:15px;border-radius:10px;border-right:4px solid #667eea">
-              <div><strong>👤 الطالب:</strong> ${s?.name || '-'}</div>
-              <div><strong>🏫 الصف:</strong> ${s?.klass || '-'}</div>
-              <div><strong>📊 النتيجة:</strong> ${correct}/${total} سؤال (${percent}%)</div>
-            </div>
-          </div>`,
-        icon: icon,
-        confirmButtonText: '🔄 إعادة المحاولة',
-        confirmButtonColor: '#10b981',
-        showDenyButton: true,
-        denyButtonText: '🏠 العودة للرئيسية',
-        denyButtonColor: '#d97706'
-      }).then(res=>{ 
-        if(res.isConfirmed) resetQuiz(); 
-        else window.location.href='../../index.html'; 
-      });
-    });
-
-    function resetQuiz(){
-      document.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
-      updateProgress();
-      gsap.from("#quiz .q", {opacity:0, y:10, stagger:.05, duration:.45});
-      window.scrollTo({ top:0, behavior:'smooth' });
-    }
-
-    el.reset.addEventListener('click', resetQuiz);
-
-    // بدء
+    // بدء التطبيق
+    SoundSystem.init();
     renderQuestions();
-    updateMeta();
     updateProgress();
   </script>
 <script>
