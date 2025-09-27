@@ -1,7 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <title>🧪 درس 4-2 — امتصاص فيتامين د (20 سؤالًا)</title>
+  <title>🔄 درس 4-2 — الامتصاص والنقل</title>
+  
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet" />
@@ -11,7 +12,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+
   <style>
     :root{
       --bg:linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); --card:#ffffff; --muted:#6b7280; --text:#1f2937;
@@ -23,15 +24,18 @@
     html,body{height:100%}
     body{
       margin:0; background: var(--bg);
-      min-height:100vh; color:var(--text); font-family:"Cairo", system-ui, sans-serif; line-height:1.7; letter-spacing:.2px;
+      min-height:100vh;
+      color:var(--text); font-family:"Cairo", system-ui, sans-serif; line-height:1.7; letter-spacing:.2px;
       position: relative;
     }
-    body::before { content:''; position:fixed; inset:0;
-      background:
+    body::before {
+      content: '';
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: 
         radial-gradient(circle at 20% 80%, rgba(255,165,0,.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(255,69,0,.12) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(255,20,147,.1) 0%, transparent 50%);
-      z-index:-1; pointer-events:none;
+      z-index: -1; pointer-events: none;
     }
     .wrap{max-width:1100px; margin-inline:auto; padding:24px}
     header{
@@ -45,58 +49,71 @@
     .logo{width:42px; height:42px; border-radius:12px;
       background: conic-gradient(from 200deg, var(--primary), var(--accent), #10b981, #3b82f6);
       box-shadow: 0 8px 24px rgba(245,158,11,.35);
-      animation:spin 20s linear infinite;
+      animation: logoRotate 20s linear infinite;
     }
-    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes logoRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     .title{font-weight:900; font-size:clamp(20px,3vw,28px)}
     .subtitle{font-weight:700; font-size:clamp(14px,2vw,16px); color:var(--muted)}
     .card{
       background: linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);
-      border:1px solid rgba(255,255,255,.4); border-radius:22px; padding:22px; box-shadow: var(--card-shadow);
-      transition: all .3s ease;
+      border:1px solid rgba(255,255,255,.4);
+      border-radius:22px; padding:22px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
     }
-    .card:hover{ transform:translateY(-6px); box-shadow:0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1) }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1) }
     h1{font-size:clamp(28px,4vw,40px); margin:0 0 6px; font-weight:900;
-      background:linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;}
+       background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
+       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;}
     h2{font-size:clamp(18px,3vw,22px); margin:10px 0 14px; font-weight:800; color:var(--primary)}
     p.lead{color:var(--muted); font-size:clamp(15px,2.4vw,18px); margin-top:0}
+    .grid{display:grid; gap:16px}
+    @media (min-width: 840px){ .grid-2{grid-template-columns:1fr 1fr} .grid-3{grid-template-columns:repeat(3,1fr)} }
     .btn{
       all:unset; cursor:pointer; padding:14px 18px; border-radius:16px; font-weight:800;
       border:1px solid rgba(245,158,11,.3);
-      background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%); color:#fff;
-      box-shadow:0 8px 24px rgba(245,158,11,.25);
+      background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+      color:white;
+      box-shadow: 0 8px 24px rgba(245,158,11,.25);
       transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
     }
-    .btn:hover{ transform:translateY(-3px) scale(1.02); box-shadow:0 15px 35px rgba(245,158,11,.35);
+    .btn:hover{ transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 35px rgba(245,158,11,.35);
       background:linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%); }
     .btn-ghost{ all:unset; cursor:pointer; padding:12px 14px; border-radius:14px; font-weight:800; color:var(--muted);
-      border:1px dashed rgba(0,0,0,.2) }
+      border:1px dashed rgba(0,0,0,.2); }
+    .pulse{ position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+      background: radial-gradient(600px 200px at 70% 0%, rgba(245,158,11,.12), transparent 60%); filter: blur(10px); }
+
+    /* عناصر الأسئلة */
     .q{ display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:16px; background:rgba(255,255,255,.03);
-      border:1px solid rgba(0,0,0,.06) }
+      border:1px solid rgba(255,255,255,.06) }
     .choices{display:grid; gap:10px}
     .choice{ display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid rgba(255,255,255,.08);
-      border-radius:14px; background:rgba(0,0,0,.04); cursor:pointer; user-select:none;
-      transition:transform .1s ease, background .2s ease, border .2s ease; }
+      border-radius:14px; background:rgba(0,0,0,.18); cursor:pointer; user-select:none;
+      transition:transform .1s ease, background .2s ease, border .2s ease; color:var(--text) }
     .choice:hover{ transform: translateX(-2px); background:rgba(255,255,255,.10) }
     .choice.correct{ border-color: rgba(52,211,153,.7); background: rgba(52,211,153,.10) }
     .choice.wrong{ border-color: rgba(251,113,133,.7); background: rgba(251,113,133,.10) }
-    /* شريط التقدّم */
+
+    /* شريط التقدّم البسيط */
     .progress{display:flex; align-items:center; gap:8px; font-weight:800; color:#7c2d12; margin-top:6px}
     .bar{flex:1; height:8px; background:rgba(0,0,0,.08); border-radius:999px; overflow:hidden}
-    .bar>span{display:block; height:100%; width:0%; background:linear-gradient(90deg,#f59e0b,#d97706); transition:width .25s ease}
-    footer{ margin-top:34px; padding:18px; border-top:1px solid rgba(0,0,0,.08);
+    .bar > span{display:block; height:100%; width:0%; background:linear-gradient(90deg, #f59e0b, #d97706); transition:width .25s ease}
+
+    footer{ margin-top:34px; padding:18px; border-top:1px solid rgba(255,255,255,.08);
       color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
     .credit{color:var(--text); font-weight:800}
+    a.card-link{ display:block; text-decoration:none; color:inherit }
   </style>
-  </head>
+
+</head>
 <body>
   <div class="wrap">
     <header class="card" data-aos="fade-down">
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          <div class="title">🧪 درس 4-2 — امتصاص فيتامين د</div>
+          <div class="title">🧬 نشاط تفاعلي — الدرس 1-1: الخلايا الحيوانية والنباتية</div>
           <div class="subtitle" id="studentMeta">مرحبًا! لنبدأ…</div>
           <div class="progress">
             <div>التقدّم:</div>
@@ -105,208 +122,28 @@
           </div>
         </div>
       </div>
-      <a class="btn-ghost" href="../../index.html">← العودة</a>
     </header>
 
+    <!-- أهداف الدرس -->
     <section class="card" style="margin-top:18px; position:relative" data-aos="zoom-in">
       <div class="pulse"></div>
-      <h1>🎯 أهداف الدرس</h1>
-      <p class="lead">العوامل التي تؤثر في تصنيع/امتصاص فيتامين (د)، وأهم المصادر، وكيفية الحفاظ على عظام صحية.</p>
+      <h1>الامتصاص والنقل</h1>
+      <p class="lead">تعلم آليات امتصاص المواد الغذائية ونقلها في الجسم</p>
       <ul>
-        <li>التعرّض الآمن لأشعة UVB وعوامل تقلله أو تعززه.</li>
-        <li>مصادر غذائية وفيتامين (د) كمُغذٍّ ذائب في الدهن.</li>
-        <li>مواقف يومية تؤثر في الحالة الغذائية لفيتامين (د).</li>
+        <li>تحديد مكوّنات الخلية الأساسية: غشاء، سيتوبلازم، نواة.</li>
+        <li>تمييز تراكيب خاصة بالنبات: <strong>الجدار الخلوي</strong>، <strong>البلاستيدات الخضراء</strong>، <strong>فجوة عصارية كبيرة</strong>.</li>
+        <li>المقارنة بين الخلايا النباتية والحيوانية في الشكل والوظيفة.</li>
       </ul>
       <div style="display:flex; gap:10px; flex-wrap:wrap">
         <button id="btnStart" class="btn">ابدأ النشاط</button>
+        <a class="btn-ghost" href="https://devapp099.github.io/watyn-bio-activities-/index.html">← العودة</a>
       </div>
     </section>
 
+    <!-- الأسئلة (يتم توليدها من بنك الأسئلة) -->
     <section id="quiz" class="card" style="margin-top:16px; display:block" data-aos="fade-up">
       <h2>الأسئلة التفاعلية</h2>
-
-      <!-- 1-14 (كما كانت) -->
-      <article class="q" data-qid="q1"><div><strong>1) ينتج الجسم فيتامين (د) عند التعرّض لـ:</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">أشعة UVB من الشمس</div>
-          <div class="choice" data-correct="false">أشعة الراديو</div>
-          <div class="choice" data-correct="false">الأشعة السينية</div>
-          <div class="choice" data-correct="false">الليزر الأحمر فقط</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q2"><div><strong>2) عامل يُقلّل تصنيع فيتامين (د) في الجلد:</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">الملابس السميكة وتغطية واسعة</div>
-          <div class="choice" data-correct="false">كشف الذراعين والساقين لفترة معتدلة</div>
-          <div class="choice" data-correct="false">المشي في الهواء الطلق</div>
-          <div class="choice" data-correct="false">تعرّض قصير لأشعة الظهيرة</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q3"><div><strong>3) أفضل وقت يومي لوصول UVB إلى الجلد عادةً:</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">قرب منتصف النهار (عندما تكون الظلال أقصر)</div>
-          <div class="choice" data-correct="false">عند الشروق فقط</div>
-          <div class="choice" data-correct="false">قبيل الغروب فقط</div>
-          <div class="choice" data-correct="false">لا يهم الوقت</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q4"><div><strong>4) الجلد الأغمق (ميلانين أعلى) يعني غالبًا أنه يحتاج:</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">زمن تعرّض أطول للحصول على نفس الكمية</div>
-          <div class="choice" data-correct="false">زمنًا أقصر دومًا</div>
-          <div class="choice" data-correct="false">لا فرق إطلاقًا</div>
-          <div class="choice" data-correct="false">تعرّضًا خلف الزجاج</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q5"><div><strong>5) الزجاج في النوافذ:</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">يحجب معظم UVB فلا يكفي للتصنيع</div>
-          <div class="choice" data-correct="false">يزيد UVB</div>
-          <div class="choice" data-correct="false">لا يغيّر شيئًا</div>
-          <div class="choice" data-correct="false">يحوّل UVB إلى فيتامين (د)</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q6"><div><strong>6) عامل جغرافي يقلل وصول UVB:</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">العرض الجغرافي العالي/فصل الشتاء</div>
-          <div class="choice" data-correct="false">المناطق الاستوائية دائمًا</div>
-          <div class="choice" data-correct="false">المدينة عند الظهيرة صيفًا</div>
-          <div class="choice" data-correct="false">السماء صافية ومدّة قصيرة</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q7"><div><strong>7) استخدام واقٍ شمسي عالي الحماية (SPF):</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">قد يقلّل تصنيع فيتامين (د) عند استخدامه على كامل الجلد</div>
-          <div class="choice" data-correct="false">يزيد تصنيع فيتامين (د)</div>
-          <div class="choice" data-correct="false">لا يؤثر في UVB</div>
-          <div class="choice" data-correct="false">يمنع امتصاص الكالسيوم مباشرةً</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q8"><div><strong>8) من المصادر الغذائية الجيدة لفيتامين (د):</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">الأسماك الدهنية/زيت كبد الحوت/أطعمة مُدعّمة</div>
-          <div class="choice" data-correct="false">الخس فقط</div>
-          <div class="choice" data-correct="false">الأرز الأبيض</div>
-          <div class="choice" data-correct="false">الماء</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q9"><div><strong>9) امتصاص فيتامين (د) من الغذاء يكون أفضل عند تناوله مع:</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">كمية دهون صحّية (لأنه ذائب في الدهن)</div>
-          <div class="choice" data-correct="false">الماء فقط</div>
-          <div class="choice" data-correct="false">الألياف العالية دائمًا</div>
-          <div class="choice" data-correct="false">الثلج</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q10"><div><strong>10) نقص فيتامين (د) قد يؤثر على:</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">امتصاص الكالسيوم وصحة العظام</div>
-          <div class="choice" data-correct="false">السمع مباشرة</div>
-          <div class="choice" data-correct="false">لون العين</div>
-          <div class="choice" data-correct="false">طول الشعر</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q11"><div><strong>11) أي عبارة أدقّ؟</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">فيتامين (د) من الفيتامينات الذائبة في الدهن</div>
-          <div class="choice" data-correct="false">مركّب ذائب في الماء دومًا</div>
-          <div class="choice" data-correct="false">إنزيم هضمي</div>
-          <div class="choice" data-correct="false">هرمون درقي</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q12"><div><strong>12) من الفئات الأكثر عرضة لنقص فيتامين (د):</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">كبار السن/قليل التعرّض للشمس/تغطية كاملة للجلد</div>
-          <div class="choice" data-correct="false">من يعيش في الاستواء مع تعرّض يومي</div>
-          <div class="choice" data-correct="false">السبّاحون في الهواء الطلق ظهرًا</div>
-          <div class="choice" data-correct="false">العمال في الشمس الاستوائية</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q13"><div><strong>13) أيهما صحيح بخصوص الجرعات العالية جدًا من المكمّلات؟</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">الزيادة المفرطة قد تضرّ، بخلاف التعرّض المعتدل للشمس</div>
-          <div class="choice" data-correct="false">لا ضرر إطلاقًا مهما كانت الكمية</div>
-          <div class="choice" data-correct="false">الشمس دائمًا خطرة حتى تعرّض قصير</div>
-          <div class="choice" data-correct="false">لا علاقة لفيتامين (د) بالكالسيوم</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q14"><div><strong>14) ما الذي يزيد الاستفادة من الشمس لصنع فيتامين (د) بأمان؟</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">تعرّض معتدل غير مُحرق للذراعين/الساقين ثم حماية لاحقًا</div>
-          <div class="choice" data-correct="false">التعرّض الطويل حتى الاحتراق</div>
-          <div class="choice" data-correct="false">البقاء خلف زجاج النافذة</div>
-          <div class="choice" data-correct="false">التعرّض ليلًا</div>
-        </div>
-      </article>
-
-      <!-- 15-20 الإضافية -->
-      <article class="q" data-qid="q15"><div><strong>15) كلما كانت مساحة الجلد المكشوف أكبر (بدون حروق):</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">زاد تصنيع فيتامين (د) خلال زمن التعرّض نفسه</div>
-          <div class="choice" data-correct="false">قلّ تصنيع فيتامين (د)</div>
-          <div class="choice" data-correct="false">لا علاقة لمساحة الجلد</div>
-          <div class="choice" data-correct="false">يتحوّل UVB إلى UVA</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q16"><div><strong>16) يتحوّل فيتامين (د) في الجسم عبر خطوتين أساسيتين:</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">أولًا في الكبد ثم يُنشَّط في الكلى</div>
-          <div class="choice" data-correct="false">يُنشّطه الجلد فقط</div>
-          <div class="choice" data-correct="false">الأمعاء فقط</div>
-          <div class="choice" data-correct="false">لا يحتاج أي تحوّل</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q17"><div><strong>17) من الحالات التي قد تتطلّب متابعة طبية لجرعات المكمّلات:</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">السمنة أو مشكلات سوء الامتصاص/أمراض الكلى</div>
-          <div class="choice" data-correct="false">الصحّة الممتازة ودمج الشمس والغذاء دائمًا</div>
-          <div class="choice" data-correct="false">كل شخص دون استثناء</div>
-          <div class="choice" data-correct="false">لا أحد مطلقًا</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q18"><div><strong>18) علامة شائعة لنقص فيتامين (د) عند البالغين:</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">آلام العظام/ضعف العضلات والإرهاق</div>
-          <div class="choice" data-correct="false">تحسّن الرؤية ليلًا</div>
-          <div class="choice" data-correct="false">نزلة برد فورية دائمًا</div>
-          <div class="choice" data-correct="false">ازدياد الطول بسرعة</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q19"><div><strong>19) يعيش طالب في منطقة عالية العرض الجغرافي شتاءً؛ الأنسب للحفاظ على المستوى:</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">الاعتماد على أطعمة مُدعّمة/مكمّلات بجرعات مناسبة بإشراف</div>
-          <div class="choice" data-correct="false">التعرّض الطويل في البرد حتى الاحتراق</div>
-          <div class="choice" data-correct="false">البقاء داخل المنزل قرب النافذة</div>
-          <div class="choice" data-correct="false">إيقاف الكالسيوم بالكامل</div>
-        </div>
-      </article>
-
-      <article class="q" data-qid="q20"><div><strong>20) أي العبارة أدقّ بخصوص نوع المكمّل:</strong></div>
-        <div class="choices">
-          <div class="choice" data-correct="true">فيتامين D3 شائع وفعّال لرفع المستوى مقارنة بـ D2</div>
-          <div class="choice" data-correct="false">D2 وD3 ليسا فيتامينين</div>
-          <div class="choice" data-correct="false">D3 غير مناسب أبدًا</div>
-          <div class="choice" data-correct="false">النوع لا يهم إطلاقًا لكل الناس</div>
-        </div>
-      </article>
-
+      <div id="quizList" class="grid" style="gap:14px"></div>
       <div style="display:flex; gap:10px; margin-top:8px">
         <button id="btnSubmit" class="btn">إنهاء النشاط</button>
         <button id="btnReset" class="btn-ghost">إعادة تعيين</button>
@@ -314,7 +151,7 @@
     </section>
 
     <footer class="card" data-aos="fade-up" data-aos-delay="50">
-      <div><span class="credit">🎨 تصميم: الوتين الضامرية |لمار السيابية|مها المعمرية|مريم محمود البلوشية|مريم وائل البلوشية| — 🏫 مدرسة عاتكة بنت زيد — بإشراف الأستاذة سامية 👩‍🏫</span></div>
+      <div><span class="credit">🎨 تصميم: الوتين الضامرية |لمار السيابية|مها المعمرية|مريم محمود البلوشية|مريم وائل البلوشية|</span> — 🏫 مدرسة عاتكة بنت زيد — تحت إشراف الأستاذة سامية 👩‍🏫</div>
       <div>© انشطة تعليمية الوتين 🌟</div>
     </footer>
   </div>
@@ -322,191 +159,6 @@
   <script>
     AOS.init({ duration: 700, once: true });
 
-    const el = {
-      start: document.getElementById('btnStart'),
-      quiz: document.getElementById('quiz'),
-      submit: document.getElementById('btnSubmit'),
-      reset: document.getElementById('btnReset'),
-      meta: document.getElementById('studentMeta'),
-      bar: document.getElementById('barFill'),
-      done: document.getElementById('countDone'),
-      total: document.getElementById('countTotal')
-    };
-
-    const storageKey = "watyn_bio_student";
-    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
-    function setStudent(obj){ localStorage.setItem(storageKey, JSON.stringify(obj)); }
-
-    async function askStudent(){
-      const { value: formValues } = await Swal.fire({
-        title: 'مرحبًا 👋',
-        html:
-          `<div style="text-align:right">
-            <div style="margin-bottom:8px;font-weight:700">أدخل بياناتك لبدء النشاط:</div>
-            <input id="swal-name" class="swal2-input" placeholder="اسم الطالب/ـة">
-            <input id="swal-class" class="swal2-input" placeholder="الصف (مثال: التاسع/1)">
-          </div>`,
-        focusConfirm: false,
-        confirmButtonText: 'ابدأ',
-        confirmButtonColor: '#d97706',
-        showCancelButton: true,
-        cancelButtonText: 'إلغاء',
-        preConfirm: () => {
-          const name = document.getElementById('swal-name').value?.trim();
-          const klass = document.getElementById('swal-class').value?.trim();
-          if(!name || !klass){
-            Swal.showValidationMessage('يرجى إدخال الاسم والصف');
-            return false;
-          }
-          return { name, klass };
-        }
-      });
-      if(formValues){
-        setStudent(formValues);
-        updateMeta();
-        el.quiz.style.display = "block";
-        gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.5});
-        document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
-        document.getElementById('countDone').textContent = 0;
-        el.bar.style.width = '0%';
-      }
-    }
-
-    function updateMeta(){
-      const s = getStudent();
-      el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
-    }
-
-    // تقدّم: أي اختيار = إجابة
-    function updateProgress(){
-      const total = document.querySelectorAll('.q[data-qid]').length;
-      const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
-        q.querySelector('.choice.correct, .choice.wrong')
-      ).length;
-      
-      const barFill = document.getElementById('barFill');
-      const countDone = document.getElementById('countDone');
-      const countTotal = document.getElementById('countTotal');
-      
-      if (countTotal) countTotal.textContent = total;
-      if (countDone) countDone.textContent = answered;
-      if (barFill) barFill.style.width = Math.round((answered/total)*100) + '%';
-    }
-
-    document.addEventListener('click', (e)=>{
-      const choice = e.target.closest('.choice');
-      if(!choice) return;
-      const container = choice.closest('.choices');
-      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
-      if(choice.dataset.correct === "true"){
-        choice.classList.add('correct');
-        gsap.fromTo(choice, {scale:1}, {scale:1.03, y:-2, duration:.18, yoyo:true, repeat:1});
-      }else{
-        choice.classList.add('wrong');
-        gsap.fromTo(choice, {x:0}, {x:-6, duration:.06, yoyo:true, repeat:5});
-      }
-      updateProgress();
-    });
-
-    function computeScore(){
-      const blocks = Array.from(document.querySelectorAll('.q[data-qid]'));
-      let correct = 0;
-      blocks.forEach(b=>{ if(b.querySelector('.choice.correct')) correct++; });
-      return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
-    }
-
-    function celebrate(){
-      const duration = 1500; const end = Date.now() + duration;
-      (function frame(){
-        confetti({ particleCount: 3, angle: 60, spread: 70, origin: { x: 0 } });
-        confetti({ particleCount: 3, angle: 120, spread: 70, origin: { x: 1 } });
-        if (Date.now() < end) requestAnimationFrame(frame);
-      })();
-    }
-
-    el.start.addEventListener('click', askStudent);
-
-    el.submit.addEventListener('click', ()=>{
-      const s = getStudent();
-      const { correct, total, percent } = computeScore();
-      celebrate();
-      
-      // رسالة نتائج ذكية مخصصة
-      const performanceLevel = getPerformanceLevel(percent);
-      const smartMessage = getFinalResultMessage(percent, s?.name);
-      
-      let resultIcon = 'success';
-      let resultColor = '#10b981';
-      
-      if (percent < 60) {
-        resultIcon = 'info';
-        resultColor = '#3b82f6';
-      }
-      
-      SoundSystem.play('complete');
-      
-      Swal.fire({
-        title: `${performanceLevel === 'excellent' ? '🏆' : performanceLevel === 'good' ? '⭐' : performanceLevel === 'average' ? '👍' : '💪'} النتائج النهائية`,
-        html: `
-          <div style="text-align:right;line-height:1.9;font-size:16px">
-            <div style="margin-bottom:10px"><strong>👤 الاسم:</strong> ${s?.name || 'غير محدد'}</div>
-            <div style="margin-bottom:10px"><strong>🏫 الصف:</strong> ${s?.klass || 'غير محدد'}</div>
-            <div style="margin-bottom:10px"><strong>📊 النتيجة:</strong> ${correct} من ${total} سؤال</div>
-            <div style="margin-bottom:15px"><strong>📈 النسبة المئوية:</strong> ${percent}%</div>
-            <hr style="margin: 15px 0; border: none; height: 1px; background: linear-gradient(to right, transparent, #ddd, transparent);">
-            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);padding:15px;border-radius:12px;font-weight:600;color:#92400e;text-align:center">
-              ${smartMessage}
-            </div>
-          </div>`,
-        icon: resultIcon,
-        width: '500px',
-        confirmButtonText: '🔄 إعادة المحاولة',
-        confirmButtonColor: resultColor,
-        showDenyButton: true,
-        denyButtonText: '🏠 العودة للرئيسية',
-        denyButtonColor: '#d97706',
-        allowOutsideClick: false,
-        allowEscapeKey: false
-      }).then(res=>{
-        if(res.isConfirmed) {
-          resetQuiz();
-        } else if (res.isDenied) {
-          window.location.href='../../index.html';
-        }
-      });
-    });
-      const { correct, total, percent } = computeScore();
-      celebrate();
-      Swal.fire({
-        title: 'أحسنت يا بطل/ة! 🎉',
-        html: `
-          <div style="text-align:right;line-height:1.9">
-            <div><strong>الاسم:</strong> ${s?.name || '-'} </div>
-            <div><strong>الصف:</strong> ${s?.klass || '-'} </div>
-            <div><strong>درجتك:</strong> ${correct} / ${total} — <strong>${percent}%</strong></div>
-          </div>`,
-        icon: 'success',
-        confirmButtonText: 'إعادة المحاولة',
-        confirmButtonColor: '#10b981',
-        showDenyButton: true,
-        denyButtonText: 'العودة',
-        denyButtonColor: '#d97706'
-      }).then(res=>{ if(res.isConfirmed) resetQuiz(); });
-    });
-
-    function resetQuiz(){
-      document.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
-      gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.45});
-      window.scrollTo({ top:0, behavior:'smooth' });
-      el.done.textContent = 0; el.bar.style.width = '0%';
-    }
-
-    // تهيئة عدّاد الأسئلة
-    updateMeta();
-    document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
-  </script>
-
-  <script>
     // النظام الصوتي المتقدم
     const SoundSystem = {
       enabled: true,
@@ -545,265 +197,251 @@
       }
     };
 
-    // نظام الإشعارات الذكية
-    const SmartNotifications = {
-      showWelcome(studentName) {
-        const messages = [
-          `🎓 أهلاً ${studentName}! مرحبًا بك في هذا الدرس المثير!`,
-          `🌟 مرحبًا ${studentName}! أنت على وشك تعلم شيء رائع!`,
-          `✨ أهلاً ${studentName}! دعنا نتعلم العلوم معًا!`
-        ];
-        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-        
-        Swal.fire({
-          title: '🎓 مرحباً بك!',
-          text: randomMessage,
-          icon: 'success',
-          confirmButtonText: '🚀 لنبدأ!',
-          timer: 5000,
-          timerProgressBar: true
-        }).then(() => {
-          SoundSystem.play('start');
-        });
-      },
-      
-      showResult(correct, total, studentName) {
-        const percentage = Math.round((correct/total)*100);
-        let message, icon, soundType;
-        
-        if (percentage >= 90) {
-          message = `🏆 ممتاز ${studentName}! أداء رائع - ${percentage}%`;
-          icon = 'success';
-          soundType = 'celebration';
-        } else if (percentage >= 70) {
-          message = `👏 أحسنت ${studentName}! أداء جيد - ${percentage}%`;
-          icon = 'success';
-          soundType = 'correct';
-        } else {
-          message = `💪 استمر ${studentName}! يمكنك التحسن - ${percentage}%`;
-          icon = 'info';
-          soundType = 'complete';
-        }
-        
-        SoundSystem.play(soundType);
-        Swal.fire({
-          title: 'النتيجة النهائية',
-          text: message,
-          icon: icon,
-          confirmButtonText: '🔄 إعادة المحاولة',
-          showDenyButton: true,
-          denyButtonText: '🏠 العودة'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            resetQuiz();
-          } else if (result.isDenied) {
-            window.location.href = '../../index.html';
-          }
-        });
-      }
-    };
+    // تهيئة النظام الصوتي
+    SoundSystem.init();
 
-    // متغيرات النظام
-    const storageKey = "watyn_bio_student";
-    let currentStudent = null;
+    // بنك الأسئلة — 20 سؤال (يمكنك الزيادة بإضافة عناصر جديدة لنهاية المصفوفة)
+    const bank = [
+      {q:"أي تركيب يوجد في الخلايا النباتية فقط؟", c:["الميتوكندريا","الجدار الخلوي","الغشاء الخلوي","السيتوبلازم"], a:1},
+      {q:"وظيفة البلاستيدات الخضراء:", c:["التنفس الخلوي","التمثيل الضوئي","تخزين الماء","إفراز الهرمونات"], a:1},
+      {q:"تركيب يوجد في كلٍّ من الخلايا النباتية والحيوانية:", c:["جدار خلوي","بلاستيدات","نواة","كلوروفيل"], a:2},
+      {q:"العُضيّة المسؤولة عن إنتاج معظم طاقة الخلية:", c:["الميتوكندريا","الليسوسومات","جهاز جولجي","الفجوة"], a:0},
+      {q:"الفجوة العصارية الكبيرة في الخلايا النباتية تساعد على:", c:["التنفس","ثبات الخلية بتوليد ضغط الامتلاء وتخزين الماء","بناء البروتين","تكسير السموم"], a:1},
+      {q:"الغشاء الخلوي يُوصف بأنه:", c:["غير نافذ تمامًا","منفذ كليًا بلا اختيار","شبه منفذ (اختياري النفاذية)","جدار صلب"], a:2},
+      {q:"الجدار الخلوي في النبات يتكوّن أساسًا من:", c:["السليلوز","الليبيدات","الكيتين فقط","الهيموغلوبين"], a:0},
+      {q:"الريبوسومات تقوم بـ:", c:["تفكيك الدهون","بناء البروتين","إنتاج ATP مباشرة","نقل الماء"], a:1},
+      {q:"وظيفة جهاز جولجي:", c:["تعديل وتغليف ونقل البروتينات","تصنيع DNA","التنفس اللاهوائي","تصنيع الكلوروفيل"], a:0},
+      {q:"الليسوسومات تحتوي:", c:["صبغات ضوئية","إنزيمات محلِّلة","أحماض نووية فقط","غازات"], a:1},
+      {q:"أفضل وصف للسيتوبلازم:", c:["جدار صلب","وسط هلامي تحدث فيه تفاعلات خلوية","نسيج وعائي","هواء"], a:1},
+      {q:"الشكل الشائع للخلية النباتية مقارنة بالحيوانية:", c:["الحيوانية أكثر زاوية","النباتية أكثر انتظامًا/مستطيلة بسبب الجدار","لا فرق","النباتية دائرية دائمًا"], a:1},
+      {q:"تركيب غائب عن الخلايا الحيوانية:", c:["الميتوكندريا","الشبكة الإندوبلازمية","الكلوروبلاست (البلاستيدة الخضراء)","جهاز جولجي"], a:2},
+      {q:"المادة الوراثية توجد أساسًا في:", c:["الفجوة","النواة","الغشاء الخلوي","الجدار"], a:1},
+      {q:"الفجوات في الخلايا الحيوانية عادة:", c:["كبيرة ومركزية","صغيرة/مؤقتة ومتعددة","بدون غشاء","مثل البلاستيدات"], a:1},
+      {q:"البنية التي تمنح الدعامة والصلابة للنبات:", c:["الغشاء الخلوي","الجدار الخلوي","السيتوبلازم","المريكزات"], a:1},
+      {q:"عضيّة توجد في الخلايا النباتية والحيوانية معًا:", c:["الكلوروبلاست","الميتوكندريا","الجدار الخلوي","فجوة مركزية ضخمة"], a:1},
+      {q:"التمثيل الضوئي يتطلب صبغة:", c:["الهيموغلوبين","الميلانين","الكلوروفيل داخل البلاستيدات","الكاروتين فقط"], a:2},
+      {q:"الغشاء الخلوي يتكوّن غالبًا من:", c:["طبقة واحدة بروتينية فقط","ثنائي طبقة فوسفوليبيدية مع بروتينات","سليلوز","نشا"], a:1},
+      {q:"نقل البروتينات داخل الخلية يبدأ غالبًا عبر:", c:["الشبكة الإندوبلازمية الخشنة ثم جولجي","الفجوة ثم الجدار","النواة مباشرة إلى الخارج","الليسوسومات إلى البلاستيدات"], a:0}
+    ];
 
-    // عناصر الواجهة
-    const elements = {
+    const el = {
       start: document.getElementById('btnStart'),
       quiz: document.getElementById('quiz'),
+      list: document.getElementById('quizList'),
       submit: document.getElementById('btnSubmit'),
       reset: document.getElementById('btnReset'),
-      studentMeta: document.getElementById('studentMeta')
+      meta: document.getElementById('studentMeta'),
+      bar: document.getElementById('barFill'),
+      done: document.getElementById('countDone'),
+      total: document.getElementById('countTotal')
     };
 
-    // وظائف النظام
-    function getStudent() {
-      try {
-        return JSON.parse(localStorage.getItem(storageKey));
-      } catch {
-        return null;
-      }
+    const storageKey = "watyn_bio_student";
+
+    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
+    function setStudent(obj){ localStorage.setItem(storageKey, JSON.stringify(obj)); }
+
+    function renderQuestions(){
+      el.total.textContent = bank.length;
+      el.list.innerHTML = "";
+      bank.forEach((item, idx)=>{
+        const art = document.createElement('article');
+        art.className = "q"; art.setAttribute('data-qid', 'q'+(idx+1));
+        art.innerHTML = `
+          <div><strong>${idx+1}) ${item.q}</strong></div>
+          <div class="choices">
+            ${item.c.map((txt,i)=>`<div class="choice" data-correct="${i===item.a}">${txt}</div>`).join('')}
+          </div>
+        `;
+        el.list.appendChild(art);
+      });
     }
 
-    function setStudent(data) {
-      localStorage.setItem(storageKey, JSON.stringify(data));
-      currentStudent = data;
+    function answeredCount(){
+      let n=0;
+      document.querySelectorAll('.q').forEach(q=>{
+        if(q.querySelector('.choice.correct, .choice.wrong')) n++;
+      });
+      return n;
+    }
+    function updateProgress(){
+      const total = document.querySelectorAll('.q[data-qid]').length;
+      const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
+        q.querySelector('.choice.correct, .choice.wrong')
+      ).length;
+      
+      const barFill = document.getElementById('barFill');
+      const countDone = document.getElementById('countDone');
+      const countTotal = document.getElementById('countTotal');
+      
+      if (countTotal) countTotal.textContent = total;
+      if (countDone) countDone.textContent = answered;
+      if (barFill) barFill.style.width = Math.round((answered/total)*100) + '%';
     }
 
-    function updateStudentDisplay() {
-      const student = getStudent();
-      if (elements.studentMeta && student) {
-        elements.studentMeta.textContent = `الطالب/ـة: ${student.name} — الصف: ${student.klass}`;
-      }
-    }
-
-    async function startQuiz() {
+    async function askStudent(){
+      SoundSystem.play('start');
+      
       const { value: formValues } = await Swal.fire({
-        title: 'بيانات الطالب',
-        html: `
-          <div style="text-align:right">
-            <input id="swal-name" class="swal2-input" placeholder="اسم الطالب/ـة" value="">
-            <input id="swal-class" class="swal2-input" placeholder="الصف" value="">
+        title: '🎓 مرحباً بك!',
+        html:
+          `<div style="text-align:right">
+            <div style="margin-bottom:12px;font-weight:700;color:#d97706">أدخل بياناتك لتبدأ رحلتك العلمية:</div>
+            <input id="swal-name" class="swal2-input" placeholder="اسم الطالب/ـة" style="text-align:right">
+            <input id="swal-class" class="swal2-input" placeholder="الصف (مثال: التاسع/1)" style="text-align:right">
           </div>`,
         focusConfirm: false,
-        confirmButtonText: 'ابدأ النشاط',
+        confirmButtonText: '🚀 لنبدأ التعلم!',
+        confirmButtonColor: '#d97706',
         showCancelButton: true,
         cancelButtonText: 'إلغاء',
         preConfirm: () => {
-          const name = document.getElementById('swal-name').value.trim();
-          const klass = document.getElementById('swal-class').value.trim();
-          if (!name || !klass) {
+          const name = document.getElementById('swal-name').value?.trim();
+          const klass = document.getElementById('swal-class').value?.trim();
+          if(!name || !klass){
             Swal.showValidationMessage('يرجى إدخال الاسم والصف');
             return false;
           }
           return { name, klass };
         }
       });
-
-      if (formValues) {
+      
+      if(formValues){
         setStudent(formValues);
-        updateStudentDisplay();
-        SmartNotifications.showWelcome(formValues.name);
+        updateMeta();
         
-        if (elements.quiz) {
-          elements.quiz.style.display = 'block';
-          if (typeof gsap !== 'undefined') {
-            gsap.from("#quiz .q", {opacity:0, y:20, stagger:0.1, duration:0.6});
-          }
-        }
-      }
-    }
-
-    function computeScore() {
-      const questions = document.querySelectorAll('.q[data-qid]');
-      let correct = 0;
-      
-      questions.forEach(q => {
-        const correctChoice = q.querySelector('.choice.correct');
-        if (correctChoice) correct++;
-      });
-      
-      return { correct, total: questions.length };
-    }
-
-    function resetQuiz() {
-      document.querySelectorAll('.choice').forEach(choice => {
-        choice.classList.remove('correct', 'wrong');
-      });
-      
-      if (typeof gsap !== 'undefined') {
-        gsap.from("#quiz .q", {opacity:0, y:20, stagger:0.05, duration:0.5});
-      }
-      
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function submitQuiz() {
-      const student = getStudent();
-      const { correct, total } = computeScore();
-      
-      if (typeof confetti !== 'undefined') {
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.6 }
+        // رسالة ترحيب شخصية
+        const welcomeMessages = [
+          `🔬 أهلاً ${formValues.name}! مرحبًا بك في عالم الخلايا المثير!`,
+          `🧬 مرحبًا ${formValues.name}! ستكتشف اليوم أسرار الخلية وعجائبها`,
+          `✨ أهلاً ${formValues.name}! رحلة مثيرة في عالم الخلايا المجهرية تنتظرك`
+        ];
+        const randomWelcome = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+        
+        Swal.fire({
+          title: '🎓 أهلاً وسهلاً!',
+          text: randomWelcome,
+          icon: 'success',
+          confirmButtonText: '🔬 لننطلق!',
+          timer: 4000,
+          timerProgressBar: true
+        }).then(() => {
+          SoundSystem.play('welcome');
         });
+        
+        el.quiz.style.display = "block";
+        gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6});
       }
-      
-      SmartNotifications.showResult(correct, total, student?.name || 'الطالب/ة');
     }
 
-    // معالج النقرات للاختيارات
-    document.addEventListener('click', (e) => {
-      const choice = e.target.closest('.choice');
-      if (!choice) return;
+    function updateMeta(){
+      const s = getStudent();
+      el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
+    }
 
+    document.addEventListener('click', (e)=>{
+      const choice = e.target.closest('.choice');
+      if(!choice) return;
+      
       const container = choice.closest('.choices');
       const wasAnswered = container.querySelector('.choice.correct, .choice.wrong');
-      
       if (wasAnswered) return;
 
       SoundSystem.play('click');
       
-      // إزالة جميع الحالات السابقة
-      container.querySelectorAll('.choice').forEach(c => {
-        c.classList.remove('correct', 'wrong');
-      });
-
-      // إضافة الحالة الجديدة
-      if (choice.dataset.correct === "true") {
-        choice.classList.add('correct');
+      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      
+      if(choice.dataset.correct === "true"){
+        choice.classList.add('correct'); 
         SoundSystem.play('correct');
-        
-        if (typeof gsap !== 'undefined') {
-          gsap.fromTo(choice, {scale:1}, {scale:1.05, duration:0.3, yoyo:true, repeat:1});
-        }
-      } else {
-        choice.classList.add('wrong');
+        gsap.fromTo(choice, {scale:1}, {scale:1.05, duration:.3, yoyo:true, repeat:1});
+      }else{
+        choice.classList.add('wrong'); 
         SoundSystem.play('wrong');
-        
-        if (typeof gsap !== 'undefined') {
-          gsap.fromTo(choice, {x:0}, {x:-10, duration:0.1, yoyo:true, repeat:3});
-        }
+        gsap.fromTo(choice, {x:0}, {x:-10, duration:.1, yoyo:true, repeat:3});
       }
+      updateProgress();
     });
 
-    // تهيئة الأحداث
-    document.addEventListener('DOMContentLoaded', function() {
-      // تهيئة شريط التقدم
-      const totalQuestions = document.querySelectorAll('.q[data-qid]').length;
-      const countTotal = document.getElementById('countTotal');
-      const countDone = document.getElementById('countDone');
-      const barFill = document.getElementById('barFill');
-      
-      if (countTotal) countTotal.textContent = totalQuestions;
-      if (countDone) countDone.textContent = 0;
-      if (barFill) barFill.style.width = '0%';
-      
+    function computeScore(){
+      const blocks = Array.from(document.querySelectorAll('.q[data-qid]'));
+      let correct = 0;
+      blocks.forEach(b=>{ const sel = b.querySelector('.choice.correct'); if(sel) correct++; });
+      return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
+    }
 
-      // تهيئة شريط التقدم
-      const totalQuestions = document.querySelectorAll('.q[data-qid]').length;
-      const countTotal = document.getElementById('countTotal');
-      const countDone = document.getElementById('countDone');
-      const barFill = document.getElementById('barFill');
-      
-      if (countTotal) countTotal.textContent = totalQuestions;
-      if (countDone) countDone.textContent = 0;
-      if (barFill) barFill.style.width = '0%';
-      
+    function celebrate(){
+      const duration = 2000; const end = Date.now() + duration;
+      (function frame(){
+        confetti({ particleCount: 5, angle: 60, spread: 70, origin: { x: 0 } });
+        confetti({ particleCount: 5, angle: 120, spread: 70, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+      SoundSystem.play('celebration');
+    }
 
-      // تهيئة النظام الصوتي
-      if (typeof Howl !== 'undefined') {
-        SoundSystem.init();
+    el.start.addEventListener('click', askStudent);
+
+    el.submit.addEventListener('click', ()=>{
+      const s = getStudent();
+      const { correct, total, percent } = computeScore();
+      
+      celebrate();
+      
+      // رسائل ذكية حسب الأداء
+      let message, icon, soundType;
+      if (percent >= 90) {
+        message = `🏆 ممتاز ${s?.name}! أداء رائع - ${percent}%`;
+        icon = 'success';
+        soundType = 'celebration';
+      } else if (percent >= 70) {
+        message = `👏 أحسنت ${s?.name}! أداء جيد - ${percent}%`;
+        icon = 'success';
+        soundType = 'correct';
+      } else {
+        message = `💪 استمر ${s?.name}! يمكنك التحسن - ${percent}%`;
+        icon = 'info';
+        soundType = 'complete';
       }
       
-      // تهيئة AOS
-      if (typeof AOS !== 'undefined') {
-        AOS.init({
-          duration: 800,
-          easing: 'ease-out-cubic',
-          once: true
-        });
-      }
-      
-      // ربط الأحداث
-      if (elements.start) {
-        elements.start.addEventListener('click', startQuiz);
-      }
-      
-      if (elements.submit) {
-        elements.submit.addEventListener('click', submitQuiz);
-      }
-      
-      if (elements.reset) {
-        elements.reset.addEventListener('click', resetQuiz);
-      }
-      
-      // تحديث عرض الطالب
-      updateStudentDisplay();
-      
-      console.log('✅ تم تحميل جميع الأنظمة الذكية');
+      Swal.fire({
+        title: 'النتيجة النهائية �',
+        html: `
+          <div style="text-align:right;line-height:2.2;font-size:16px">
+            <div style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;padding:15px;border-radius:12px;margin-bottom:15px">
+              ${message}
+            </div>
+            <div style="background:#f8f9ff;padding:15px;border-radius:10px;border-right:4px solid #667eea">
+              <div><strong>👤 الطالب:</strong> ${s?.name || '-'}</div>
+              <div><strong>🏫 الصف:</strong> ${s?.klass || '-'}</div>
+              <div><strong>📊 النتيجة:</strong> ${correct}/${total} سؤال (${percent}%)</div>
+            </div>
+          </div>`,
+        icon: icon,
+        confirmButtonText: '🔄 إعادة المحاولة',
+        confirmButtonColor: '#10b981',
+        showDenyButton: true,
+        denyButtonText: '🏠 العودة للرئيسية',
+        denyButtonColor: '#d97706'
+      }).then(res=>{ 
+        if(res.isConfirmed) resetQuiz(); 
+        else window.location.href='../../index.html'; 
+      });
     });
+
+    function resetQuiz(){
+      document.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      updateProgress();
+      gsap.from("#quiz .q", {opacity:0, y:10, stagger:.05, duration:.45});
+      window.scrollTo({ top:0, behavior:'smooth' });
+    }
+
+    el.reset.addEventListener('click', resetQuiz);
+
+    // بدء
+    renderQuestions();
+    updateMeta();
+    updateProgress();
   </script>
 <script>
     // ضمان إظهار المحتوى
@@ -828,3 +466,10 @@
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
