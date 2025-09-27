@@ -1,0 +1,492 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <title>🧪 درس 6-1 — الكافيين وزمن الاستجابة</title>
+  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <style>
+    :root{
+      --bg:linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); --card:#ffffff; --muted:#6b7280; --text:#1f2937;
+      --primary:#f59e0b; --primary-2:#d97706; --accent:#ef4444;
+      --success:#10b981; --warn:#f59e0b; --danger:#ef4444; --ring:rgba(245,158,11,.4);
+      --card-shadow:0 20px 40px rgba(0,0,0,.1), 0 8px 16px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background: var(--bg);
+      min-height:100vh;
+      color:var(--text); font-family:"Cairo", system-ui, sans-serif; line-height:1.7; letter-spacing:.2px;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(255,165,0,.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,69,0,.12) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255,20,147,.1) 0%, transparent 50%);
+      z-index: -1; pointer-events: none;
+    }
+    .wrap{max-width:1100px; margin-inline:auto; padding:24px}
+    header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; padding:18px 22px;
+      border:1px solid rgba(255,255,255,.3);
+      background:linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);
+      border-radius:20px; backdrop-filter: blur(10px); position:sticky; top:16px; z-index:10;
+      box-shadow: var(--card-shadow);
+    }
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{width:42px; height:42px; border-radius:12px;
+      background: conic-gradient(from 200deg, var(--primary), var(--accent), #10b981, #3b82f6);
+      box-shadow: 0 8px 24px rgba(245,158,11,.35);
+      animation: logoRotate 20s linear infinite;
+    }
+    @keyframes logoRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .title{font-weight:900; font-size:clamp(20px,3vw,28px)}
+    .subtitle{font-weight:700; font-size:clamp(14px,2vw,16px); color:var(--muted)}
+    .card{
+      background: linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);
+      border:1px solid rgba(255,255,255,.4);
+      border-radius:22px; padding:22px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1); }
+    h1{font-size:clamp(28px,4vw,40px); margin:0 0 6px; font-weight:900;
+       background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
+       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;}
+    h2{font-size:clamp(18px,3vw,22px); margin:10px 0 14px; font-weight:800; color:var(--primary)}
+    p.lead{color:var(--muted); font-size:clamp(15px,2.4vw,18px); margin-top:0}
+    .grid{display:grid; gap:16px}
+    @media (min-width: 840px){ .grid-2{grid-template-columns:1fr 1fr} .grid-3{grid-template-columns:repeat(3,1fr)} }
+    .btn{
+      all:unset; cursor:pointer; padding:14px 18px; border-radius:16px; font-weight:800;
+      border:1px solid rgba(245,158,11,.3);
+      background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+      color:white; box-shadow: 0 8px 24px rgba(245,158,11,.25);
+      transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover{
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(245,158,11,.35);
+      background:linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+    }
+    .btn-ghost{ all:unset; cursor:pointer; padding:12px 14px; border-radius:14px; font-weight:800; color:var(--muted);
+      border:1px dashed rgba(0,0,0,.2); }
+    .pulse{ position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+      background: radial-gradient(600px 200px at 70% 0%, rgba(245,158,11,.12), transparent 60%); filter: blur(10px); }
+    .q{ display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:16px; background:rgba(0,0,0,.03);
+      border:1px solid rgba(0,0,0,.06) }
+    .choices{display:grid; gap:10px}
+    .choice{ display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid rgba(0,0,0,.08);
+      border-radius:14px; background:rgba(0,0,0,.04); cursor:pointer; user-select:none;
+      transition:transform .1s ease, background .2s ease, border .2s ease; }
+    .choice:hover{ transform: translateX(-2px); background:rgba(0,0,0,.06) }
+    .choice.correct{ border-color: rgba(16,185,129,.55); background: rgba(16,185,129,.12) }
+    .choice.wrong{ border-color: rgba(239,68,68,.55); background: rgba(239,68,68,.12) }
+    /* شريط التقدّم */
+    .progress{display:flex; align-items:center; gap:8px; font-weight:800; color:#7c2d12; margin-top:6px}
+    .bar{flex:1; height:8px; background:rgba(0,0,0,.08); border-radius:999px; overflow:hidden}
+    .bar>span{display:block; height:100%; width:0%; background:linear-gradient(90deg,#f59e0b,#d97706); transition:width .25s ease}
+    footer{ margin-top:34px; padding:18px; border-top:1px solid rgba(0,0,0,.08);
+      color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
+    .credit{color:var(--text); font-weight:800}
+    a.card-link{ display:block; text-decoration:none; color:inherit }
+  </style>
+
+</head>
+<body>
+  <div class="wrap">
+    <header class="card" data-aos="fade-down">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div class="title">🧪 درس 6-1 — الكافيين وزمن الاستجابة</div>
+          <div class="subtitle" id="studentMeta">مرحبًا! لنبدأ…</div>
+          <!-- شريط التقدّم -->
+          <div class="progress">
+            <div>التقدّم:</div>
+            <div class="bar"><span id="barFill"></span></div>
+            <div><span id="countDone">0</span>/<span id="countTotal">0</span></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="card" style="margin-top:18px; position:relative" data-aos="zoom-in">
+      <div class="pulse"></div>
+      <h1>🎯 أهداف الدرس</h1>
+      <p class="lead">دراسة تأثير الكافيين على زمن الاستجابة مع ضبط المتغيرات.</p>
+      <ul>
+        <li>تعريف زمن الاستجابة ووحداته.</li>
+        <li>التصميم التجريبي: متغيرات/شاهد/عشوائية/تمويه.</li>
+        <li>جمع البيانات وتمثيلها (متوسط/وسيط/تشتت) والتعامل مع القيم الشاذة.</li>
+      </ul>
+      <div style="display:flex; gap:10px; flex-wrap:wrap">
+        <button id="btnStart" class="btn">ابدأ النشاط</button>
+        <a class="btn-ghost" href="../../index.html">← العودة</a>
+      </div>
+    </section>
+
+    <section id="quiz" class="card" style="margin-top:16px; display:none" data-aos="fade-up">
+      <h2>الأسئلة التفاعلية</h2>
+
+      <!-- 20 سؤال -->
+      <article class="q" data-qid="q1">
+        <div><strong>1) زمن الاستجابة يُقاس عادةً بوحدة:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">المللي ثانية/الثواني</div>
+          <div class="choice" data-correct="false">المتر</div>
+          <div class="choice" data-correct="false">الكيلوغرام</div>
+          <div class="choice" data-correct="false">الدرجة المئوية</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q2">
+        <div><strong>2) في تجربة تأثير الكافيين، المتغيّر المستقل غالبًا هو:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">وجود/جرعة الكافيين</div>
+          <div class="choice" data-correct="false">اسم الطالب</div>
+          <div class="choice" data-correct="false">لون الكوب</div>
+          <div class="choice" data-correct="false">درجة حرارة الفصل</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q3">
+        <div><strong>3) انخفاض زمن الاستجابة يعني أن الأداء أصبح:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">أسرع</div>
+          <div class="choice" data-correct="false">أبطأ</div>
+          <div class="choice" data-correct="false">غير مرتبط</div>
+          <div class="choice" data-correct="false">أسوأ دائمًا</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q4">
+        <div><strong>4) لضمان «اختبار عادل» يجب:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">تثبيت العوامل الأخرى (الوقت/الجهاز/البيئة)</div>
+          <div class="choice" data-correct="false">تغيير أكثر من عامل معًا</div>
+          <div class="choice" data-correct="false">عدم استخدام شاهد</div>
+          <div class="choice" data-correct="false">قياس قراءة واحدة فقط</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q5">
+        <div><strong>5) وجود مجموعة «دواء وهمي» (Placebo) يفيد لأنّه:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">يكشف تأثير التوقع بعيدًا عن تأثير الكافيين الحقيقي</div>
+          <div class="choice" data-correct="false">يزيد جرعة الكافيين</div>
+          <div class="choice" data-correct="false">يقلّل حجم العينة</div>
+          <div class="choice" data-correct="false">يلغي الحاجة للعشوائية</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q6">
+        <div><strong>6) «تمويه مزدوج» (Double-blind) يعني أن:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">لا المشارك ولا القائم بالاختبار يعرف من تناول الكافيين</div>
+          <div class="choice" data-correct="false">المشارك يعرف فقط</div>
+          <div class="choice" data-correct="false">القائم بالاختبار يعرف فقط</div>
+          <div class="choice" data-correct="false">الجميع يعرف</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q7">
+        <div><strong>7) لزيادة الدقة ينبغي:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">أخذ 3–5 قياسات وحساب المتوسط</div>
+          <div class="choice" data-correct="false">الاكتفاء بقياس واحد</div>
+          <div class="choice" data-correct="false">تبديل الأداة كل مرة</div>
+          <div class="choice" data-correct="false">تغيير الإعدادات أثناء القياس</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q8">
+        <div><strong>8) إذا حسّن الكافيين الأداء فنتوقع زمن الاستجابة بعد تناوله أن:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">يقلّ مقارنةً بخط الأساس</div>
+          <div class="choice" data-correct="false">يزداد كثيرًا</div>
+          <div class="choice" data-correct="false">لا يتغيّر أبدًا</div>
+          <div class="choice" data-correct="false">يختفي</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q9">
+        <div><strong>9) عامل مربك (Confounder) محتمل في هذه التجربة هو:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">اختلاف عدد ساعات النوم بين المشاركين</div>
+          <div class="choice" data-correct="false">استخدام نفس الجهاز للجميع</div>
+          <div class="choice" data-correct="false">تسجيل الزمن بالمللي ثانية</div>
+          <div class="choice" data-correct="false">وجود مجموعة شاهد</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q10">
+        <div><strong>10) أفضل تمثيل لجرعة كافيين (ملغم) مقابل زمن الاستجابة هو:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">مخطط مبعثر (Scatter) ويُضاف خط اتجاه</div>
+          <div class="choice" data-correct="false">مخطط دائري</div>
+          <div class="choice" data-correct="false">جدول بلا محاور</div>
+          <div class="choice" data-correct="false">خريطة حرارية للفصل</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q11">
+        <div><strong>11) في بيانات بها قيَم شاذة قليلة، مقياس النزعة الأفضل غالبًا هو:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">الوسيط (Median)</div>
+          <div class="choice" data-correct="false">الوضع فقط</div>
+          <div class="choice" data-correct="false">المدى وحده</div>
+          <div class="choice" data-correct="false">لا حاجة لأي ملخص</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q12">
+        <div><strong>12) عند استخدام «اختبار المسطرة» (سقوط المسطرة بين الأصابع)، المتغير التابع هو:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">الزمن/المسافة المُحوّلة إلى زمن إمساك</div>
+          <div class="choice" data-correct="false">طول المسطرة</div>
+          <div class="choice" data-correct="false">لون المسطرة</div>
+          <div class="choice" data-correct="false">اسم الشركة المصنعة</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q13">
+        <div><strong>13) لضبط تأثير الأجهزة المختلفة على التأخير (Latency) يُفضّل:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">استخدام نفس الجهاز/المتصفح لجميع المشاركين</div>
+          <div class="choice" data-correct="false">مزج كل الأجهزة عشوائيًا</div>
+          <div class="choice" data-correct="false">تغيير الجهاز أثناء القياس</div>
+          <div class="choice" data-correct="false">عدم تسجيل نوع الجهاز</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q14">
+        <div><strong>14) لتقليل تحيز الاختيار ينبغي:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">التوزيع العشوائي على المجموعات</div>
+          <div class="choice" data-correct="false">اختيار أصدقاء الباحث فقط</div>
+          <div class="choice" data-correct="false">السماح للمشارك باختيار مجموعته</div>
+          <div class="choice" data-correct="false">استبعاد البيانات المخالفة</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q15">
+        <div><strong>15) قبل «القياس الأساسي» يُفضّل أن يكون المشارك:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">متجنبًا للكافيين لفترة متفق عليها</div>
+          <div class="choice" data-correct="false">متناولًا جرعات متعددة</div>
+          <div class="choice" data-correct="false">غير نائم ليلًا</div>
+          <div class="choice" data-correct="false">صائمًا عن الماء</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q16">
+        <div><strong>16) جرعة الكافيين المعبَّر عنها بالملغم تُعد متغيرًا:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">كمّيًا مستمرًا/منفصلًا (عددي)</div>
+          <div class="choice" data-correct="false">اسميًا (فئويًا بلا ترتيب)</div>
+          <div class="choice" data-correct="false">زمنيًا دوريًا فقط</div>
+          <div class="choice" data-correct="false">ثنائيًا دائمًا</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q17">
+        <div><strong>17) عند ظهور قيمة شاذة واحدة كبيرة، الإجراء الأفضل أولًا هو:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">التحقق من الخطأ وإعادة القياس ثم التوثيق</div>
+          <div class="choice" data-correct="false">حذفها فورًا دون سبب</div>
+          <div class="choice" data-correct="false">تغيير الفرضية</div>
+          <div class="choice" data-correct="false">إيقاف التجربة نهائيًا</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q18">
+        <div><strong>18) صياغة فرضية مناسبة للتجربة هي:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">إذا تناول المشاركون كافيينًا فسينخفض متوسط زمن الاستجابة</div>
+          <div class="choice" data-correct="false">الكافيين مفيد دائمًا لكل شيء</div>
+          <div class="choice" data-correct="false">لا يمكن قياس الاستجابة</div>
+          <div class="choice" data-correct="false">سيزداد الزمن بلا سبب</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q19">
+        <div><strong>19) اعتبار أخلاقي مهم في المدرسة هو أن:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">لا تُعطى أي مشروبات منبِّهة إلا بموافقة ولي الأمر/الإدارة</div>
+          <div class="choice" data-correct="false">لا حاجة لأي موافقات</div>
+          <div class="choice" data-correct="false">يجب إعطاء جرعات عالية للجميع</div>
+          <div class="choice" data-correct="false">تجاهل الحالات الصحية الخاصة</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q20">
+        <div><strong>20) إذا اعتقد بعض الطلاب أنهم تناولوا كافيينًا رغم أنهم لم يتناولوه، فقد يتحسن أداؤهم بسبب:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">تأثير الدواء الوهمي (Placebo)</div>
+          <div class="choice" data-correct="false">الخطأ الصفري للأداة فقط</div>
+          <div class="choice" data-correct="false">انعدام العشوائية دائمًا</div>
+          <div class="choice" data-correct="false">الضوضاء البيضاء</div>
+        </div>
+      </article>
+
+      <div style="display:flex; gap:10px; margin-top:8px">
+        <button id="btnSubmit" class="btn">إنهاء النشاط</button>
+        <button id="btnReset" class="btn-ghost">إعادة تعيين</button>
+      </div>
+    </section>
+
+    <footer class="card" data-aos="fade-up" data-aos-delay="50">
+      <div><span class="credit">🎨 تصميم: الوتين الضامرية |لمار السيابية|مها المعمرية|مريم محمود البلوشية|مريم وائل البلوشية| — 🏫 مدرسة عاتكة بنت زيد — تحت إشراف الأستاذة سامية 👩‍🏫</span></div>
+      <div>© انشطة تعليمية الوتين 🌟</div>
+    </footer>
+  </div>
+
+  <script>
+    AOS.init({ duration: 700, once: true });
+
+    const el = {
+      start: document.getElementById('btnStart'),
+      quiz: document.getElementById('quiz'),
+      submit: document.getElementById('btnSubmit'),
+      reset: document.getElementById('btnReset'),
+      meta: document.getElementById('studentMeta'),
+      bar: document.getElementById('barFill'),
+      done: document.getElementById('countDone'),
+      total: document.getElementById('countTotal')
+    };
+
+    const storageKey = "watyn_bio_student";
+    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
+    function setStudent(obj){ localStorage.setItem(storageKey, JSON.stringify(obj)); }
+
+    async function askStudent(){
+      const { value: formValues } = await Swal.fire({
+        title: 'مرحبًا 👋',
+        html:
+          `<div style="text-align:right">
+            <div style="margin-bottom:8px;font-weight:700">أدخل بياناتك لبدء النشاط:</div>
+            <input id="swal-name" class="swal2-input" placeholder="اسم الطالب/ـة">
+            <input id="swal-class" class="swal2-input" placeholder="الصف (مثال: التاسع/1)">
+          </div>`,
+        focusConfirm: false,
+        confirmButtonText: 'ابدأ',
+        confirmButtonColor: '#d97706',
+        showCancelButton: true,
+        cancelButtonText: 'إلغاء',
+        preConfirm: () => {
+          const name = document.getElementById('swal-name').value?.trim();
+          const klass = document.getElementById('swal-class').value?.trim();
+          if(!name || !klass){
+            Swal.showValidationMessage('يرجى إدخال الاسم والصف');
+            return false;
+          }
+          return { name, klass };
+        }
+      });
+      if(formValues){
+        setStudent(formValues);
+        updateMeta();
+        el.quiz.style.display = "block";
+        gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.5});
+        // تهيئة شريط التقدّم
+        document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
+        document.getElementById('countDone').textContent = 0;
+        el.bar.style.width = '0%';
+      }
+    }
+
+    function updateMeta(){
+      const s = getStudent();
+      el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
+    }
+
+    // شريط التقدّم: أي اختيار (صحيح أو خاطئ) يُعد إجابة
+    function updateProgress(){
+      const total = document.querySelectorAll('.q[data-qid]').length;
+      const answered = Array.from(document.querySelectorAll('.q')).filter(q =>
+        q.querySelector('.choice.correct, .choice.wrong')
+      ).length;
+      el.total.textContent = total;
+      el.done.textContent = answered;
+      el.bar.style.width = Math.round((answered/total)*100) + '%';
+    }
+
+    document.addEventListener('click', (e)=>{
+      const choice = e.target.closest('.choice');
+      if(!choice) return;
+      const container = choice.closest('.choices');
+      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      if(choice.dataset.correct === "true"){
+        choice.classList.add('correct');
+        gsap.fromTo(choice, {scale:1}, {scale:1.03, y:-2, duration:.18, yoyo:true, repeat:1});
+      }else{
+        choice.classList.add('wrong');
+        gsap.fromTo(choice, {x:0}, {x:-6, duration:.06, yoyo:true, repeat:5});
+      }
+      updateProgress();
+    });
+
+    function computeScore(){
+      const blocks = Array.from(document.querySelectorAll('.q[data-qid]'));
+      let correct = 0;
+      blocks.forEach(b=>{ if(b.querySelector('.choice.correct')) correct++; });
+      return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
+    }
+
+    function celebrate(){
+      const duration = 1500; const end = Date.now() + duration;
+      (function frame(){
+        confetti({ particleCount: 3, angle: 60, spread: 70, origin: { x: 0 } });
+        confetti({ particleCount: 3, angle: 120, spread: 70, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
+
+    el.start.addEventListener('click', askStudent);
+
+    el.submit.addEventListener('click', ()=>{
+      const s = getStudent();
+      const { correct, total, percent } = computeScore();
+      celebrate();
+      Swal.fire({
+        title: 'أحسنت يا بطل/ة! 🎉',
+        html: `
+          <div style="text-align:right;line-height:1.9">
+            <div><strong>الاسم:</strong> ${s?.name || '-'} </div>
+            <div><strong>الصف:</strong> ${s?.klass || '-'} </div>
+            <div><strong>درجتك:</strong> ${correct} / ${total} — <strong>${percent}%</strong></div>
+          </div>`,
+        icon: 'success',
+        confirmButtonText: 'إعادة المحاولة',
+        confirmButtonColor: '#10b981',
+        showDenyButton: true,
+        denyButtonText: 'العودة',
+        denyButtonColor: '#d97706'
+      }).then(res=>{ if(res.isConfirmed) resetQuiz(); });
+    });
+
+    function resetQuiz(){
+      document.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.45});
+      window.scrollTo({ top:0, behavior:'smooth' });
+      el.done.textContent = 0; el.bar.style.width = '0%';
+    }
+
+    // تهيئة أولية
+    updateMeta();
+    document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
+  </script>
+</body>
+</html>

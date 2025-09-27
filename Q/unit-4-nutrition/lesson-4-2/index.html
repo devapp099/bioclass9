@@ -1,0 +1,455 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <title>🧪 درس 4-2 — امتصاص فيتامين د (20 سؤالًا)</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <style>
+    :root{
+      --bg:linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); --card:#ffffff; --muted:#6b7280; --text:#1f2937;
+      --primary:#f59e0b; --primary-2:#d97706; --accent:#ef4444;
+      --success:#10b981; --warn:#f59e0b; --danger:#ef4444; --ring:rgba(245,158,11,.4);
+      --card-shadow:0 20px 40px rgba(0,0,0,.1), 0 8px 16px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background: var(--bg);
+      min-height:100vh; color:var(--text); font-family:"Cairo", system-ui, sans-serif; line-height:1.7; letter-spacing:.2px;
+      position: relative;
+    }
+    body::before { content:''; position:fixed; inset:0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(255,165,0,.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,69,0,.12) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255,20,147,.1) 0%, transparent 50%);
+      z-index:-1; pointer-events:none;
+    }
+    .wrap{max-width:1100px; margin-inline:auto; padding:24px}
+    header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; padding:18px 22px;
+      border:1px solid rgba(255,255,255,.3);
+      background:linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);
+      border-radius:20px; backdrop-filter: blur(10px); position:sticky; top:16px; z-index:10;
+      box-shadow: var(--card-shadow);
+    }
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{width:42px; height:42px; border-radius:12px;
+      background: conic-gradient(from 200deg, var(--primary), var(--accent), #10b981, #3b82f6);
+      box-shadow: 0 8px 24px rgba(245,158,11,.35);
+      animation:spin 20s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .title{font-weight:900; font-size:clamp(20px,3vw,28px)}
+    .subtitle{font-weight:700; font-size:clamp(14px,2vw,16px); color:var(--muted)}
+    .card{
+      background: linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);
+      border:1px solid rgba(255,255,255,.4); border-radius:22px; padding:22px; box-shadow: var(--card-shadow);
+      transition: all .3s ease;
+    }
+    .card:hover{ transform:translateY(-6px); box-shadow:0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1) }
+    h1{font-size:clamp(28px,4vw,40px); margin:0 0 6px; font-weight:900;
+      background:linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;}
+    h2{font-size:clamp(18px,3vw,22px); margin:10px 0 14px; font-weight:800; color:var(--primary)}
+    p.lead{color:var(--muted); font-size:clamp(15px,2.4vw,18px); margin-top:0}
+    .btn{
+      all:unset; cursor:pointer; padding:14px 18px; border-radius:16px; font-weight:800;
+      border:1px solid rgba(245,158,11,.3);
+      background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%); color:#fff;
+      box-shadow:0 8px 24px rgba(245,158,11,.25);
+      transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover{ transform:translateY(-3px) scale(1.02); box-shadow:0 15px 35px rgba(245,158,11,.35);
+      background:linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%); }
+    .btn-ghost{ all:unset; cursor:pointer; padding:12px 14px; border-radius:14px; font-weight:800; color:var(--muted);
+      border:1px dashed rgba(0,0,0,.2) }
+    .q{ display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:16px; background:rgba(0,0,0,.03);
+      border:1px solid rgba(0,0,0,.06) }
+    .choices{display:grid; gap:10px}
+    .choice{ display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid rgba(0,0,0,.08);
+      border-radius:14px; background:rgba(0,0,0,.04); cursor:pointer; user-select:none;
+      transition:transform .1s ease, background .2s ease, border .2s ease; }
+    .choice:hover{ transform: translateX(-2px); background:rgba(0,0,0,.06) }
+    .choice.correct{ border-color: rgba(16,185,129,.55); background: rgba(16,185,129,.12) }
+    .choice.wrong{ border-color: rgba(239,68,68,.55); background: rgba(239,68,68,.12) }
+    /* شريط التقدّم */
+    .progress{display:flex; align-items:center; gap:8px; font-weight:800; color:#7c2d12; margin-top:6px}
+    .bar{flex:1; height:8px; background:rgba(0,0,0,.08); border-radius:999px; overflow:hidden}
+    .bar>span{display:block; height:100%; width:0%; background:linear-gradient(90deg,#f59e0b,#d97706); transition:width .25s ease}
+    footer{ margin-top:34px; padding:18px; border-top:1px solid rgba(0,0,0,.08);
+      color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
+    .credit{color:var(--text); font-weight:800}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="card" data-aos="fade-down">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div class="title">🧪 درس 4-2 — امتصاص فيتامين د</div>
+          <div class="subtitle" id="studentMeta">مرحبًا! لنبدأ…</div>
+          <div class="progress">
+            <div>التقدّم:</div>
+            <div class="bar"><span id="barFill"></span></div>
+            <div><span id="countDone">0</span>/<span id="countTotal">0</span></div>
+          </div>
+        </div>
+      </div>
+      <a class="btn-ghost" href="../../index.html">← العودة</a>
+    </header>
+
+    <section class="card" style="margin-top:18px; position:relative" data-aos="zoom-in">
+      <div class="pulse"></div>
+      <h1>🎯 أهداف الدرس</h1>
+      <p class="lead">العوامل التي تؤثر في تصنيع/امتصاص فيتامين (د)، وأهم المصادر، وكيفية الحفاظ على عظام صحية.</p>
+      <ul>
+        <li>التعرّض الآمن لأشعة UVB وعوامل تقلله أو تعززه.</li>
+        <li>مصادر غذائية وفيتامين (د) كمُغذٍّ ذائب في الدهن.</li>
+        <li>مواقف يومية تؤثر في الحالة الغذائية لفيتامين (د).</li>
+      </ul>
+      <div style="display:flex; gap:10px; flex-wrap:wrap">
+        <button id="btnStart" class="btn">ابدأ النشاط</button>
+      </div>
+    </section>
+
+    <section id="quiz" class="card" style="margin-top:16px; display:none" data-aos="fade-up">
+      <h2>الأسئلة التفاعلية</h2>
+
+      <!-- 1-14 (كما كانت) -->
+      <article class="q" data-qid="q1"><div><strong>1) ينتج الجسم فيتامين (د) عند التعرّض لـ:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">أشعة UVB من الشمس</div>
+          <div class="choice" data-correct="false">أشعة الراديو</div>
+          <div class="choice" data-correct="false">الأشعة السينية</div>
+          <div class="choice" data-correct="false">الليزر الأحمر فقط</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q2"><div><strong>2) عامل يُقلّل تصنيع فيتامين (د) في الجلد:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">الملابس السميكة وتغطية واسعة</div>
+          <div class="choice" data-correct="false">كشف الذراعين والساقين لفترة معتدلة</div>
+          <div class="choice" data-correct="false">المشي في الهواء الطلق</div>
+          <div class="choice" data-correct="false">تعرّض قصير لأشعة الظهيرة</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q3"><div><strong>3) أفضل وقت يومي لوصول UVB إلى الجلد عادةً:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">قرب منتصف النهار (عندما تكون الظلال أقصر)</div>
+          <div class="choice" data-correct="false">عند الشروق فقط</div>
+          <div class="choice" data-correct="false">قبيل الغروب فقط</div>
+          <div class="choice" data-correct="false">لا يهم الوقت</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q4"><div><strong>4) الجلد الأغمق (ميلانين أعلى) يعني غالبًا أنه يحتاج:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">زمن تعرّض أطول للحصول على نفس الكمية</div>
+          <div class="choice" data-correct="false">زمنًا أقصر دومًا</div>
+          <div class="choice" data-correct="false">لا فرق إطلاقًا</div>
+          <div class="choice" data-correct="false">تعرّضًا خلف الزجاج</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q5"><div><strong>5) الزجاج في النوافذ:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">يحجب معظم UVB فلا يكفي للتصنيع</div>
+          <div class="choice" data-correct="false">يزيد UVB</div>
+          <div class="choice" data-correct="false">لا يغيّر شيئًا</div>
+          <div class="choice" data-correct="false">يحوّل UVB إلى فيتامين (د)</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q6"><div><strong>6) عامل جغرافي يقلل وصول UVB:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">العرض الجغرافي العالي/فصل الشتاء</div>
+          <div class="choice" data-correct="false">المناطق الاستوائية دائمًا</div>
+          <div class="choice" data-correct="false">المدينة عند الظهيرة صيفًا</div>
+          <div class="choice" data-correct="false">السماء صافية ومدّة قصيرة</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q7"><div><strong>7) استخدام واقٍ شمسي عالي الحماية (SPF):</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">قد يقلّل تصنيع فيتامين (د) عند استخدامه على كامل الجلد</div>
+          <div class="choice" data-correct="false">يزيد تصنيع فيتامين (د)</div>
+          <div class="choice" data-correct="false">لا يؤثر في UVB</div>
+          <div class="choice" data-correct="false">يمنع امتصاص الكالسيوم مباشرةً</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q8"><div><strong>8) من المصادر الغذائية الجيدة لفيتامين (د):</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">الأسماك الدهنية/زيت كبد الحوت/أطعمة مُدعّمة</div>
+          <div class="choice" data-correct="false">الخس فقط</div>
+          <div class="choice" data-correct="false">الأرز الأبيض</div>
+          <div class="choice" data-correct="false">الماء</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q9"><div><strong>9) امتصاص فيتامين (د) من الغذاء يكون أفضل عند تناوله مع:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">كمية دهون صحّية (لأنه ذائب في الدهن)</div>
+          <div class="choice" data-correct="false">الماء فقط</div>
+          <div class="choice" data-correct="false">الألياف العالية دائمًا</div>
+          <div class="choice" data-correct="false">الثلج</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q10"><div><strong>10) نقص فيتامين (د) قد يؤثر على:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">امتصاص الكالسيوم وصحة العظام</div>
+          <div class="choice" data-correct="false">السمع مباشرة</div>
+          <div class="choice" data-correct="false">لون العين</div>
+          <div class="choice" data-correct="false">طول الشعر</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q11"><div><strong>11) أي عبارة أدقّ؟</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">فيتامين (د) من الفيتامينات الذائبة في الدهن</div>
+          <div class="choice" data-correct="false">مركّب ذائب في الماء دومًا</div>
+          <div class="choice" data-correct="false">إنزيم هضمي</div>
+          <div class="choice" data-correct="false">هرمون درقي</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q12"><div><strong>12) من الفئات الأكثر عرضة لنقص فيتامين (د):</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">كبار السن/قليل التعرّض للشمس/تغطية كاملة للجلد</div>
+          <div class="choice" data-correct="false">من يعيش في الاستواء مع تعرّض يومي</div>
+          <div class="choice" data-correct="false">السبّاحون في الهواء الطلق ظهرًا</div>
+          <div class="choice" data-correct="false">العمال في الشمس الاستوائية</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q13"><div><strong>13) أيهما صحيح بخصوص الجرعات العالية جدًا من المكمّلات؟</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">الزيادة المفرطة قد تضرّ، بخلاف التعرّض المعتدل للشمس</div>
+          <div class="choice" data-correct="false">لا ضرر إطلاقًا مهما كانت الكمية</div>
+          <div class="choice" data-correct="false">الشمس دائمًا خطرة حتى تعرّض قصير</div>
+          <div class="choice" data-correct="false">لا علاقة لفيتامين (د) بالكالسيوم</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q14"><div><strong>14) ما الذي يزيد الاستفادة من الشمس لصنع فيتامين (د) بأمان؟</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">تعرّض معتدل غير مُحرق للذراعين/الساقين ثم حماية لاحقًا</div>
+          <div class="choice" data-correct="false">التعرّض الطويل حتى الاحتراق</div>
+          <div class="choice" data-correct="false">البقاء خلف زجاج النافذة</div>
+          <div class="choice" data-correct="false">التعرّض ليلًا</div>
+        </div>
+      </article>
+
+      <!-- 15-20 الإضافية -->
+      <article class="q" data-qid="q15"><div><strong>15) كلما كانت مساحة الجلد المكشوف أكبر (بدون حروق):</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">زاد تصنيع فيتامين (د) خلال زمن التعرّض نفسه</div>
+          <div class="choice" data-correct="false">قلّ تصنيع فيتامين (د)</div>
+          <div class="choice" data-correct="false">لا علاقة لمساحة الجلد</div>
+          <div class="choice" data-correct="false">يتحوّل UVB إلى UVA</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q16"><div><strong>16) يتحوّل فيتامين (د) في الجسم عبر خطوتين أساسيتين:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">أولًا في الكبد ثم يُنشَّط في الكلى</div>
+          <div class="choice" data-correct="false">يُنشّطه الجلد فقط</div>
+          <div class="choice" data-correct="false">الأمعاء فقط</div>
+          <div class="choice" data-correct="false">لا يحتاج أي تحوّل</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q17"><div><strong>17) من الحالات التي قد تتطلّب متابعة طبية لجرعات المكمّلات:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">السمنة أو مشكلات سوء الامتصاص/أمراض الكلى</div>
+          <div class="choice" data-correct="false">الصحّة الممتازة ودمج الشمس والغذاء دائمًا</div>
+          <div class="choice" data-correct="false">كل شخص دون استثناء</div>
+          <div class="choice" data-correct="false">لا أحد مطلقًا</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q18"><div><strong>18) علامة شائعة لنقص فيتامين (د) عند البالغين:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">آلام العظام/ضعف العضلات والإرهاق</div>
+          <div class="choice" data-correct="false">تحسّن الرؤية ليلًا</div>
+          <div class="choice" data-correct="false">نزلة برد فورية دائمًا</div>
+          <div class="choice" data-correct="false">ازدياد الطول بسرعة</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q19"><div><strong>19) يعيش طالب في منطقة عالية العرض الجغرافي شتاءً؛ الأنسب للحفاظ على المستوى:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">الاعتماد على أطعمة مُدعّمة/مكمّلات بجرعات مناسبة بإشراف</div>
+          <div class="choice" data-correct="false">التعرّض الطويل في البرد حتى الاحتراق</div>
+          <div class="choice" data-correct="false">البقاء داخل المنزل قرب النافذة</div>
+          <div class="choice" data-correct="false">إيقاف الكالسيوم بالكامل</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q20"><div><strong>20) أي العبارة أدقّ بخصوص نوع المكمّل:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">فيتامين D3 شائع وفعّال لرفع المستوى مقارنة بـ D2</div>
+          <div class="choice" data-correct="false">D2 وD3 ليسا فيتامينين</div>
+          <div class="choice" data-correct="false">D3 غير مناسب أبدًا</div>
+          <div class="choice" data-correct="false">النوع لا يهم إطلاقًا لكل الناس</div>
+        </div>
+      </article>
+
+      <div style="display:flex; gap:10px; margin-top:8px">
+        <button id="btnSubmit" class="btn">إنهاء النشاط</button>
+        <button id="btnReset" class="btn-ghost">إعادة تعيين</button>
+      </div>
+    </section>
+
+    <footer class="card" data-aos="fade-up" data-aos-delay="50">
+      <div><span class="credit">🎨 تصميم: الوتين الضامرية |لمار السيابية|مها المعمرية|مريم محمود البلوشية|مريم وائل البلوشية| — 🏫 مدرسة عاتكة بنت زيد — بإشراف الأستاذة سامية 👩‍🏫</span></div>
+      <div>© انشطة تعليمية الوتين 🌟</div>
+    </footer>
+  </div>
+
+  <script>
+    AOS.init({ duration: 700, once: true });
+
+    const el = {
+      start: document.getElementById('btnStart'),
+      quiz: document.getElementById('quiz'),
+      submit: document.getElementById('btnSubmit'),
+      reset: document.getElementById('btnReset'),
+      meta: document.getElementById('studentMeta'),
+      bar: document.getElementById('barFill'),
+      done: document.getElementById('countDone'),
+      total: document.getElementById('countTotal')
+    };
+
+    const storageKey = "watyn_bio_student";
+    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
+    function setStudent(obj){ localStorage.setItem(storageKey, JSON.stringify(obj)); }
+
+    async function askStudent(){
+      const { value: formValues } = await Swal.fire({
+        title: 'مرحبًا 👋',
+        html:
+          `<div style="text-align:right">
+            <div style="margin-bottom:8px;font-weight:700">أدخل بياناتك لبدء النشاط:</div>
+            <input id="swal-name" class="swal2-input" placeholder="اسم الطالب/ـة">
+            <input id="swal-class" class="swal2-input" placeholder="الصف (مثال: التاسع/1)">
+          </div>`,
+        focusConfirm: false,
+        confirmButtonText: 'ابدأ',
+        confirmButtonColor: '#d97706',
+        showCancelButton: true,
+        cancelButtonText: 'إلغاء',
+        preConfirm: () => {
+          const name = document.getElementById('swal-name').value?.trim();
+          const klass = document.getElementById('swal-class').value?.trim();
+          if(!name || !klass){
+            Swal.showValidationMessage('يرجى إدخال الاسم والصف');
+            return false;
+          }
+          return { name, klass };
+        }
+      });
+      if(formValues){
+        setStudent(formValues);
+        updateMeta();
+        el.quiz.style.display = "block";
+        gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.5});
+        document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
+        document.getElementById('countDone').textContent = 0;
+        el.bar.style.width = '0%';
+      }
+    }
+
+    function updateMeta(){
+      const s = getStudent();
+      el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
+    }
+
+    // تقدّم: أي اختيار = إجابة
+    function updateProgress(){
+      const total = document.querySelectorAll('.q[data-qid]').length;
+      const answered = Array.from(document.querySelectorAll('.q[data-qid]')).filter(q =>
+        q.querySelector('.choice.correct, .choice.wrong')
+      ).length;
+      el.total.textContent = total;
+      el.done.textContent = answered;
+      el.bar.style.width = Math.round((answered/total)*100) + '%';
+    }
+
+    document.addEventListener('click', (e)=>{
+      const choice = e.target.closest('.choice');
+      if(!choice) return;
+      const container = choice.closest('.choices');
+      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      if(choice.dataset.correct === "true"){
+        choice.classList.add('correct');
+        gsap.fromTo(choice, {scale:1}, {scale:1.03, y:-2, duration:.18, yoyo:true, repeat:1});
+      }else{
+        choice.classList.add('wrong');
+        gsap.fromTo(choice, {x:0}, {x:-6, duration:.06, yoyo:true, repeat:5});
+      }
+      updateProgress();
+    });
+
+    function computeScore(){
+      const blocks = Array.from(document.querySelectorAll('.q[data-qid]'));
+      let correct = 0;
+      blocks.forEach(b=>{ if(b.querySelector('.choice.correct')) correct++; });
+      return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
+    }
+
+    function celebrate(){
+      const duration = 1500; const end = Date.now() + duration;
+      (function frame(){
+        confetti({ particleCount: 3, angle: 60, spread: 70, origin: { x: 0 } });
+        confetti({ particleCount: 3, angle: 120, spread: 70, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
+
+    el.start.addEventListener('click', askStudent);
+
+    el.submit.addEventListener('click', ()=>{
+      const s = getStudent();
+      const { correct, total, percent } = computeScore();
+      celebrate();
+      Swal.fire({
+        title: 'أحسنت يا بطل/ة! 🎉',
+        html: `
+          <div style="text-align:right;line-height:1.9">
+            <div><strong>الاسم:</strong> ${s?.name || '-'} </div>
+            <div><strong>الصف:</strong> ${s?.klass || '-'} </div>
+            <div><strong>درجتك:</strong> ${correct} / ${total} — <strong>${percent}%</strong></div>
+          </div>`,
+        icon: 'success',
+        confirmButtonText: 'إعادة المحاولة',
+        confirmButtonColor: '#10b981',
+        showDenyButton: true,
+        denyButtonText: 'العودة',
+        denyButtonColor: '#d97706'
+      }).then(res=>{ if(res.isConfirmed) resetQuiz(); });
+    });
+
+    function resetQuiz(){
+      document.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.45});
+      window.scrollTo({ top:0, behavior:'smooth' });
+      el.done.textContent = 0; el.bar.style.width = '0%';
+    }
+
+    // تهيئة عدّاد الأسئلة
+    updateMeta();
+    document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
+  </script>
+</body>
+</html>

@@ -1,0 +1,491 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <title>🧪 درس 5-1 — تأثير الحرارة على معدل التنفس</title>
+  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <style>
+    :root{
+      --bg:linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); --card:#ffffff; --muted:#6b7280; --text:#1f2937;
+      --primary:#f59e0b; --primary-2:#d97706; --accent:#ef4444;
+      --success:#10b981; --warn:#f59e0b; --danger:#ef4444; --ring:rgba(245,158,11,.4);
+      --card-shadow:0 20px 40px rgba(0,0,0,.1), 0 8px 16px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background: var(--bg);
+      min-height:100vh;
+      color:var(--text); font-family:"Cairo", system-ui, sans-serif; line-height:1.7; letter-spacing:.2px;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(255,165,0,.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,69,0,.12) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255,20,147,.1) 0%, transparent 50%);
+      z-index: -1; pointer-events: none;
+    }
+    .wrap{max-width:1100px; margin-inline:auto; padding:24px}
+    header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; padding:18px 22px;
+      border:1px solid rgba(255,255,255,.3);
+      background:linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);
+      border-radius:20px; backdrop-filter: blur(10px); position:sticky; top:16px; z-index:10;
+      box-shadow: var(--card-shadow);
+    }
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{width:42px; height:42px; border-radius:12px;
+      background: conic-gradient(from 200deg, var(--primary), var(--accent), #10b981, #3b82f6);
+      box-shadow: 0 8px 24px rgba(245,158,11,.35);
+      animation: logoRotate 20s linear infinite;
+    }
+    @keyframes logoRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .title{font-weight:900; font-size:clamp(20px,3vw,28px)}
+    .subtitle{font-weight:700; font-size:clamp(14px,2vw,16px); color:var(--muted)}
+    .card{
+      background: linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);
+      border:1px solid rgba(255,255,255,.4);
+      border-radius:22px; padding:22px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1); }
+    h1{font-size:clamp(28px,4vw,40px); margin:0 0 6px; font-weight:900;
+       background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
+       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;}
+    h2{font-size:clamp(18px,3vw,22px); margin:10px 0 14px; font-weight:800; color:var(--primary)}
+    p.lead{color:var(--muted); font-size:clamp(15px,2.4vw,18px); margin-top:0}
+    .grid{display:grid; gap:16px}
+    @media (min-width: 840px){ .grid-2{grid-template-columns:1fr 1fr} .grid-3{grid-template-columns:repeat(3,1fr)} }
+    .btn{
+      all:unset; cursor:pointer; padding:14px 18px; border-radius:16px; font-weight:800;
+      border:1px solid rgba(245,158,11,.3);
+      background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+      color:white; box-shadow: 0 8px 24px rgba(245,158,11,.25);
+      transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover{
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(245,158,11,.35);
+      background:linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+    }
+    .btn-ghost{ all:unset; cursor:pointer; padding:12px 14px; border-radius:14px; font-weight:800; color:var(--muted);
+      border:1px dashed rgba(0,0,0,.2); }
+    .pulse{ position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+      background: radial-gradient(600px 200px at 70% 0%, rgba(245,158,11,.12), transparent 60%); filter: blur(10px); }
+    .q{ display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:16px; background:rgba(0,0,0,.03);
+      border:1px solid rgba(0,0,0,.06) }
+    .choices{display:grid; gap:10px}
+    .choice{ display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid rgba(0,0,0,.08);
+      border-radius:14px; background:rgba(0,0,0,.04); cursor:pointer; user-select:none;
+      transition:transform .1s ease, background .2s ease, border .2s ease; }
+    .choice:hover{ transform: translateX(-2px); background:rgba(0,0,0,.06) }
+    .choice.correct{ border-color: rgba(16,185,129,.55); background: rgba(16,185,129,.12) }
+    .choice.wrong{ border-color: rgba(239,68,68,.55); background: rgba(239,68,68,.12) }
+    /* شريط التقدّم */
+    .progress{display:flex; align-items:center; gap:8px; font-weight:800; color:#7c2d12; margin-top:6px}
+    .bar{flex:1; height:8px; background:rgba(0,0,0,.08); border-radius:999px; overflow:hidden}
+    .bar>span{display:block; height:100%; width:0%; background:linear-gradient(90deg,#f59e0b,#d97706); transition:width .25s ease}
+    footer{ margin-top:34px; padding:18px; border-top:1px solid rgba(0,0,0,.08);
+      color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
+    .credit{color:var(--text); font-weight:800}
+    a.card-link{ display:block; text-decoration:none; color:inherit }
+  </style>
+
+</head>
+<body>
+  <div class="wrap">
+    <header class="card" data-aos="fade-down">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div class="title">🧪 درس 5-1 — تأثير الحرارة على معدل التنفس</div>
+          <div class="subtitle" id="studentMeta">مرحبًا! لنبدأ…</div>
+          <!-- شريط التقدّم -->
+          <div class="progress">
+            <div>التقدّم:</div>
+            <div class="bar"><span id="barFill"></span></div>
+            <div><span id="countDone">0</span>/<span id="countTotal">0</span></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="card" style="margin-top:18px; position:relative" data-aos="zoom-in">
+      <div class="pulse"></div>
+      <h1>🎯 أهداف الدرس</h1>
+      <p class="lead">قياس معدل التنفس في بذور منبتة وتأثير درجة الحرارة.</p>
+      <ul>
+        <li>تعريف التنفس الهوائي ومعادلته.</li>
+        <li>تأثير الحرارة على معدل استهلاك الأكسجين/إنتاج ثاني أكسيد الكربون.</li>
+        <li>فكرة الريزبيرومتر وضبط المتغيرات والشاهد.</li>
+      </ul>
+      <div style="display:flex; gap:10px; flex-wrap:wrap">
+        <button id="btnStart" class="btn">ابدأ النشاط</button>
+        <a class="btn-ghost" href="../../index.html">← العودة</a>
+      </div>
+    </section>
+
+    <section id="quiz" class="card" style="margin-top:16px; display:none" data-aos="fade-up">
+      <h2>الأسئلة التفاعلية</h2>
+
+      <!-- 20 سؤال -->
+      <article class="q" data-qid="q1">
+        <div><strong>1) التنفس الهوائي معادلته العامة تشمل:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">غلوكوز + O₂ → CO₂ + ماء + طاقة (ATP)</div>
+          <div class="choice" data-correct="false">نشا + ماء → غلوكوز</div>
+          <div class="choice" data-correct="false">دهون → أحماض أمينية</div>
+          <div class="choice" data-correct="false">CO₂ + ماء → غلوكوز + O₂</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q2">
+        <div><strong>2) يرتفع معدل التنفس عادةً مع:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">ارتفاع معتدل في الحرارة حتى حدّ أمثل</div>
+          <div class="choice" data-correct="false">انخفاض الحرارة فقط</div>
+          <div class="choice" data-correct="false">عدم تأثره بالحرارة</div>
+          <div class="choice" data-correct="false">انعدام الأكسجين</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q3">
+        <div><strong>3) في ريزبيرومتر للبذور المنبتة، أي ملاحظة تدل على زيادة التنفس؟</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="false">ثبات المؤشِّر</div>
+          <div class="choice" data-correct="true">تحرّك المؤشِّر نحو الداخل (استهلاك O₂)</div>
+          <div class="choice" data-correct="false">انخفاض حرارة الحمّام المائي</div>
+          <div class="choice" data-correct="false">اختفاء الماء من الجهاز</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q4">
+        <div><strong>4) التنفس اللاهوائي في العضلات ينتج:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="false">كحول إيثيلي فقط</div>
+          <div class="choice" data-correct="true">حمض اللاكتيك وطاقة أقل</div>
+          <div class="choice" data-correct="false">أكسجين إضافي</div>
+          <div class="choice" data-correct="false">لا شيء يُذكر</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q5">
+        <div><strong>5) تخمُّر الخميرة (لاهوائيًا) يُنتج غالبًا:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">إيثانول وثاني أكسيد الكربون</div>
+          <div class="choice" data-correct="false">لاكتيك وأكسجين</div>
+          <div class="choice" data-correct="false">ميثان وماء</div>
+          <div class="choice" data-correct="false">نشا وغلوكوز</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q6">
+        <div><strong>6) معامل Q10 للتنفس يعني أن المعدّل:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">قد يتضاعف تقريبًا لكل زيادة 10°م ضمن المدى الحيوي</div>
+          <div class="choice" data-correct="false">ينخفض للنصف لكل 10°م</div>
+          <div class="choice" data-correct="false">يبقى ثابتًا دومًا</div>
+          <div class="choice" data-correct="false">يزيد 10% فقط</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q7">
+        <div><strong>7) عند درجات أعلى بكثير من المثلى، معدل التنفس ينخفض لأن:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">الإنزيمات تتشوّه (Denaturation)</div>
+          <div class="choice" data-correct="false">الأكسجين يتحوّل لنتروجين</div>
+          <div class="choice" data-correct="false">الغلوكوز يختفي تلقائيًا</div>
+          <div class="choice" data-correct="false">الميتوكوندريا تتضاعف بلا حدود</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q8">
+        <div><strong>8) عند 0–5°م نتوقع أن:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">تقل طاقة الجزيئات فيتباطأ التنفس</div>
+          <div class="choice" data-correct="false">يزداد التنفس لأقصى حد</div>
+          <div class="choice" data-correct="false">يتحوّل التنفس إلى البناء الضوئي</div>
+          <div class="choice" data-correct="false">لا علاقة للبرودة بالمعدّل</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q9">
+        <div><strong>9) دور KOH/الصودا الكاوية داخل الريزبيرومتر هو:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">امتصاص CO₂ ليعكس تغيّر الحجم استهلاك O₂</div>
+          <div class="choice" data-correct="false">توفير الأكسجين للبذور</div>
+          <div class="choice" data-correct="false">تلوين المؤشر</div>
+          <div class="choice" data-correct="false">تسخين الجهاز</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q10">
+        <div><strong>10) في أنبوب شاهد ببذور مسلوقة (مقتولة):</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">لا يتحرّك المؤشِّر تقريبًا لغياب التنفس</div>
+          <div class="choice" data-correct="false">يبلغ المعدّل أعلى قيمة</div>
+          <div class="choice" data-correct="false">يتحوّل KOH إلى أزرق</div>
+          <div class="choice" data-correct="false">يزداد CO₂ بلا حدود</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q11">
+        <div><strong>11) مضاعفة عدد البذور مع ثبات الشروط الأخرى تؤدي إلى:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">زيادة استهلاك O₂ المقاس</div>
+          <div class="choice" data-correct="false">عدم تغيّر المعدّل</div>
+          <div class="choice" data-correct="false">إيقاف التنفس</div>
+          <div class="choice" data-correct="false">انخفاض الحرارة تلقائيًا</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q12">
+        <div><strong>12) المتغيّر التابع المناسب في هذا الاستقصاء هو:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">معدل التنفس (حجم/زمن أو مسافة/زمن)</div>
+          <div class="choice" data-correct="false">درجة الحرارة</div>
+          <div class="choice" data-correct="false">عدد البذور</div>
+          <div class="choice" data-correct="false">حجم KOH</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q13">
+        <div><strong>13) أين يحدث معظم إنتاج ATP في التنفس الهوائي؟</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">الميتوكوندريا</div>
+          <div class="choice" data-correct="false">النواة</div>
+          <div class="choice" data-correct="false">جدار الخلية</div>
+          <div class="choice" data-correct="false">الريبوسومات</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q14">
+        <div><strong>14) لضمان «اختبار عادل» أيّ مما يلي ليس ثابتًا ويجب تغييره فقط كمتغيّر مستقل؟</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">درجة الحرارة</div>
+          <div class="choice" data-correct="false">كتلة البذور</div>
+          <div class="choice" data-correct="false">حجم KOH</div>
+          <div class="choice" data-correct="false">نوع الجهاز</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q15">
+        <div><strong>15) أي إعداد يُتوقّع أن يعطي أعلى معدل تنفّس؟</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">بذور منبتة في حمّام مائي دافئ ثابت</div>
+          <div class="choice" data-correct="false">بذور جافة في غرفة باردة</div>
+          <div class="choice" data-correct="false">بذور منبتة في ثلاجة</div>
+          <div class="choice" data-correct="false">بذور مسلوقة في حمّام دافئ</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q16">
+        <div><strong>16) إذا كان الجهاز غير محكم وأدخل هواء من الخارج، فذلك يعني أن:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">القراءة تفسد لأن الضغط لا يعكس استهلاك O₂ فقط</div>
+          <div class="choice" data-correct="false">المعدل يزيد بدقة</div>
+          <div class="choice" data-correct="false">KOH يصبح غير ضروري</div>
+          <div class="choice" data-correct="false">المؤشر يتوقف دائمًا عند الصفر</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q17">
+        <div><strong>17) نستخدم حمّامًا مائيًا في التجربة لأنّه:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">يحافظ على درجة حرارة ثابتة لكل الأجهزة</div>
+          <div class="choice" data-correct="false">يزوّد الجهاز بالأكسجين</div>
+          <div class="choice" data-correct="false">يمنع حركة المؤشر</div>
+          <div class="choice" data-correct="false">يستبدل KOH</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q18">
+        <div><strong>18) إذا رسمت «مسافة حركة المؤشر مقابل الزمن» عند معدل ثابت، فالشكل يكون:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">خطًا مستقيمًا وميله يساوي المعدّل</div>
+          <div class="choice" data-correct="false">منحنى أفقي تمامًا</div>
+          <div class="choice" data-correct="false">منحنى ينخفض دائمًا</div>
+          <div class="choice" data-correct="false">نقاطًا عشوائية بلا علاقة</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q19">
+        <div><strong>19) في تجربة خميرة مع وفرة السكر، رفع الحرارة من 20°م إلى 35°م عادةً:</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">يزيد سرعة إنتاج CO₂ حتى الاقتراب من المثلى</div>
+          <div class="choice" data-correct="false">يمنع التخمر نهائيًا</div>
+          <div class="choice" data-correct="false">يحوّل الإيثانول إلى ماء</div>
+          <div class="choice" data-correct="false">لا يغيّر أي شيء</div>
+        </div>
+      </article>
+
+      <article class="q" data-qid="q20">
+        <div><strong>20) لماذا قد يكون معدّل الخميرة عند 45°م أقل من 35°م؟</strong></div>
+        <div class="choices">
+          <div class="choice" data-correct="true">بدء تعطل الإنزيمات عند الحرارة الأعلى</div>
+          <div class="choice" data-correct="false">نقص السكر فجأة</div>
+          <div class="choice" data-correct="false">تحوّل CO₂ إلى O₂</div>
+          <div class="choice" data-correct="false">ازدياد الضغط فقط</div>
+        </div>
+      </article>
+
+      <div style="display:flex; gap:10px; margin-top:8px">
+        <button id="btnSubmit" class="btn">إنهاء النشاط</button>
+        <button id="btnReset" class="btn-ghost">إعادة تعيين</button>
+      </div>
+    </section>
+
+    <footer class="card" data-aos="fade-up" data-aos-delay="50">
+      <div><span class="credit">🎨 تصميم: الوتين الضامرية |لمار السيابية|مها المعمرية|مريم محمود البلوشية|مريم وائل البلوشية| — 🏫 مدرسة عاتكة بنت زيد — تحت إشراف الأستاذة سامية 👩‍🏫</span></div>
+      <div>© انشطة تعليمية الوتين 🌟</div>
+    </footer>
+  </div>
+
+  <script>
+    AOS.init({ duration: 700, once: true });
+
+    const el = {
+      start: document.getElementById('btnStart'),
+      quiz: document.getElementById('quiz'),
+      submit: document.getElementById('btnSubmit'),
+      reset: document.getElementById('btnReset'),
+      meta: document.getElementById('studentMeta'),
+      bar: document.getElementById('barFill'),
+      done: document.getElementById('countDone'),
+      total: document.getElementById('countTotal')
+    };
+
+    const storageKey = "watyn_bio_student";
+    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
+    function setStudent(obj){ localStorage.setItem(storageKey, JSON.stringify(obj)); }
+
+    async function askStudent(){
+      const { value: formValues } = await Swal.fire({
+        title: 'مرحبًا 👋',
+        html:
+          `<div style="text-align:right">
+            <div style="margin-bottom:8px;font-weight:700">أدخل بياناتك لبدء النشاط:</div>
+            <input id="swal-name" class="swal2-input" placeholder="اسم الطالب/ـة">
+            <input id="swal-class" class="swal2-input" placeholder="الصف (مثال: التاسع/1)">
+          </div>`,
+        focusConfirm: false,
+        confirmButtonText: 'ابدأ',
+        confirmButtonColor: '#d97706',
+        showCancelButton: true,
+        cancelButtonText: 'إلغاء',
+        preConfirm: () => {
+          const name = document.getElementById('swal-name').value?.trim();
+          const klass = document.getElementById('swal-class').value?.trim();
+          if(!name || !klass){
+            Swal.showValidationMessage('يرجى إدخال الاسم والصف');
+            return false;
+          }
+          return { name, klass };
+        }
+      });
+      if(formValues){
+        setStudent(formValues);
+        updateMeta();
+        el.quiz.style.display = "block";
+        gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.5});
+        // تهيئة شريط التقدّم
+        document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
+        document.getElementById('countDone').textContent = 0;
+        el.bar.style.width = '0%';
+      }
+    }
+
+    function updateMeta(){
+      const s = getStudent();
+      el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
+    }
+
+    // شريط التقدّم: أي اختيار (صحيح أو خاطئ) يُعدّ إجابة
+    function updateProgress(){
+      const total = document.querySelectorAll('.q[data-qid]').length;
+      const answered = Array.from(document.querySelectorAll('.q')).filter(q =>
+        q.querySelector('.choice.correct, .choice.wrong')
+      ).length;
+      el.total.textContent = total;
+      el.done.textContent = answered;
+      el.bar.style.width = Math.round((answered/total)*100) + '%';
+    }
+
+    document.addEventListener('click', (e)=>{
+      const choice = e.target.closest('.choice');
+      if(!choice) return;
+      const container = choice.closest('.choices');
+      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      if(choice.dataset.correct === "true"){
+        choice.classList.add('correct');
+        gsap.fromTo(choice, {scale:1}, {scale:1.03, y:-2, duration:.18, yoyo:true, repeat:1});
+      }else{
+        choice.classList.add('wrong');
+        gsap.fromTo(choice, {x:0}, {x:-6, duration:.06, yoyo:true, repeat:5});
+      }
+      updateProgress();
+    });
+
+    function computeScore(){
+      const blocks = Array.from(document.querySelectorAll('.q[data-qid]'));
+      let correct = 0;
+      blocks.forEach(b=>{ if(b.querySelector('.choice.correct')) correct++; });
+      return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
+    }
+
+    function celebrate(){
+      const duration = 1500; const end = Date.now() + duration;
+      (function frame(){
+        confetti({ particleCount: 3, angle: 60, spread: 70, origin: { x: 0 } });
+        confetti({ particleCount: 3, angle: 120, spread: 70, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
+
+    el.start.addEventListener('click', askStudent);
+
+    el.submit.addEventListener('click', ()=>{
+      const s = getStudent();
+      const { correct, total, percent } = computeScore();
+      celebrate();
+      Swal.fire({
+        title: 'أحسنت يا بطل/ة! 🎉',
+        html: `
+          <div style="text-align:right;line-height:1.9">
+            <div><strong>الاسم:</strong> ${s?.name || '-'} </div>
+            <div><strong>الصف:</strong> ${s?.klass || '-'} </div>
+            <div><strong>درجتك:</strong> ${correct} / ${total} — <strong>${percent}%</strong></div>
+          </div>`,
+        icon: 'success',
+        confirmButtonText: 'إعادة المحاولة',
+        confirmButtonColor: '#10b981',
+        showDenyButton: true,
+        denyButtonText: 'العودة',
+        denyButtonColor: '#d97706'
+      }).then(res=>{ if(res.isConfirmed) resetQuiz(); });
+    });
+
+    function resetQuiz(){
+      document.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      gsap.from("#quiz .q", {opacity:0, y:10, stagger:.08, duration:.45});
+      window.scrollTo({ top:0, behavior:'smooth' });
+      el.done.textContent = 0; el.bar.style.width = '0%';
+    }
+
+    // تهيئة أولية
+    updateMeta();
+    document.getElementById('countTotal').textContent = document.querySelectorAll('.q[data-qid]').length;
+  </script>
+</body>
+</html>
