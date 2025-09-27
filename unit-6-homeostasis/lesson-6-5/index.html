@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <title>🧬 نشاط تفاعلي — الدرس 6-1: التنظيم في الإنسان</title>
+  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&      {q:"المن      {q:"إذا لم تعمل الغدد الصماء بكفاءة فقد يحدث:", c:["خلل في النمو والتمثيل الغذائي","توقف التنفس","زيادة الاستجابة السريعة","فقدان الإحساس"], a:0},ه      {q:"الدماغ يعمل باعتباره:", c:["منبهًا","مركزًا للتنسيق","مستقبلًا","مستجيبًا"], a:1},(Stimulus) هو:", c:["أي تغير في البيئة الداخلية أو الخارجية","عضو يرسل استجابة","غدة هرمونية","إشارة كهربائية"], a:0},      {q:"المستقبل (Receptor) هو:", c:["عضو يستجيب للمنبه","عضو يفرز الهرمونات","غدة صماء","جهاز عضلي"], a:0},sp      {q:"يتميز الجهاز الهرموني بأنه:", c:["سريع جدًا","بطيء نسبيًا وطويل المدى","لا يؤثر على النمو","لا يفرز مواد كيميائية"], a:1},ay      {q:"أيهما أكثر دقة في الاستجابة للمؤثرات؟", c:["الجهاز الهرموني","الجهاز العصبي","الجهاز الهضمي","الجهاز التنفسي"], a:1},swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+
+  <style>
+    :root{
+      --bg:linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); --card:#ffffff; --muted:#6b7280; --text:#1f2937;
+      --primary:#f59e0b; --primary-2:#d97706; --accent:#ef4444;
+      --success:#10b981; --warn:#f59e0b; --danger:#ef4444; --ring:rgba(245,158,11,.4);
+      --card-shadow:0 20px 40px rgba(0,0,0,.1), 0 8px 16px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background: var(--bg);
+      min-height:100vh;
+      color:var(--text); font-family:"Cairo", system-ui, sans-serif; line-height:1.7; letter-spacing:.2px;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(255,165,0,.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,69,0,.12) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255,20,147,.1) 0%, transparent 50%);
+      z-index: -1; pointer-events: none;
+    }
+    .wrap{max-width:1100px; margin-inline:auto; padding:24px}
+    header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; padding:18px 22px;
+      border:1px solid rgba(255,255,255,.3);
+      background:linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);
+      border-radius:20px; backdrop-filter: blur(10px); position:sticky; top:16px; z-index:10;
+      box-shadow: var(--card-shadow);
+    }
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{width:42px; height:42px; border-radius:12px;
+      background: conic-gradient(from 200deg, var(--primary), var(--accent), #10b981, #3b82f6);
+      box-shadow: 0 8px 24px rgba(245,158,11,.35);
+      animation: logoRotate 20s linear infinite;
+    }
+    @keyframes logoRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .title{font-weight:900; font-size:clamp(20px,3vw,28px)}
+    .subtitle{font-weight:700; font-size:clamp(14px,2vw,16px); color:var(--muted)}
+    .card{
+      background: linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.85) 100%);
+      border:1px solid rgba(255,255,255,.4);
+      border-radius:22px; padding:22px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(0,0,0,.15), 0 10px 20px rgba(0,0,0,.1) }
+    h1{font-size:clamp(28px,4vw,40px); margin:0 0 6px; font-weight:900;
+       background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #10b981 100%);
+       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;}
+    h2{font-size:clamp(18px,3vw,22px); margin:10px 0 14px; font-weight:800; color:var(--primary)}
+    p.lead{color:var(--muted); font-size:clamp(15px,2.4vw,18px); margin-top:0}
+    .grid{display:grid; gap:16px}
+    @media (min-width: 840px){ .grid-2{grid-template-columns:1fr 1fr} .grid-3{grid-template-columns:repeat(3,1fr)} }
+    .btn{
+      all:unset; cursor:pointer; padding:14px 18px; border-radius:16px; font-weight:800;
+      border:1px solid rgba(245,158,11,.3);
+      background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+      color:white;
+      box-shadow: 0 8px 24px rgba(245,158,11,.25);
+      transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover{ transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 35px rgba(245,158,11,.35);
+      background:linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%); }
+    .btn-ghost{ all:unset; cursor:pointer; padding:12px 14px; border-radius:14px; font-weight:800; color:var(--muted);
+      border:1px dashed rgba(0,0,0,.2); }
+    .pulse{ position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+      background: radial-gradient(600px 200px at 70% 0%, rgba(245,158,11,.12), transparent 60%); filter: blur(10px); }
+
+    /* عناصر الأسئلة */
+    .q{ display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:16px; background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06) }
+    .choices{display:grid; gap:10px}
+    .choice{ display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid rgba(255,255,255,.08);
+      border-radius:14px; background:rgba(0,0,0,.18); cursor:pointer; user-select:none;
+      transition:transform .1s ease, background .2s ease, border .2s ease; color:var(--text) }
+    .choice:hover{ transform: translateX(-2px); background:rgba(255,255,255,.10) }
+    .choice.correct{ border-color: rgba(52,211,153,.7); background: rgba(52,211,153,.10) }
+    .choice.wrong{ border-color: rgba(251,113,133,.7); background: rgba(251,113,133,.10) }
+
+    /* شريط التقدّم البسيط */
+    .progress{display:flex; align-items:center; gap:8px; font-weight:800; color:#7c2d12; margin-top:6px}
+    .bar{flex:1; height:8px; background:rgba(0,0,0,.08); border-radius:999px; overflow:hidden}
+    .bar > span{display:block; height:100%; width:0%; background:linear-gradient(90deg, #f59e0b, #d97706); transition:width .25s ease}
+
+    footer{ margin-top:34px; padding:18px; border-top:1px solid rgba(255,255,255,.08);
+      color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
+    .credit{color:var(--text); font-weight:800}
+    .credit .designers{color:#10b981; font-weight:400; font-style:normal}
+    a.card-link{ display:block; text-decoration:none; color:inherit }
+  </style>
+
+
+        <style>
+        /* 🎨 أنماط الإشعارات المحسنة */
+        .enhanced-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 10000;
+            max-width: 350px;
+        }
+        
+        .enhanced-notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .enhanced-notification.success {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+        }
+        
+        .enhanced-notification.error {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+        }
+        
+        .enhanced-notification.warning {
+            background: linear-gradient(135deg, #ffa726 0%, #ffcc02 100%);
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .notification-content i {
+            font-size: 1.2em;
+        }
+        
+        /* 📊 تحسين شريط التقدم */
+        .progress-container {
+            background: rgba(255,255,255,0.1);
+            border-radius: 25px;
+            padding: 3px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .progress-bar {
+            height: 25px;
+            background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+            border-radius: 25px;
+            transition: width 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar::before {
+            content: attr(data-progress);
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        </style>
+
+</head>
+<body>
+  <div class="wrap">
+    <header class="card" data-aos="fade-down">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div class="title">🧬 نشاط تفاعلي — الدرس 1-1: الخلايا الحيوانية والنباتية</div>
+          <div class="subtitle" id="studentMeta">مرحبًا! لنبدأ…</div>
+          <div class="progress">
+            <div>التقدّم:</div>
+            <div class="bar"><span id="barFill"></span></div>
+            <div><span id="countDone">0</span>/<span id="countTotal">0</span></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- أهداف الدرس -->
+    <section class="card" style="margin-top:18px; position:relative" data-aos="zoom-in">
+      <div class="pulse"></div>
+      <h1>🎯 التنظيم في الإنسان</h1>
+      <p class="lead">فهم كيفية تكامل عمل أعضاء الجسم للاستجابة المناسبة والمحافظة على الاتزان الداخلي</p>
+      <ul>
+        <li>تعريف التنظيم (Coordination) بأنه تكامل عمل أعضاء الجسم المختلفة لتحقيق الاستجابة المناسبة.</li>
+        <li>التمييز بين نوعي التنظيم في الإنسان: <strong>الجهاز العصبي</strong> و <strong>الجهاز الغدي (الهرموني)</strong>.</li>
+        <li>توضيح أهمية التنظيم في المحافظة على <strong>الاتزان الداخلي (Homeostasis)</strong>.</li>
+        <li>إدراك العلاقة بين <strong>المنبهات (Stimuli)</strong> و<strong>المستقبلات (Receptors)</strong> و<strong>المستجيبات (Effectors)</strong>.</li>
+        <li>ذكر أمثلة على استجابات سريعة (عبر الجهاز العصبي) واستجابات بطيئة طويلة الأمد (عبر الهرمونات).</li>
+        <li>ربط التنظيم بوظائف حيوية مثل: الحركة، النمو، وتنظيم درجة الحرارة.</li>
+      </ul>
+      <div style="display:flex; gap:10px; flex-wrap:wrap">
+        <button id="btnStart" class="btn">ابدأ النشاط</button>
+        <a class="btn-ghost" href="https://devapp099.github.io/watyn-bio-activities-/index.html">← العودة</a>
+      </div>
+    </section>
+
+    <!-- الأسئلة (يتم توليدها من بنك الأسئلة) -->
+    <section id="quiz" class="card" style="margin-top:16px; display:block" data-aos="fade-up">
+      <h2>الأسئلة التفاعلية</h2>
+      <div id="quizList" class="grid" style="gap:14px"></div>
+      <div style="display:flex; gap:10px; margin-top:8px">
+        <button id="btnSubmit" class="btn">إنهاء النشاط</button>
+        <button id="btnReset" class="btn-ghost">إعادة تعيين</button>
+      </div>
+    </section>
+
+    <footer class="card" data-aos="fade-up" data-aos-delay="50">
+      <div><span class="credit">🎨 تصميم: <span class="designers">الوتين الضامرية |لمار السيابية|مها المعمرية|مريم محمود البلوشية|مريم وائل البلوشية|مريم زكي العويسية|</span> </span>— 🏫 مدرسة عاتكة بنت زيد — تحت إشراف الأستاذة وفاء 👩‍🏫</div>
+      <div>© انشطة تعليمية الوتين 🌟</div>
+    </footer>
+  </div>
+
+  <script>
+    AOS.init({ duration: 700, once: true });
+
+    // النظام الصوتي المتقدم
+    const SoundSystem = {
+      enabled: true,
+      sounds: {},
+      
+      init() {
+        const soundMappings = {
+          'correct': 'win.mp3',
+          'wrong': 'wrong_answer.mp3', 
+          'click': 'Click.mp3',
+          'select': 'select.mp3',
+          'milestone': 'g.mp3',
+          'celebration': 'win-Blockbusters.mp3',
+          'complete': 'end-timer.mp3',
+          'start': 'start-timer.mp3',
+          'welcome': 'name-start.mp3',
+          'progress': 'Notification.mp3'
+        };
+        
+        Object.keys(soundMappings).forEach(type => {
+          this.sounds[type] = new Howl({
+            src: [`../../assets/audio/${soundMappings[type]}`],
+            volume: 0.7,
+            preload: true,
+            onloaderror: () => console.warn(`فشل تحميل ${type}`)
+          });
+        });
+        
+        console.log('🎵 تم تهيئة النظام الصوتي');
+      },
+      
+      play(soundType) {
+        if (this.enabled && this.sounds[soundType]) {
+          this.sounds[soundType].play();
+        }
+      }
+    };
+
+    // تهيئة النظام الصوتي
+    SoundSystem.init();
+
+    // بنك الأسئلة — 20 سؤال (يمكنك الزيادة بإضافة عناصر جديدة لنهاية المصفوفة)
+    const bank = [
+      {q:"التنظيم في الإنسان يعني:", c:["إنتاج الطاقة","تكامل عمل أعضاء الجسم للاستجابة","هضم الغذاء","طرح الفضلات"], a:1},
+      {q:"الأجهزة المسؤولة عن التنظيم في الجسم هي:", c:["التنفسي والدوري","العصبي والهرموني","الهضمي والبولي","الهيكلي والعضلي"], a:1},
+      {q:"تركيب يوجد في كلٍّ من الخلايا النباتية والحيوانية:", c:["جدار خلوي","بلاستيدات","نواة","كلوروفيل"], a:2},
+      {q:"العُضيّة المسؤولة عن إنتاج معظم طاقة الخلية:", c:["الميتوكندريا","الليسوسومات","جهاز جولجي","الفجوة"], a:0},
+      {q:"العضو الذي ينفذ الاستجابة يسمى:", c:["المستقبل","المستجيب (Effector)","المنبه","الجهاز العصبي"], a:1},
+      {q:"يتميز الجهاز العصبي بأنه:", c:["استجابة سريعة وقصيرة المدى","استجابة بطيئة طويلة المدى","لا يحتاج إلى كهرباء","يعمل بالهرمونات"], a:0},
+      {q:"الجدار الخلوي في النبات يتكوّن أساسًا من:", c:["السليلوز","الليبيدات","الكيتين فقط","الهيموغلوبين"], a:0},
+      {q:"من أمثلة التنظيم العصبي:", c:["تنظيم السكر في الدم","حركة اليد عند لمس جسم ساخن","نمو العظام","إفراز الأنسولين"], a:1},
+      {q:"من أمثلة التنظيم الهرموني:", c:["حركة الساق","تنظيم مستوى الجلوكوز في الدم بالأنسولين","سحب اليد بسرعة","الرمش"], a:1},
+      {q:"الليسوسومات تحتوي:", c:["صبغات ضوئية","إنزيمات محلِّلة","أحماض نووية فقط","غازات"], a:1},
+      {q:"الاتزان الداخلي يعني:", c:["ثبات البيئة الداخلية للجسم","تغير مستمر في البيئة الخارجية","فقدان التوازن في الحركة","تنظيم النمو فقط"], a:0},
+      {q:"مثال على الاتزان الداخلي:", c:["ثبات درجة حرارة الجسم","تغير لون العين","زيادة معدل التنفس فقط","إنتاج الطاقة"], a:0},
+      {q:"الجهاز العصبي ينقل الرسائل على هيئة:", c:["هرمونات","نبضات كهربائية","دم","بروتينات"], a:1},
+      {q:"الجهاز الهرموني ينقل الرسائل عبر:", c:["الأعصاب","الدم","العظام","العضلات"], a:1},
+      {q:"الاتزان الداخلي يتطلب:", c:["توقف النشاط الحيوي","توازن بين عمليات الجسم","إنتاج الطاقة فقط","زيادة الأكسجين فقط"], a:1},
+      {q:"إذا لم يعمل الجهاز العصبي بكفاءة فإن الجسم:", c:["يستجيب ببطء أو لا يستجيب","يزداد نموه بسرعة","يثبت عند حالة واحدة","يستمر في التوازن"], a:0},
+      {q:"عضيّة توجد في الخلايا النباتية والحيوانية معًا:", c:["الكلوروبلاست","الميتوكندريا","الجدار الخلوي","فجوة مركزية ضخمة"], a:1},
+      {q:"أي مما يلي مثال على مستجيب (Effector)؟", c:["العين","العضلات","الدماغ","النخاع الشوكي"], a:1},
+      {q:"الغشاء الخلوي يتكوّن غالبًا من:", c:["طبقة واحدة بروتينية فقط","ثنائي طبقة فوسفوليبيدية مع بروتينات","سليلوز","نشا"], a:1},
+      {q:"العلاقة بين المستقبل – الجهاز العصبي – المستجيب تمثل:", c:["دورة الماء","قوسًا انعكاسيًا","دورة الكربون","التنفس"], a:1}
+    ];
+
+    const el = {
+      start: document.getElementById('btnStart'),
+      quiz: document.getElementById('quiz'),
+      list: document.getElementById('quizList'),
+      submit: document.getElementById('btnSubmit'),
+      reset: document.getElementById('btnReset'),
+      meta: document.getElementById('studentMeta'),
+      bar: document.getElementById('barFill'),
+      done: document.getElementById('countDone'),
+      total: document.getElementById('countTotal')
+    };
+
+    const storageKey = "watyn_bio_student";
+
+    function getStudent(){ try{ return JSON.parse(localStorage.getItem(storageKey)) || null }catch{ return null } }
+    function setStudent(obj){ localStorage.setItem(storageKey, JSON.stringify(obj)); }
+
+    function renderQuestions(){
+      el.total.textContent = bank.length;
+      el.list.innerHTML = "";
+      bank.forEach((item, idx)=>{
+        const art = document.createElement('article');
+        art.className = "q"; art.setAttribute('data-qid', 'q'+(idx+1));
+        art.innerHTML = `
+          <div><strong>${idx+1}) ${item.q}</strong></div>
+          <div class="choices">
+            ${item.c.map((txt,i)=>`<div class="choice" data-correct="${i===item.a}">${txt}</div>`).join('')}
+          </div>
+        `;
+        el.list.appendChild(art);
+      });
+    }
+
+    function answeredCount(){
+      let n=0;
+      document.querySelectorAll('.q').forEach(q=>{
+        if(q.querySelector('.choice.correct, .choice.wrong')) n++;
+      });
+      return n;
+    }
+    function updateProgress(){
+      const total = document.querySelectorAll('.q[data-qid]').length;
+      const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
+        q.querySelector('.choice.correct, .choice.wrong')
+      ).length;
+      
+      const barFill = document.getElementById('barFill');
+      const countDone = document.getElementById('countDone');
+      const countTotal = document.getElementById('countTotal');
+      
+      if (countTotal) countTotal.textContent = total;
+      if (countDone) countDone.textContent = answered;
+      if (barFill) barFill.style.width = Math.round((answered/total)*100) + '%';
+    }
+
+    async function askStudent(){
+      SoundSystem.play('start');
+      
+      const { value: formValues } = await Swal.fire({
+        title: '🎓 مرحباً بك!',
+        html:
+          `<div style="text-align:right">
+            <div style="margin-bottom:12px;font-weight:700;color:#d97706">أدخل بياناتك لتبدأ رحلتك العلمية:</div>
+            <input id="swal-name" class="swal2-input" placeholder="اسم الطالب/ـة" style="text-align:right">
+            <input id="swal-class" class="swal2-input" placeholder="الصف (مثال: التاسع/1)" style="text-align:right">
+          </div>`,
+        focusConfirm: false,
+        confirmButtonText: '🚀 لنبدأ التعلم!',
+        confirmButtonColor: '#d97706',
+        showCancelButton: true,
+        cancelButtonText: 'إلغاء',
+        preConfirm: () => {
+          const name = document.getElementById('swal-name').value?.trim();
+          const klass = document.getElementById('swal-class').value?.trim();
+          if(!name || !klass){
+            Swal.showValidationMessage('يرجى إدخال الاسم والصف');
+            return false;
+          }
+          return { name, klass };
+        }
+      });
+      
+      if(formValues){
+        setStudent(formValues);
+        updateMeta();
+        
+        // رسالة ترحيب شخصية
+        const welcomeMessages = [
+          `🔬 أهلاً ${formValues.name}! مرحبًا بك في عالم الخلايا المثير!`,
+          `🧬 مرحبًا ${formValues.name}! ستكتشف اليوم أسرار الخلية وعجائبها`,
+          `✨ أهلاً ${formValues.name}! رحلة مثيرة في عالم الخلايا المجهرية تنتظرك`
+        ];
+        const randomWelcome = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+        
+        Swal.fire({
+          title: '🎓 أهلاً وسهلاً!',
+          text: randomWelcome,
+          icon: 'success',
+          confirmButtonText: '🔬 لننطلق!',
+          timer: 4000,
+          timerProgressBar: true
+        }).then(() => {
+          SoundSystem.play('welcome');
+        });
+        
+        el.quiz.style.display = "block";
+        gsap.from("#quiz .q", {opacity:0, y:20, stagger:.08, duration:.6});
+      }
+    }
+
+    function updateMeta(){
+      const s = getStudent();
+      el.meta.textContent = s ? (`الطالب/ـة: ${s.name} — الصف: ${s.klass}`) : "مرحبًا! لنبدأ…";
+    }
+
+    document.addEventListener('click', (e)=>{
+      const choice = e.target.closest('.choice');
+      if(!choice) return;
+      
+      const container = choice.closest('.choices');
+      const wasAnswered = container.querySelector('.choice.correct, .choice.wrong');
+      if (wasAnswered) return;
+
+      SoundSystem.play('click');
+      
+      container.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      
+      if(choice.dataset.correct === "true"){
+        choice.classList.add('correct'); 
+        SoundSystem.play('correct');
+        gsap.fromTo(choice, {scale:1}, {scale:1.05, duration:.3, yoyo:true, repeat:1});
+      }else{
+        choice.classList.add('wrong'); 
+        SoundSystem.play('wrong');
+        gsap.fromTo(choice, {x:0}, {x:-10, duration:.1, yoyo:true, repeat:3});
+      }
+      updateProgress();
+    });
+
+    function computeScore(){
+      const blocks = Array.from(document.querySelectorAll('.q[data-qid]'));
+      let correct = 0;
+      blocks.forEach(b=>{ const sel = b.querySelector('.choice.correct'); if(sel) correct++; });
+      return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
+    }
+
+    function celebrate(){
+      const duration = 2000; const end = Date.now() + duration;
+      (function frame(){
+        confetti({ particleCount: 5, angle: 60, spread: 70, origin: { x: 0 } });
+        confetti({ particleCount: 5, angle: 120, spread: 70, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+      SoundSystem.play('celebration');
+    }
+
+    el.start.addEventListener('click', askStudent);
+
+    el.submit.addEventListener('click', ()=>{
+      const s = getStudent();
+      const { correct, total, percent } = computeScore();
+      
+      celebrate();
+      
+      // رسائل ذكية حسب الأداء
+      let message, icon, soundType;
+      if (percent >= 90) {
+        message = `🏆 ممتاز ${s?.name}! أداء رائع - ${percent}%`;
+        icon = 'success';
+        soundType = 'celebration';
+      } else if (percent >= 70) {
+        message = `👏 أحسنت ${s?.name}! أداء جيد - ${percent}%`;
+        icon = 'success';
+        soundType = 'correct';
+      } else {
+        message = `💪 استمر ${s?.name}! يمكنك التحسن - ${percent}%`;
+        icon = 'info';
+        soundType = 'complete';
+      }
+      
+      Swal.fire({
+        title: 'النتيجة النهائية �',
+        html: `
+          <div style="text-align:right;line-height:2.2;font-size:16px">
+            <div style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;padding:15px;border-radius:12px;margin-bottom:15px">
+              ${message}
+            </div>
+            <div style="background:#f8f9ff;padding:15px;border-radius:10px;border-right:4px solid #667eea">
+              <div><strong>👤 الطالب:</strong> ${s?.name || '-'}</div>
+              <div><strong>🏫 الصف:</strong> ${s?.klass || '-'}</div>
+              <div><strong>📊 النتيجة:</strong> ${correct}/${total} سؤال (${percent}%)</div>
+            </div>
+          </div>`,
+        icon: icon,
+        confirmButtonText: '🔄 إعادة المحاولة',
+        confirmButtonColor: '#10b981',
+        showDenyButton: true,
+        denyButtonText: '🏠 العودة للرئيسية',
+        denyButtonColor: '#d97706'
+      }).then(res=>{ 
+        if(res.isConfirmed) resetQuiz(); 
+        else window.location.href='../../index.html'; 
+      });
+    });
+
+    function resetQuiz(){
+      document.querySelectorAll('.choice').forEach(c=> c.classList.remove('correct','wrong'));
+      updateProgress();
+      gsap.from("#quiz .q", {opacity:0, y:10, stagger:.05, duration:.45});
+      window.scrollTo({ top:0, behavior:'smooth' });
+    }
+
+    el.reset.addEventListener('click', resetQuiz);
+
+    // بدء
+    renderQuestions();
+    updateMeta();
+    updateProgress();
+  </script>
+<script>
+    // ضمان إظهار المحتوى
+    document.addEventListener('DOMContentLoaded', function() {
+        const quizSection = document.getElementById('quiz');
+        if (quizSection) {
+            quizSection.style.display = 'block';
+        }
+    });
+    
+    // إصلاح إضافي في حالة عدم عمل الكود السابق
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            const quiz = document.getElementById('quiz');
+            if (quiz) {
+                quiz.style.display = 'block';
+                quiz.style.visibility = 'visible';
+                quiz.style.opacity = '1';
+            }
+        }, 100);
+    });
+
+        // 🎵 نظام الصوت المحسن
+        const SoundSystem = {
+            sounds: {},
+            
+            preload() {
+                const soundFiles = {
+                    correct: '../../assets/audio/win.mp3',
+                    wrong: '../../assets/audio/wrong_answer.mp3',
+                    click: '../../assets/audio/Click.mp3',
+                    start: '../../assets/audio/start-timer.mp3',
+                    end: '../../assets/audio/end-timer.mp3',
+                    notification: '../../assets/audio/Notification.mp3'
+                };
+                
+                Object.keys(soundFiles).forEach(key => {
+                    this.sounds[key] = new Audio(soundFiles[key]);
+                    this.sounds[key].preload = 'auto';
+                });
+            },
+            
+            play(soundName) {
+                if (this.sounds[soundName]) {
+                    this.sounds[soundName].currentTime = 0;
+                    return this.sounds[soundName].play().catch(e => console.log('تعذر تشغيل الصوت:', e));
+                }
+            }
+        };
+
+        // 🔔 نظام الإشعارات المحسن
+        const EnhancedNotificationSystem = {
+            show(message, type = 'info', duration = 3000) {
+                const notification = document.createElement('div');
+                notification.className = `enhanced-notification ${type}`;
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <i class="fas fa-${this.getIcon(type)}"></i>
+                        <span>${message}</span>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => notification.classList.add('show'), 100);
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => document.body.removeChild(notification), 300);
+                }, duration);
+            },
+            
+            getIcon(type) {
+                const icons = {
+                    success: 'check-circle',
+                    error: 'exclamation-circle',
+                    warning: 'exclamation-triangle',
+                    info: 'info-circle'
+                };
+                return icons[type] || 'info-circle';
+            }
+        };
+
+        // 🧠 نظام الإشعارات الذكية
+        const SmartNotifications = {
+            show(message, options = {}) {
+                const defaults = {
+                    type: 'info',
+                    duration: 3000,
+                    position: 'top-right',
+                    sound: true,
+                    animation: 'slide'
+                };
+                
+                const config = { ...defaults, ...options };
+                
+                if (config.sound) {
+                    SoundSystem.play('notification');
+                }
+                
+                EnhancedNotificationSystem.show(message, config.type, config.duration);
+            }
+        };
+
+        // 📊 نظام تتبع التقدم المحسن
+        function updateProgress() {
+            const studentData = JSON.parse(localStorage.getItem('biology_progress') || '{}');
+            const lessonKey = window.location.pathname;
+            
+            if (!studentData[lessonKey]) {
+                studentData[lessonKey] = {
+                    completed: false,
+                    score: 0,
+                    attempts: 0,
+                    lastVisit: new Date().toISOString()
+                };
+            }
+            
+            studentData[lessonKey].attempts += 1;
+            studentData[lessonKey].lastVisit = new Date().toISOString();
+            
+            localStorage.setItem('biology_progress', JSON.stringify(studentData));
+            
+            // تحديث شريط التقدم
+            const progressBar = document.querySelector('.progress-bar');
+            if (progressBar) {
+                const completedLessons = Object.values(studentData).filter(lesson => lesson.completed).length;
+                const totalLessons = 16;
+                const progressPercent = (completedLessons / totalLessons) * 100;
+                
+                progressBar.style.width = `${progressPercent}%`;
+                progressBar.setAttribute('data-progress', `${Math.round(progressPercent)}%`);
+            }
+        }
+
+        // تهيئة الأنظمة عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            SoundSystem.preload();
+            updateProgress();
+            
+            // تحسين أداء الأزرار
+            document.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', () => SoundSystem.play('click'));
+            });
+        });
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
