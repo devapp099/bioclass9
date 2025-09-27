@@ -197,9 +197,64 @@
       text-decoration: none;
       color: inherit;
     }
+    
+    .school-logo-header {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 12px 24px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: logoFloat 3s ease-in-out infinite alternate;
+    }
+    
+    .school-logo-header img {
+      height: 50px;
+      width: auto;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+      transition: all 0.3s ease;
+    }
+    
+    .school-logo-header:hover img {
+      transform: scale(1.1);
+      filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.2));
+    }
+    
+    @keyframes logoFloat {
+      0% { transform: translateX(-50%) translateY(0px); }
+      100% { transform: translateX(-50%) translateY(-5px); }
+    }
+    
+    .wrap {
+      padding-top: 100px;
+    }
+    
+    @media (max-width: 768px) {
+      .school-logo-header {
+        top: 10px;
+        padding: 8px 16px;
+      }
+      
+      .school-logo-header img {
+        height: 40px;
+      }
+      
+      .wrap {
+        padding-top: 80px;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="school-logo-header" data-aos="fade-down" data-aos-delay="200">
+    <img src="assets/images/school-logo.png" alt="شعار المدرسة" loading="eager">
+  </div>
+  
   <div class="wrap">
     <header class="card" data-aos="fade-down">
       <div class="brand">
