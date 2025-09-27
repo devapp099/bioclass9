@@ -265,10 +265,18 @@
       return n;
     }
     function updateProgress(){
-      const n = answeredCount();
-      el.done.textContent = n;
-      const pc = Math.round((n / bank.length) * 100);
-      el.bar.style.width = pc + "%";
+      const total = document.querySelectorAll('.q[data-qid]').length;
+      const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
+        q.querySelector('.choice.correct, .choice.wrong')
+      ).length;
+      
+      const barFill = document.getElementById('barFill');
+      const countDone = document.getElementById('countDone');
+      const countTotal = document.getElementById('countTotal');
+      
+      if (countTotal) countTotal.textContent = total;
+      if (countDone) countDone.textContent = answered;
+      if (barFill) barFill.style.width = Math.round((answered/total)*100) + '%';
     }
 
     async function askStudent(){

@@ -121,6 +121,13 @@
         <div>
           <div class="title">🧪 درس 6-4 — مرض السكري</div>
           <div class="subtitle" id="studentMeta">مرحبًا! لنبدأ…</div>
+          <div class="progress-top">
+            <div>التقدّم:</div>
+            <div><span id="countDone">0</span>/<span id="countTotal">0</span></div>
+          </div>
+          <div class="progress">
+            <div class="bar" id="barFill"></div>
+          </div>
         </div>
       </div>
     </header>
@@ -428,9 +435,19 @@
       return { correct, total: blocks.length, percent: Math.round((correct/blocks.length)*100) };
     }
     function updateProgress(){
-      const answered = countAnswered(); const total = questions().length;
-      const pct = Math.round((answered/total)*100);
-      el.progLabel.textContent = `${answered}/${total} — ${pct}%`;
+      const total = document.querySelectorAll('.q[data-qid]').length;
+      const answered = Array.from(document.querySelectorAll('.q')).filter(q => 
+        q.querySelector('.choice.correct, .choice.wrong')
+      ).length;
+      
+      const barFill = document.getElementById('barFill');
+      const countDone = document.getElementById('countDone');
+      const countTotal = document.getElementById('countTotal');
+      
+      if (countTotal) countTotal.textContent = total;
+      if (countDone) countDone.textContent = answered;
+      if (barFill) barFill.style.width = Math.round((answered/total)*100) + '%';
+    }/${total} — ${pct}%`;
       gsap.to(el.progBar, { width: `${pct}%`, duration:.25, ease:"power2.out" });
     }
     function celebrate(){
@@ -786,6 +803,17 @@
 
     // تهيئة الأحداث
     document.addEventListener('DOMContentLoaded', function() {
+      // تهيئة شريط التقدم
+      const totalQuestions = document.querySelectorAll('.q[data-qid]').length;
+      const countTotal = document.getElementById('countTotal');
+      const countDone = document.getElementById('countDone');
+      const barFill = document.getElementById('barFill');
+      
+      if (countTotal) countTotal.textContent = totalQuestions;
+      if (countDone) countDone.textContent = 0;
+      if (barFill) barFill.style.width = '0%';
+      
+
       // تهيئة النظام الصوتي
       if (typeof Howl !== 'undefined') {
         SoundSystem.init();
